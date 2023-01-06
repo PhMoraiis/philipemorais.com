@@ -7,7 +7,7 @@ import { Projects } from '../components/Projects'
 import { Contact } from '../components/Contact'
 import { Experiences } from '../components/Experiences'
 
-export default function Home() {
+const Home = () => {
   return (
     <div className='scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#4A9B7F]/80'>
       <Head>
@@ -25,3 +25,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home;

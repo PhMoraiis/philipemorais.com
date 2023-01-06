@@ -41,19 +41,19 @@ const Navbar = () => {
   }, [])
 
   return (
-    <nav style={{backgroundColor: `${navBg}`}} className={shadow ? 'fixed w-full h-20 shadow-xl z-[100]' : 'fixed w-full h-20 z-[100]'}>
+    <nav style={{ backgroundColor: `${navBg}` }} className={shadow ? 'fixed w-full h-20 shadow-xl z-[100]' : 'fixed w-full h-20 z-[100]'}>
       <div className="flex justify-between items-center w-full h-full px-2 2xl:px-16">
         <Link href='/'>
           <Image
-            src='/images/LogoCompleta.png'
-            alt='logo'
+            src={'/images/LogoCompleta.png'}
+            alt={'Logo escrita Philipe Morais'}
             width={200}
             height={50}
             className='cursor-pointer hover:scale-110 ease-in duration-300'
           />
         </Link>
         <div>
-          <ul style={{color: `${linkColor}`}} className="hidden md:flex">
+          <ul style={{ color: `${linkColor}` }} className="hidden md:flex">
             <Link href='/'>
               <li className="ml-10 text-sm uppercase hover:border-b">Home</li>
             </Link>
@@ -85,8 +85,8 @@ const Navbar = () => {
             <div className="flex w-full items-center justify-between">
               <Link href='/'>
                 <Image
-                  src="/images/LogoCompleta.png"
-                  alt="logo"
+                  src='/images/LogoCompleta.png'
+                  alt='Logo escrita Philipe Morais'
                   width={170}
                   height={10}
                   onClick={() => setNav(false)}
@@ -122,18 +122,26 @@ const Navbar = () => {
             <div className="pt-2">
               <p className="uppercase tracking-widest text-[#4a9b7f]">Lets connect</p>
               <div className="flex items-center justify-between my-4 w-full sm:w-[80%]">
-                <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                  <FaLinkedinIn />
-                </div>
-                <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                  <FaGithub />
-                </div>
-                <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                  <AiOutlineMail />
-                </div>
-                <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                  <BsFillPersonLinesFill />
-                </div>
+                <Link href="">
+                  <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+                    <FaLinkedinIn />
+                  </div>
+                </Link>
+                <Link href="">
+                  <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+                    <FaGithub />
+                  </div>
+                </Link>
+                <Link href="">
+                  <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+                    <AiOutlineMail />
+                  </div>
+                </Link>
+                <Link href="">
+                  <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+                    <BsFillPersonLinesFill />
+                  </div>
+                </Link>
               </div>
             </div>
           </div>

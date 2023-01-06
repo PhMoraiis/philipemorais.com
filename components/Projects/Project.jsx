@@ -16,7 +16,7 @@ const Project = () => {
         <h3 className='text-2xl text-white tracking-wider text-center'>NextJS</h3>
         <p className='pb-4 pt-2 text-white text-center'>React Js</p>
         <Link href="/">
-          <p className='text-center py-3 rounded-lg bg-white text-gray-700 font-bold text-lg cursor-pointer'>More info</p>
+          <p className='text-center py-3 rounded-lg bg-white text-gray-700 font-bold text-lg cursor-pointer'>Ver Mais</p>
         </Link>
       </div>
     </div>
