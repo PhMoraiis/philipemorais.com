@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import Link from 'next/link'
+import Image from 'next/image'
 
 import { Main } from '../components/Main'
 import { About } from '../components/About'
@@ -36,6 +38,19 @@ const Home = () => {
       <Skills />
       <Experiences />
       <Projects />
+      <Link href="/">
+        <footer className='sticky bottom-5 w-full cursor-pointer'>
+          <div className='flex items-center justify-center'>
+            <Image
+              src="/images/LogoCompleta.png"
+              alt="Logo Philipe Morais"
+              width={150}
+              height={50}
+              className="h-50 w-150 rounded-full hover:scale-110 duration-300 cursor-pointer"
+            />
+          </div>
+        </footer>
+      </Link>
     </motion.div>
   )
 }

@@ -69,7 +69,7 @@ const Navbar = () => {
             alt={'Logo escrita Philipe Morais'}
             width={300}
             height={50}
-            className='cursor-pointer hover:scale-110 ease-in duration-300 mt-4'
+            className='cursor-pointer hover:scale-110 ease-in duration-300'
           />
         </Link>
         <div>
