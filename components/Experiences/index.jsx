@@ -16,7 +16,7 @@ const Experiences = () => {
       transition={{
         duration: 1.5,
       }}
-      className="max-w-[1240px] mx-auto flex flex-col justify-center h-full">
+      className="max-w-[1240px] mx-auto flex flex-col justify-center h-full mt-8">
       <p className="text-xl tracking-widest uppercase text-[#4a9b7f]">Experiências</p>
       <h2 className="py-4">Minha Experiência</h2>
 
