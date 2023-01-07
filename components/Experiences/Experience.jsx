@@ -16,7 +16,7 @@ const Experience = ({
   begin,
   description }) => {
   return (
-    <article className='flex flex-col  items-center space-y-7 flex-shrink-0 w-[500px] md:w-[600px] xl:w=[900px] snap-center shadow-xl p-6 rounded-xl transition-opacity duration-200 overflow-hidden'>
+    <article className='flex flex-col  items-center space-y-7 flex-shrink-0 w-[500px] md:w-[600px] xl:w=[900px] snap-start shadow-xl p-6 rounded-xl transition-opacity duration-200 overflow-hidden'>
       <motion.div
         initial={{
           y: -100,

@@ -24,6 +24,7 @@ const Home = () => {
       viewport={{
         once: true,
       }}
+      className="overflow-y-hidden"
     >
       <Head>
         <title>Philipe Morais</title>

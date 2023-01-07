@@ -49,7 +49,7 @@ const Navbar = () => {
   return (
     <motion.nav
       initial={{
-        x: -500,
+        x: -100,
         opacity: 0,
         scale: 0.5
       }}
@@ -67,7 +67,7 @@ const Navbar = () => {
           <Image
             src={'/images/Logo.png'}
             alt={'Logo escrita Philipe Morais'}
-            width={250}
+            width={300}
             height={50}
             className='cursor-pointer hover:scale-110 ease-in duration-300 mt-4'
           />
