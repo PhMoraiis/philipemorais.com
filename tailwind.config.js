@@ -7,5 +7,12 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
+  theme: {
+    fontFamily: {
+      'sans': ['Josefin Sans', 'sans-serif'],
+    }
+  }
 }

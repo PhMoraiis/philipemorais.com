@@ -1,9 +1,24 @@
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 const Skill = ({ src, alt, name }) => {
   return (
-    <div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-      <div className="grid grid-cols-2 gap-4 justify-center items-center">
+    <motion.div
+      initial={{
+        x: -100,
+        opacity: 0,
+      }}
+      transition={{
+        duration: 1.2,
+      }}
+      whileInView={{
+        opacity: 1, x: 0
+      }}
+      viewport={{
+        once: true,
+      }}
+      className="p-6 shadow-xl rounded-xl">
+      <div className="grid grid-cols-2 gap-4 justify-center items-center hover:scale-110 ease-in duration-300">
         <div className="m-auto">
           <Image
             src={src}
@@ -16,7 +31,7 @@ const Skill = ({ src, alt, name }) => {
           <h3>{name}</h3>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

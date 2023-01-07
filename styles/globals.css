@@ -6,9 +6,10 @@ html {
   scroll-behavior: smooth;
 }
 
+
 @layer base {
   body {
-    @apply bg-[#ecf0f3] text-[#1f2937] tracking-wide
+    @apply bg-[#ecf0f3] text-[#1f2937] tracking-wide scrollbar-track-gray-400/20 scrollbar-thumb-[#4A9B7F]/80 scrollbar-thin
   }
 
   h1, h2, h3, h4, h5, h6 {
