@@ -26,6 +26,7 @@ const Main = () => {
         opacity: 0,
       }}
       animate={{
+        scale: [1.2, 1, 1.2, 1],
         opacity: 1,
       }}
       transition={{
