@@ -47,7 +47,6 @@ const portfolio = () => {
               <p className='text-gray-600 py-2 flex items-center'><RiRadioButtonFill className='pr-1' />Tailwind CSS</p>
               <p className='text-gray-600 py-2 flex items-center'><RiRadioButtonFill className='pr-1' />Tailwind-Scrollbar</p>
               <p className='text-gray-600 py-2 flex items-center'><RiRadioButtonFill className='pr-1' />Framer-Motion</p>
-              <p className='text-gray-600 py-2 flex items-center'><RiRadioButtonFill className='pr-1' />React-Hook-Form</p>
               <p className='text-gray-600 py-2 flex items-center'><RiRadioButtonFill className='pr-1' />React-Icons</p>
               <p className='text-gray-600 py-2 flex items-center'><RiRadioButtonFill className='pr-1' />React-Simple-TypeWriter</p>
             </div>

@@ -36,7 +36,6 @@ const Home = () => {
       <Skills />
       <Experiences />
       <Projects />
-      <Contact />
     </motion.div>
   )
 }

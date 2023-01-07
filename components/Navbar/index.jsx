@@ -86,9 +86,6 @@ const Navbar = () => {
             <Link href='/#projects'>
               <li className="ml-10 text-sm uppercase hover:text-[#4a9b7f] duration-300">Projetos</li>
             </Link>
-            <Link href='/#contact'>
-              <li className="ml-10 text-sm uppercase hover:text-[#4a9b7f] duration-300">Contato</li>
-            </Link>
           </ul>
           <div onClick={handleNav} className="md:hidden cursor-pointer">
             <AiOutlineMenu size={25} />
@@ -117,11 +114,10 @@ const Navbar = () => {
                 <AiOutlineClose />
               </div>
             </div>
-            <div className="border-b border-gray-300 my-[-10px]">
-              <p className="w-[85%] md:w-[90%] py-4">Front-End Dev</p>
+            <div className="border-b border-gray-300">
             </div>
           </div>
-          <div className="py-4 flex flex-col">
+          <div className="py-10 flex flex-col">
             <ul className="uppercase">
               <Link href='/'>
                 <li onClick={() => setNav(false)} className="py-4 text-sm">Home</li>
@@ -135,11 +131,8 @@ const Navbar = () => {
               <Link href='/#projects'>
                 <li onClick={() => setNav(false)} className="py-4 text-sm">Projetos</li>
               </Link>
-              <Link href='/#contact'>
-                <li onClick={() => setNav(false)} className="py-4 text-sm">Contato</li>
-              </Link>
             </ul>
-            <div className="pt-2">
+            <div className="pt-10">
               <p className="uppercase tracking-widest text-[#4a9b7f]">Vamos nos Conectar</p>
               <div className="flex items-center justify-between my-4 w-full sm:w-[80%]">
                 <Link href="https://www.linkedin.com/in/ph-morais/">

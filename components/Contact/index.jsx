@@ -13,7 +13,7 @@ const Contact = () => {
 
   return (
     <div id='contact' className="w-full lg:h-screen">
-      <div className="max-w-[1240px] m-auto px-2 py-16 w-full">
+      <div className="max-w-[1240px] m-auto px-2 py-8 w-full">
         <p className="text-xl tracking-widest uppercase text-[#4a9b7f]">
           Contato
         </p>
@@ -97,18 +97,6 @@ const Contact = () => {
             </div>
           </div>
         </div>
-        <Link href="/">
-          <footer className='flex items-center justify-center'>
-            <Image
-              className='h-30 w-30 rounded-full filter grayscale hover:grayscale-0
-            cursor-pointer'
-              src="/images/LogoBall.png"
-              alt="Logo"
-              width={300}
-              height={10}
-            />
-          </footer>
-        </Link>
       </div>
     </div>
   );
