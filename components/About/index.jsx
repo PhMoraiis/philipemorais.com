@@ -32,7 +32,7 @@ const About = () => {
 
           <p className="py-2 text-gray-600 text-lg">Estudante de Engenharia de Software na Universidade de Brasília. Sou um amante da tecnologia desde pequeno, mas comecei a aprender e a me dedicar aos 19 anos, quando tive meu primeiro contato com a Linguagem C.</p>
 
-          <p className="py-2 text-gray-600 text-lg">Sou uma pessoa que gosta de resolver problemas, como todo desenvolvedor, gosto de grandes e dificeis desáfios, pois acompanhado deles é que vem os maiores aprendizados e evoluções que tenho. Nas horas vagas sou um gamer, um influencer dev, até mesmo ritmista (amo música).</p>
+          <p className="py-2 text-gray-600 text-lg">Sou uma pessoa que gosta de resolver problemas, como todo desenvolvedor, gosto de grandes e difíceis desafios, pois acompanhado deles é que vem os maiores aprendizados e evoluções que tenho. Nas horas vagas sou um gamer, um influencer dev, até mesmo ritmista (amo música).</p>
           <Link href="https://www.instagram.com/philipe.dev/">
             <p className="py-2 text-gray-600 underline cursor-pointer">Dá uma olhada no meu Insta! Lá tem vários conteúdos sobre Dev's</p>
           </Link>

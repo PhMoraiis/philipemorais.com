@@ -27,7 +27,7 @@ const gitwiki = () => {
         <div className='col-span-4'>
           <p>Projeto</p>
           <h2>Visão geral</h2>
-          <p>E para visualizar todos os meus outros projetos, deixo aqui uma ídeia bem legal! Esse é o GitWiki. Nele você pode pesquisar repositórios do GitHub, utilizando a url do repositório. Realizei o consumo da API do GitHub, baseado no projeto do Bootcamp Orange Tech +, oferecido pela a DIO e a Inter. Fiz alterações no projeto, como por exemplo, a utilização do Vite, que é um gerenciador de pacotes mais rápido que o NPM. E também adicionei ao estilo algumas modificações que achei interessante. Ativar a função para fazer a remoção do repositório e o projeto está totalmente funcional, também foi adicionado a pesquisa de repositórios, a descrição do repositório, a tecnologia utilizada e também o avatar do seu perfil.</p>
+          <p>E para visualizar todos os meus outros projetos, deixo aqui uma idéia bem legal! Esse é o GitWiki. Nele você pode pesquisar repositórios do GitHub, utilizando a url do repositório. Realizei o consumo da API do GitHub, baseado no projeto do Bootcamp Orange Tech +, oferecido pela DIO e a Inter. Fiz alterações no projeto, como por exemplo, a utilização do Vite, que é um gerenciador de pacotes mais rápido que o NPM. E também adicionei ao estilo algumas modificações que achei interessante. Ativar a função para fazer a remoção do repositório e o projeto está totalmente funcional, também foi adicionado a pesquisa de repositórios, a descrição do repositório, a tecnologia utilizada e também o avatar do seu perfil.</p>
           <Link href='https://git-wiki-umber.vercel.app/'>
             <button className='px-8 py-2 mt-4 mr-8'>Demo</button>
           </Link>

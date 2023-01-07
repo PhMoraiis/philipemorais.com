@@ -6,7 +6,6 @@ html {
   scroll-behavior: smooth;
 }
 
-
 @layer base {
   body {
     @apply bg-[#ecf0f3] text-[#1f2937] tracking-wide scrollbar-track-gray-400/20 scrollbar-thumb-[#4A9B7F]/80 scrollbar-thin
@@ -34,5 +33,9 @@ html {
 
   input[type=submit] {
     @apply shadow-xl shadow-gray-400 rounded-xl uppercase bg-gradient-to-r from-[#276355] to-[#4a9b7f] text-white
+  }
+
+  .not-found {
+    @apply text-center text-4xl text-[#1f2937] font-bold
   }
 }

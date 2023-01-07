@@ -27,7 +27,7 @@ const Home = () => {
     >
       <Head>
         <title>Philipe Morais</title>
-        <meta name="description" content="Prazer, eu sou o Philipe Morais, Desenvolvedor e Estudante de Engenharia de Software (@philipe.dev) fã do desenvolvimento Web e pela a partilha de conhecimento, vem comigo evoluir!" />
+        <meta name="description" content="Prazer, eu sou o Philipe Morais, Desenvolvedor e Estudante de Engenharia de Software (@philipe.dev) fã do desenvolvimento Web e pela partilha de conhecimento, vem comigo evoluir!" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Main />
