@@ -21,7 +21,7 @@ const Skills = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           <Skill src={'https://cdn.cdnlogo.com/logos/h/84/html.svg'} alt={'Logo HTML'} name={'HTML'} />
           <Skill src={'https://cdn.cdnlogo.com/logos/c/18/css.svg'} alt={'CSS Logo'} name={'CSS'} />
-          <Skill src={'https://cdn.cdnlogo.com/logos/b/74/bootstrap-5.svg'} alt={'Bootstrap Logo'} name={'Bootstrap Logo'} />
+          <Skill src={'https://cdn.cdnlogo.com/logos/b/74/bootstrap-5.svg'} alt={'Bootstrap Logo'} name={'Bootstrap'} />
           <Skill src={'https://cdn.cdnlogo.com/logos/t/58/tailwindcss.svg'} alt={'Tailwind CSS Logo'} name={'Tailwind CSS'} />
           <Skill src={'https://cdn.cdnlogo.com/logos/j/33/javascript.svg'} alt={'JavaScript Logo'} name={'Javascript'} />
           <Skill src={'https://cdn.cdnlogo.com/logos/t/96/typescript.svg'} alt={'Typescript Logo'} name={'Typescript'} />
