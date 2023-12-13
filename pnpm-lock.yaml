@@ -8,6 +8,9 @@ dependencies:
   next:
     specifier: 14.0.4
     version: 14.0.4(react-dom@18.2.0)(react@18.2.0)
+  next-themes:
+    specifier: ^0.2.1
+    version: 0.2.1(next@14.0.4)(react-dom@18.2.0)(react@18.2.0)
   react:
     specifier: ^18
     version: 18.2.0
@@ -34,9 +37,24 @@ devDependencies:
   eslint-config-next:
     specifier: 14.0.4
     version: 14.0.4(eslint@8.55.0)(typescript@5.3.3)
+  framer-motion:
+    specifier: ^10.16.16
+    version: 10.16.16(react-dom@18.2.0)(react@18.2.0)
+  gsap:
+    specifier: ^3.12.3
+    version: 3.12.3
+  lottie-react:
+    specifier: ^2.4.0
+    version: 2.4.0(react-dom@18.2.0)(react@18.2.0)
+  lucide-react:
+    specifier: ^0.294.0
+    version: 0.294.0(react@18.2.0)
   postcss:
     specifier: ^8
     version: 8.4.32
+  tailwind-scrollbar:
+    specifier: ^3.0.5
+    version: 3.0.5(tailwindcss@3.3.6)
   tailwindcss:
     specifier: ^3.3.0
     version: 3.3.6
@@ -62,6 +80,20 @@ packages:
     dependencies:
       regenerator-runtime: 0.14.0
     dev: true
+
+  /@emotion/is-prop-valid@0.8.8:
+    resolution: {integrity: sha512-u5WtneEAr5IDG2Wv65yhunPSMLIpuKsbuOktRojfrEiEvRyC85LgPMZI63cr7NUqT8ZIGdSVg8ZKGxIug4lXcA==}
+    requiresBuild: true
+    dependencies:
+      '@emotion/memoize': 0.7.4
+    dev: true
+    optional: true
+
+  /@emotion/memoize@0.7.4:
+    resolution: {integrity: sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==}
+    requiresBuild: true
+    dev: true
+    optional: true
 
   /@eslint-community/eslint-utils@4.4.0(eslint@8.55.0):
     resolution: {integrity: sha512-1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==}
@@ -1225,6 +1257,24 @@ packages:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
     dev: true
 
+  /framer-motion@10.16.16(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-je6j91rd7NmUX7L1XHouwJ4v3R+SO4umso2LUcgOct3rHZ0PajZ80ETYZTajzEXEl9DlKyzjyt4AvGQ+lrebOw==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      tslib: 2.6.2
+    optionalDependencies:
+      '@emotion/is-prop-valid': 0.8.8
+    dev: true
+
   /fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
@@ -1366,6 +1416,10 @@ packages:
 
   /graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
+    dev: true
+
+  /gsap@3.12.3:
+    resolution: {integrity: sha512-TySXTE+ABiAVa61W+h5wv2p5GkJT1Uj//4nWpK8EjmhcDqwH++35IvtbQlVVFj+rdcJdFCdCt0SKgb+SwdPq/A==}
     dev: true
 
   /has-bigints@1.0.2:
@@ -1724,11 +1778,34 @@ packages:
     dependencies:
       js-tokens: 4.0.0
 
+  /lottie-react@2.4.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-pDJGj+AQlnlyHvOHFK7vLdsDcvbuqvwPZdMlJ360wrzGFurXeKPr8SiRCjLf3LrNYKANQtSsh5dz9UYQHuqx4w==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      lottie-web: 5.12.2
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: true
+
+  /lottie-web@5.12.2:
+    resolution: {integrity: sha512-uvhvYPC8kGPjXT3MyKMrL3JitEAmDMp30lVkuq/590Mw9ok6pWcFCwXJveo0t5uqYw1UREQHofD+jVpdjBv8wg==}
+    dev: true
+
   /lru-cache@6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+    dev: true
+
+  /lucide-react@0.294.0(react@18.2.0):
+    resolution: {integrity: sha512-V7o0/VECSGbLHn3/1O67FUgBwWB+hmzshrgDVRJQhMh8uj5D3HBuIvhuAmQTtlupILSplwIZg5FTc4tTKMA2SA==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
     dev: true
 
   /merge2@1.4.1:
@@ -1778,6 +1855,18 @@ packages:
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
+
+  /next-themes@0.2.1(next@14.0.4)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-B+AKNfYNIzh0vqQQKqQItTS8evEouKD7H5Hj3kmuPERwddR2TxvDSFZuTj6T7Jfn1oyeUyJMydPl1Bkxkh0W7A==}
+    peerDependencies:
+      next: '*'
+      react: '*'
+      react-dom: '*'
+    dependencies:
+      next: 14.0.4(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /next@14.0.4(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-qbwypnM7327SadwFtxXnQdGiKpkuhaRLE2uq62/nRul9cj9KhQ5LhHmlziTNqUidZotw/Q1I9OjirBROdUJNgA==}
@@ -2095,7 +2184,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-    dev: false
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -2106,7 +2194,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
@@ -2213,7 +2300,6 @@ packages:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -2380,6 +2466,15 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
+  /tailwind-scrollbar@3.0.5(tailwindcss@3.3.6):
+    resolution: {integrity: sha512-0ZwxTivevqq9BY9fRP9zDjHl7Tu+J5giBGbln+0O1R/7nHtBUKnjQcA1aTIhK7Oyjp6Uc/Dj6/dn8Dq58k5Uww==}
+    engines: {node: '>=12.13.0'}
+    peerDependencies:
+      tailwindcss: 3.x
+    dependencies:
+      tailwindcss: 3.3.6
+    dev: true
+
   /tailwindcss@3.3.6:
     resolution: {integrity: sha512-AKjF7qbbLvLaPieoKeTjG1+FyNZT6KaJMJPFeQyLfIp7l82ggH1fbHJSsYIvnbTFQOlkh+gBYpyby5GT1LIdLw==}
     engines: {node: '>=14.0.0'}
@@ -2464,7 +2559,6 @@ packages:
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
-    dev: false
 
   /type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}

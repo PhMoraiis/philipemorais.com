@@ -8,13 +8,48 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      colors: {
+        'pallete': {
+          '50': '#f6f6f6',
+          '100': '#e7e7e7',
+          '200': '#d1d1d1',
+          '300': '#b0b0b0',
+          '400': '#888888',
+          '500': '#6d6d6d',
+          '600': '#5d5d5d',
+          '700': '#4f4f4f',
+          '800': '#454545',
+          '900': '#333333',
+          '950': '#262626',
+        },
+        'light': {
+          '100': '#f6f6f6',
+          '200': '#e7e7e7',
+          '300': '#d1d1d1',
+          '400': '#b0b0b0',
+          '500': '#888888',
+          '600': '#6d6d6d',
+          '700': '#5d5d5d',
+          '800': '#4f4f4f',
+          '900': '#454545',
+        },
+        'dark': {
+          '100': '#333333',
+          '200': '#262626',
+          '300': '#1a1a1a',
+          '400': '#0d0d0d',
+        },
+      },
+      fontFamily: {
+
+      },
+      maxWidth: {
+        'desktop': '95%',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
 }
 export default config
