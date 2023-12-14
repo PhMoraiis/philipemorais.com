@@ -1,7 +1,7 @@
 'use client'
 
-import { ThemeProvider } from 'next-themes'
 import './globals.css'
+import { Providers } from '@/components/ThemeToggle/theme-provider'
 
 export default function RootLayout({
   children,
@@ -11,14 +11,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+      <Providers>{children}</Providers>
       </body>
     </html>
   )

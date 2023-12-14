@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply dark:bg-dark-100 bg-light-100
+}
