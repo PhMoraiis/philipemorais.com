@@ -5,3 +5,52 @@
 body {
   @apply dark:bg-dark-100 bg-light-100
 }
+
+@font-face {
+  font-family: 'Futura';
+  src: url('/fonts/Futura/FuturaMedium.ttf');
+}
+
+@font-face {
+  font-family: 'Futura Book';
+  src: url('/fonts/Futura/FuturaBook.ttf');
+}
+
+@font-face {
+  font-family: 'Futura Demi';
+  src: url('/fonts/Futura/FuturaDemi.ttf');
+}
+
+@font-face {
+  font-family: 'Futura Extra Bold';
+  src: url('/fonts/Futura/FuturaExtraBold.ttf');
+}
+
+@font-face {
+  font-family: 'Futura Heavy';
+  src: url('/fonts/Futura/FuturaHeavy.ttf');
+}
+
+@font-face {
+  font-family: 'Futura Light';
+  src: url('/fonts/Futura/FuturaLight.ttf');
+}
+
+@font-face {
+  font-family: 'Futura Bold';
+  src: url('/fonts/Futura/FuturaBold.ttf');
+}
+
+@font-face {
+  font-family: 'Visage Bold';
+  src: url('/fonts/Visage/VisageBold.otf');
+}
+
+@font-face {
+  font-family: 'Visage';
+  src: url('/fonts/Visage/VisageRegular.otf');
+}
+
+.cards {
+  @apply dark:bg-light-100 bg-dark-100
+}

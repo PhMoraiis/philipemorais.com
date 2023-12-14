@@ -1,14 +1,14 @@
-import { useTheme } from 'next-themes';
-import { Moon, Sun } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { useTheme } from 'next-themes'
+import { Moon, Sun } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const ThemeToggle = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme()
 
   // Defina a animação para a rotação do ícone
   const iconRotation = {
     rotate: theme === 'dark' ? 180 : 0,
-  };
+  }
 
   return (
     <div className='flex justify-between'>
@@ -22,7 +22,7 @@ const ThemeToggle = () => {
         </motion.div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ThemeToggle;
+export default ThemeToggle

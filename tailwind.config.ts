@@ -42,12 +42,20 @@ const config: Config = {
         },
       },
       fontFamily: {
-
+        'futura': ['Futura', 'sans-serif'],
+        'futuraBd': ['Futura Bold', 'sans-serif'],
+        'futuraHv': ['Futura Heavy', 'sans-serif'],
+        'futuraLt': ['Futura Light', 'sans-serif'],
+        'futuraXbd': ['Futura Extra Bold', 'sans-serif'],
+        'futuraBk': ['Futura Book', 'sans-serif'],
+        'futuraDm': ['Futura Demi', 'sans-serif'],
+        'visage': ['Visage', 'sans-serif'],
+        'visageBd': ['Visage Bold', 'sans-serif'],
       },
       maxWidth: {
         'desktop': '95%',
       },
-    },
+    }
   },
   plugins: [require('tailwind-scrollbar'),],
 }
