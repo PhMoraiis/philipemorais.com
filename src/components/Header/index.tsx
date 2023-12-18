@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import Logo from '../Logo'
+import { LogoBlack, LogoWhite } from '../Logo'
 import { motion } from 'framer-motion'
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
@@ -28,11 +28,11 @@ const Header = () => {
           className=''>
           {theme === 'dark' ? (
             <Link href="/">
-              <Logo color='#333333' colorInside='#f6f6f6' />
+              <LogoBlack />
             </Link>
           ) : (
             <Link href="/">
-              <Logo color='#f6f6f6' colorInside='#333333' />
+              <LogoWhite />
             </Link>
           )}
         </motion.div>
