@@ -10,9 +10,9 @@ import { motion } from 'framer-motion'
 const Hero = () => {
 
   return (
-    <section className="flex flex-col items-start justify-center h-[30vh] text-dark-100 dark:text-light-200 bg-light-100 dark:bg-dark-100">
-      <div className="flex flex-col space-y-4 items-start">
-        <div className="flex flex-col items-start justify-center space-y-2">
+    <section className="flex flex-col items-center justify-center h-[60vh] text-dark-100 dark:text-light-200 bg-light-100 dark:bg-dark-100">
+      <div className="flex flex-col space-y-4 items-center">
+        <div className="flex flex-col items-center justify-center space-y-2">
           <h1 className="text-6xl font-visageBd">Philipe Morais</h1>
           <h2 className="text-3xl font-futura">Desenvolvedor Front-End e UX/UI Designer.</h2>
         </div>
