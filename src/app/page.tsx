@@ -1,7 +1,7 @@
+import { Metadata } from 'next'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 
-import { Metadata } from 'next'
 
 
 export const meta: Metadata = {

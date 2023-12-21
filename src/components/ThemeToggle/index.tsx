@@ -1,6 +1,7 @@
 import { useTheme } from 'next-themes'
 import { Moon, Sun } from 'lucide-react'
 import { motion } from 'framer-motion'
+import dynamic from 'next/dynamic'
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme()
@@ -25,4 +26,5 @@ const ThemeToggle = () => {
   )
 }
 
-export default ThemeToggle
+export default dynamic (() => Promise.resolve(ThemeToggle), {ssr: false})
+

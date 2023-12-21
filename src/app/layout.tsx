@@ -1,7 +1,7 @@
 
 import { Metadata } from 'next'
 import './globals.css'
-import { Providers } from '@/components/ThemeToggle/theme-provider'
+import Providers from '@/components/ThemeToggle/theme-provider'
 
 export const metadata: Metadata = {
   title: 'Philipe Morais | Desenvolvedor Front-End e UX/UI Designer.',
