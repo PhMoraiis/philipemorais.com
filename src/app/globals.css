@@ -11,6 +11,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   @apply dark:bg-dark-100 bg-light-100
 }
@@ -61,55 +65,71 @@ body {
 }
 
 @font-face {
-  font-family: 'Coolvetica';
-  src: url('/fonts/coolvetica/coolveticarg.otf');
+  font-family: 'Relative';
+  src: url('/fonts/Relative/Relative-Medium.ttf');
 }
 
 @font-face {
-  font-family: 'Coolvetica Bold';
-  src: url('/fonts/coolvetica/CoolveticaRg-Bold.ttf');
+  font-family: 'Relative Bold';
+  src: url('/fonts/Relative/Relative-Bold.ttf');
 }
 
 @font-face {
-  font-family: 'Coolvetica Heavy';
-  src: url('/fonts/coolvetica/CoolveticaHv-Regular.ttf');
+  font-family: 'Relative Book';
+  src: url('/fonts/Relative/Relative-Book.ttf');
 }
-
-@font-face {
-  font-family: 'Coolvetica Light';
-  src: url('/fonts/coolvetica/CoolveticaLt-Regular.ttf');
-}
-
-@font-face {
-  font-family: 'Coolvetica Extra Light';
-  src: url('/fonts/coolvetica/CoolveticaEl-Regular.ttf');
-}
-
 
 .bg-hero {
   background-image: url('/images/gradient.svg');
   background-repeat: no-repeat;
-  background-size: center;
+  background-size: cover;
   background-position: 50% 250%;
-  animation: aumentarBackground 3s ease-in;
+  animation: aumentarBackground 2s ease-in-out;
 }
 
 @keyframes aumentarBackground {
   0% {
-   background-position: 50% 500%;
+    opacity: 0;
   }
   50% {
-    background-position: 50% 400%;
+    opacity: 0.5;
   }
   100% {
-    background-position: 50% 250%;
+    opacity: 1;
   }
 }
 
 .glass{
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border-radius: 20px;
-  border:1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glassDescription{
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glassNavbar{
+  background-color: #222;
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 #0000005e;
+}
+
+@media (prefers-color-scheme: dark) {
+  .bgFirst {
+    background-image: url('/images/Frame17.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .bgFirst {
+    background-image: url('/images/Frame17Light.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 }

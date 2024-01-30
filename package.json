@@ -20,7 +20,7 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
-    "framer-motion": "^10.16.16",
+    "framer-motion": "^11.0.3",
     "gsap": "^3.12.3",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.317.0",
