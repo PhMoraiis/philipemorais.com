@@ -1,6 +1,6 @@
 const FifthWork = () => {
   const cardStyle = {
-    backgroundImage: 'url(/images/Group 2.png)',
+    backgroundImage: 'url(/images/Group2.png)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   }

@@ -9,25 +9,6 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     extend: {
-      animation: {
-        blob: 'blob 7s infinite',
-      },
-      keyframes: {
-        blob: {
-          '0%': {
-            transform: 'translate(0px, 0px) scale(1)',
-          },
-          '33%': {
-            transform: 'translate(30px, -50px) scale(1.1)',
-          },
-          '66%': {
-            transform: 'translate(-20px, 20px) scale(0.9)',
-          },
-          '100%': {
-            transform: 'tranlate(0px, 0px) scale(1)',
-          },
-        },
-      },
       colors: {
         'palette': {
           '50': '#f6f6f6',
@@ -54,6 +35,7 @@ const config: Config = {
           '900': '#454545',
         },
         'dark': {
+          '50': '#222222',
           '100': '#333333',
           '200': '#262626',
           '300': '#1a1a1a',
@@ -70,20 +52,22 @@ const config: Config = {
         'futuraDm': ['Futura Demi', 'sans-serif'],
         'visage': ['Visage', 'sans-serif'],
         'visageBd': ['Visage Bold', 'sans-serif'],
-        'coolveticaLt': ['Coolvetica Light'],
-        'coolveticaEl': ['Coolvetica Extra Light'],
-        'coolveticaRg': ['Coolvetica'],
-        'coolveticaBd': ['Coolvetica Bold'],
-        'coolveticaHv': ['Coolvetica Heavy'],
+        'relative': ['Relative'],
+        'relativeBd': ['Relative Bold'],
+        'relativeBk': ['Relative Book'],
       },
       maxWidth: {
         'desktop': '80vw',
+        'mobile': '90vw',
       },
       minHeight: {
         'desktop': '80vh',
       },
+      screens: {
+        'xxl': '2560px',
+      }
     }
   },
-  plugins: [require('tailwind-scrollbar'),],
+  plugins: [],
 }
 export default config

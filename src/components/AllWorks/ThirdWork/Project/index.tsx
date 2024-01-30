@@ -7,14 +7,10 @@ import dynamic from 'next/dynamic'
 
 const commentsData = [
   {
-    author: 'Philipe Morais',
-    position: 'Desenvolvedor',
     text: 'Sonho em impulsionar a internet em direção à criatividade, acessibilidade e excelência contínua. Estou aqui para fazer da web um lugar melhor a cada linha de código.',
     image: 'https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
   },
   {
-    author: 'Joaquim Morais',
-    position: 'Desenvolvedor',
     text: 'Sonho em impulsionar a internet em direção à criatividade, acessibilidade e excelência contínua. Estou aqui para fazer da web um lugar melhor a cada linha de código.',
     image: 'https://pics.craiyon.com/2023-06-20/89f79a8dee744596981e7417b8a7ea1d.webp'
   },
@@ -31,7 +27,7 @@ const Project = () => {
     setCurrentComment((prevIndex) => (prevIndex - 1 + commentsData.length) % commentsData.length)
   }
 
-  const { author, position, text, image } = commentsData[currentComment]
+  const { text, image } = commentsData[currentComment]
 
   const cardStyle = {
     backgroundImage: `url(${image})`,

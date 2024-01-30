@@ -8,7 +8,6 @@ import dynamic from 'next/dynamic'
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme()
 
-  // Defina a animação para a rotação do ícone
   const iconRotation = {
     rotate: theme === 'dark' ? 180 : 0,
   }
