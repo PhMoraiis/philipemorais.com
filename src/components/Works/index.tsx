@@ -1,9 +1,9 @@
-import FifthWork from '../AllWorks/FifthWork'
 import FirstWork from '../AllWorks/FirstWork'
-import FourthWork from '../AllWorks/FourthWork'
 import SecondWork from '../AllWorks/SecondWork'
-import SixthWork from '../AllWorks/SixthWork'
 import ThirdWork from '../AllWorks/ThirdWork'
+import FourthWork from '../AllWorks/FourthWork'
+import FifthWork from '../AllWorks/FifthWork'
+import SixthWork from '../AllWorks/SixthWork'
 
 import dynamic from 'next/dynamic'
 
