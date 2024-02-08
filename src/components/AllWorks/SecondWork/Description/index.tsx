@@ -38,8 +38,8 @@ const Description = () => {
     <div className="flex flex-col items-center justify-center min-w-[90vw] min-h-[65vh] xxl:min-w-[30vw] xxl:min-h-[45vh] lg:min-w-[30vw] lg:min-h-[45vh] dark:bg-dark-300 glassDescription rounded-xl">
       <div className="text-center flex items-start justify-center flex-col w-full gap-y-2 mx-12">
         <div className="mb-2">
-          <h1 className='text-left text-light-700 dark:text-palette-300 font-relative lg:max-w-2xl xxl:text-2xl text-md mx-8'>Nossos clientes dizem coisas boas sobre nós!</h1>
-          <p className='pt-6 text-left text-dark-100 dark:text-light-100 font-relative lg:max-w-2xl xxl:text-2xl text-lg mx-8'>{text}</p>
+          <h1 className='text-left text-light-700 dark:text-palette-300 font-relative lg:max-w-2xl xxl:text-2xl md:text-2xl text-md mx-8'>Nossos clientes dizem coisas boas sobre nós!</h1>
+          <p className='pt-6 text-left text-dark-100 dark:text-light-100 font-relative lg:max-w-2xl xxl:text-2xl md:text-xl text-lg mx-8'>{text}</p>
         </div>
         <div className="flex items-center justify-between mx-8 gap-4">
           <Image

@@ -39,8 +39,8 @@ const Project = () => {
     <div className="flex flex-col items-center justify-center min-w-[90vw] min-h-[60vh] xxl:min-w-[50vw] xxl:min-h-[35vh] lg:min-w-[50vw] lg:min-h-[35vh] dark:bg-dark-300 glassDescription rounded-xl" style={cardStyle}>
       <div className="text-center flex items-start justify-center flex-col w-full gap-y-6 mx-12">
         <div className="mb-2">
-          <h1 className='text-left text-palette-300 font-relative lg:max-w-2xl xxl:text-2xl text-md mx-8'>Nossos clientes dizem coisas boas sobre nós!</h1>
-          <p className='pt-6 text-left text-light-100 font-relative lg:max-w-2xl xxl:text-3xl lg:text-2xl md:text-md text-lg mx-8'>{text}</p>
+          <h1 className='text-left text-palette-300 font-relative lg:max-w-2xl xxl:text-2xl md:text-2xl text-md mx-8'>Nossos clientes dizem coisas boas sobre nós!</h1>
+          <p className='pt-6 text-left text-light-100 font-relative lg:max-w-2xl xxl:text-3xl lg:text-2xl md:text-lg text-lg mx-8'>{text}</p>
         </div>
         <div className="flex items-center justify-between px-8 mt-6 w-full">
           <motion.button
