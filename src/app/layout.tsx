@@ -1,6 +1,7 @@
 import './globals.css'
 import Providers from '@/components/ThemeToggle/theme-provider'
 import { Metadata } from 'next'
+import { Toaster } from '@/components/ui/sonner'
 
 export const metadata: Metadata = {
   title: 'Philipe Morais | Desenvolvedor Front-End e UX/UI Designer.',
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   )
