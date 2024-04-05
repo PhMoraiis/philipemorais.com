@@ -2,20 +2,29 @@
 
 import { motion } from 'framer-motion'
 import {
-  Command
+  Calculator,
+  Calendar,
+  Command,
+  CreditCard,
+  Settings,
+  Smile,
+  User
 } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import dynamic from 'next/dynamic'
-import { Button } from '../ui/button'
 
 import {
   CommandDialog,
   CommandEmpty,
+  CommandGroup,
   CommandInput,
-  CommandList
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut
 } from '@/components/ui/command'
+import { Button } from '../ui/button'
 
-import { Dialog, DialogTrigger } from '../ui/dialog'
 
 import React, { useEffect, useState } from 'react'
 
@@ -51,8 +60,13 @@ const CommandButton = () => {
       .catch((error) => console.error('Error copying email: ', error))
   }
 
-  const onClickButton = () => {
+  const handleOpenCommandBar = () => {
     setOpen((open) => !open)
+  }
+
+  // Essa função realiza o fechamento do CommandBar ao clicar em um CommandItem. Ela fica dentro das onClicks de cada CommandItem.
+  const handleCloseCommandBar = () => {
+    setOpen(false)
   }
 
   return (
@@ -60,20 +74,64 @@ const CommandButton = () => {
       whileHover={{ scale: 1.2 }}
       transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
       className='flex justify-between'>
-      <Dialog>
-        <DialogTrigger>
-          <Button onClick={onClickButton} variant='noHover' size='icon'>
-            <Command size={26} />
-          </Button>
-        </DialogTrigger>
-        <CommandDialog open={open} onOpenChange={setOpen}>
-          <CommandInput placeholder="Type a command or search..." />
-          <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
-          </CommandList>
-        </CommandDialog>
-
-      </Dialog>
+      <Button onClick={handleOpenCommandBar} variant='noHover' size='icon'>
+        <Command size={26} />
+      </Button>
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder="Type a command or search..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="GENERAL">
+            <CommandItem>
+              <Calendar className="mr-2 h-4 w-4" />
+              <span>Calendar</span>
+            </CommandItem>
+            <CommandItem>
+              <Smile className="mr-2 h-4 w-4" />
+              <span>Search Emoji</span>
+            </CommandItem>
+            <CommandItem>
+              <Calculator className="mr-2 h-4 w-4" />
+              <span>Calculator</span>
+            </CommandItem>
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading="GO TO">
+            <CommandItem>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+              <CommandShortcut>⌘P</CommandShortcut>
+            </CommandItem>
+            <CommandItem>
+              <CreditCard className="mr-2 h-4 w-4" />
+              <span>Billing</span>
+              <CommandShortcut>⌘B</CommandShortcut>
+            </CommandItem>
+            <CommandItem>
+              <Settings className="mr-2 h-4 w-4" />
+              <span>Settings</span>
+              <CommandShortcut>⌘S</CommandShortcut>
+            </CommandItem>
+          </CommandGroup>
+          <CommandGroup heading="SOCIALS">
+            <CommandItem>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+              <CommandShortcut>⌘P</CommandShortcut>
+            </CommandItem>
+            <CommandItem>
+              <CreditCard className="mr-2 h-4 w-4" />
+              <span>Billing</span>
+              <CommandShortcut>⌘B</CommandShortcut>
+            </CommandItem>
+            <CommandItem>
+              <Settings className="mr-2 h-4 w-4" />
+              <span>Settings</span>
+              <CommandShortcut>⌘S</CommandShortcut>
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
     </motion.div >
   )
 }
