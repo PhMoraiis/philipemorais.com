@@ -13,24 +13,19 @@ import {
   Code,
   Command,
   Copy,
-  Github,
   Home,
-  Instagram,
   Laptop,
   Lightbulb,
-  Linkedin,
   MailOpen,
   Moon,
-  Palette,
+  Pipette,
   Sun,
   Zap
 } from 'lucide-react'
 
 import {
   CommandDialog,
-  CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
   CommandSeparator,
@@ -49,13 +44,13 @@ const CommandButton = () => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
-        case 'l':
+        case 'c':
           handleCopyLink()
           break
         case 'e':
           handleSendEmail()
           break
-        case 's':
+        case 'v':
           handleViewSource()
           break
         case 'g' && 'h':
@@ -67,20 +62,11 @@ const CommandButton = () => {
         case 'g' && 'p':
           handleGoProjects()
           break
-        case 'g' && 's':
+        case 'g' && 'k':
           handleGoSkills()
           break
         case 'g' && 'u':
           handleGoUses()
-          break
-        case 's' && 'l':
-          handleGoLinkedin()
-          break
-        case 's' && 'g':
-          handleGoGithub()
-          break
-        case 's' && 'i':
-          handleGoInstagram()
           break
         case 't' && 'l':
           handleLightTheme()
@@ -101,16 +87,17 @@ const CommandButton = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(`philipemorais.tech${pathname}`)
       .then(() => {
         handleCloseCommandBar()
-        toast('Link copied to clipboard!', {
+        toast('Link copiado para a Área de Tranferência.', {
           icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
-          description: 'You can now paste it wherever you want.',
-          duration: 3000
+          description: 'Agora você pode compartilhar!',
+          duration: 2000
         })
       })
       .catch((error) => console.error('Error copying Link: ', error))
@@ -151,37 +138,36 @@ const CommandButton = () => {
     handleCloseCommandBar()
   }
 
-  const handleGoLinkedin = () => {
-    window.open('https://www.linkedin.com/in/ph-morais/', '_blank')
-    handleCloseCommandBar()
-  }
-
-  const handleGoGithub = () => {
-    window.open('https://www.github.com/PhMoraiis', '_blank')
-    handleCloseCommandBar()
-  }
-
-  const handleGoInstagram = () => {
-    window.open('https://www.instagram.com/liipe.moraiis/', '_blank')
-    handleCloseCommandBar()
-  }
-
   const handleLightTheme = () => {
     setTheme('light')
     localStorage.setItem('theme', 'light')
     handleCloseCommandBar()
+    toast('Tema Claro Selecionado!', {
+      icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
+      description: 'Cuidado com os olhos...',
+      duration: 2000
+    })
   }
 
   const handleDarkTheme = () => {
     setTheme('dark')
     localStorage.setItem('theme', 'dark')
     handleCloseCommandBar()
+    toast('Tema Escuro Selecionado!', {
+      icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
+      description: 'Tudo que um DEV precisa!',
+      duration: 2000
+    })
   }
 
   const handleSystemTheme = () => {
     setTheme('system')
-    localStorage.setItem('theme', 'system')
     handleCloseCommandBar()
+    toast('Tema do Sistema Selecionado!', {
+      icon: <Pipette className='mr-2 h-4 w-4 text-gray-100' />,
+      description: 'Acompanhando o tema do seu sistema...',
+      duration: 2000
+    })
   }
 
   const handleOpenCommandBar = () => {
@@ -199,172 +185,132 @@ const CommandButton = () => {
       transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
       className='flex justify-between items-center'>
       <Button onClick={handleOpenCommandBar} variant='noHover' size='icon'>
-        <Command size={26} />
+        <Command size={28} />
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a command or search..." />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="GENERAL">
+        <CommandList className='overflow'>
+          <CommandGroup heading="GERAL">
             <CommandItem>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleCopyLink}>
                 <Copy className="mr-2 h-4 w-4" />
-                <span>Copy Link</span>
+                <span className='text-md'>Copiar Link</span>
               </Button>
-              <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>L</CommandShortcut>
+              <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>C</CommandShortcut>
             </CommandItem>
             <CommandItem>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleSendEmail}>
                 <MailOpen className="mr-2 h-4 w-4" />
-                <span>Send Email</span>
+                <span className='text-md'>Enviar E-mail</span>
               </Button>
-              <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>E</CommandShortcut>
+              <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>E</CommandShortcut>
             </CommandItem>
             <CommandItem>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleViewSource}>
                 <Code className="mr-2 h-4 w-4" />
-                <span>View Source</span>
+                <span className='text-md'>Ver Código-Fonte</span>
               </Button>
-              <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>S</CommandShortcut>
+              <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>V</CommandShortcut>
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
-          <CommandGroup heading="GO TO">
+          <CommandGroup heading="IR PARA">
             <CommandItem className='flex justify-between'>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoHome}>
                 <div className='flex'>
                   <Home className="mr-2 h-4 w-4" />
-                  <span>Home</span>
+                  <span className='text-md'>Home</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>G</CommandShortcut>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>H</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>G</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>H</CommandShortcut>
               </div>
             </CommandItem>
             <CommandItem className='flex justify-between'>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoAbout}>
                 <div className='flex'>
                   <CircleUser className="mr-2 h-4 w-4" />
-                  <span>About</span>
+                  <span className='text-md'>Sobre</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>G</CommandShortcut>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>A</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>G</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>A</CommandShortcut>
               </div>
             </CommandItem>
             <CommandItem className='flex justify-between'>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoProjects}>
                 <div className='flex'>
                   <Lightbulb className="mr-2 h-4 w-4" />
-                  <span>Projects</span>
+                  <span className='text-md'>Projetos</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>G</CommandShortcut>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>P</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>G</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>P</CommandShortcut>
               </div>
             </CommandItem>
             <CommandItem className='flex justify-between'>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoSkills}>
                 <div className='flex'>
                   <Zap className="mr-2 h-4 w-4" />
-                  <span>Skills</span>
+                  <span className='text-md'>Habilidades</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>G</CommandShortcut>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>S</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>G</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>K</CommandShortcut>
               </div>
             </CommandItem>
             <CommandItem className='flex justify-between'>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoUses}>
                 <div className='flex'>
                   <Laptop className="mr-2 h-4 w-4" />
-                  <span>Uses</span>
+                  <span className='text-md'>Setup</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>G</CommandShortcut>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>U</CommandShortcut>
-              </div>
-            </CommandItem>
-          </CommandGroup>
-          <CommandGroup heading="SOCIALS">
-            <CommandItem className='flex justify-between'>
-              <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoLinkedin}>
-                <div className='flex'>
-                  <Linkedin className="mr-2 h-4 w-4" />
-                  <span>LinkedIn</span>
-                </div>
-              </Button>
-              <div className='flex gap-1'>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>S</CommandShortcut>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>L</CommandShortcut>
-              </div>
-            </CommandItem>
-            <CommandItem className='flex justify-between'>
-              <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoGithub}>
-                <div className='flex'>
-                  <Github className="mr-2 h-4 w-4" />
-                  <span>Github</span>
-                </div>
-              </Button>
-              <div className='flex gap-1'>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>S</CommandShortcut>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>G</CommandShortcut>
-              </div>
-            </CommandItem>
-            <CommandItem className='flex justify-between'>
-              <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoInstagram}>
-                <div className='flex'>
-                  <Instagram className="mr-2 h-4 w-4" />
-                  <span>Instagram</span>
-                </div>
-              </Button>
-              <div className='flex gap-1'>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>S</CommandShortcut>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>I</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>G</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>U</CommandShortcut>
               </div>
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
-          <CommandGroup heading="THEMES">
+          <CommandGroup heading="TEMAS">
             <CommandItem className='flex justify-between'>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleLightTheme}>
                 <div className='flex'>
                   <Sun className="mr-2 h-4 w-4" />
-                  <span>Light</span>
+                  <span className='text-md'>Claro</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>T</CommandShortcut>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>L</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>T</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>L</CommandShortcut>
               </div>
             </CommandItem>
             <CommandItem className='flex justify-between'>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleDarkTheme}>
                 <div className='flex'>
                   <Moon className="mr-2 h-4 w-4" />
-                  <span>Dark</span>
+                  <span className='text-md'>Escuro</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>T</CommandShortcut>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>D</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>T</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>D</CommandShortcut>
               </div>
             </CommandItem>
             <CommandItem className='flex justify-between'>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleSystemTheme}>
                 <div className='flex'>
-                  <Palette className="mr-2 h-4 w-4" />
-                  <span>System</span>
+                  <Pipette className="mr-2 h-4 w-4" />
+                  <span className='text-md'>Sistema</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>T</CommandShortcut>
-                <CommandShortcut className='text-lg px-2 bg-background rounded-lg'>S</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>T</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>S</CommandShortcut>
               </div>
             </CommandItem>
           </CommandGroup>

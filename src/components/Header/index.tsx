@@ -12,7 +12,7 @@ const Header = () => {
   const { theme, setTheme } = useTheme()
 
   const logoRotation = {
-    rotate: theme === 'dark' ? -360 : -720,
+    rotate: theme === 'dark' || theme === 'system'  ? -360 : -720,
   }
 
   return (
@@ -23,7 +23,7 @@ const Header = () => {
           transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
           animate={logoRotation}>
           <Link href='/'>
-            {theme === 'dark' ? <LogoWhite /> : <LogoBlack />}
+            {theme === 'light' ? <LogoBlack /> : <LogoWhite />}
           </Link>
         </motion.div>
         <div>
