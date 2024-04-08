@@ -1,5 +1,5 @@
 import './globals.css'
-import Providers from '@/components/ThemeToggle/theme-provider'
+import Providers from '@/components/ThemeProvider/theme-provider'
 import { Metadata } from 'next'
 import { Toaster } from '@/components/ui/sonner'
 

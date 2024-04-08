@@ -36,7 +36,7 @@ import { Button } from '../ui/button'
 
 
 const CommandButton = () => {
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme, theme } = useTheme()
   const [open, setOpen] = React.useState(false)
   const pathname = usePathname()
   const router = useRouter()
@@ -139,35 +139,63 @@ const CommandButton = () => {
   }
 
   const handleLightTheme = () => {
-    setTheme('light')
-    localStorage.setItem('theme', 'light')
-    handleCloseCommandBar()
-    toast('Tema Claro Selecionado!', {
-      icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
-      description: 'Cuidado com os olhos...',
-      duration: 2000
-    })
+    if (localStorage.getItem('theme') === 'light') {
+      toast('Tema Claro já está selecionado!', {
+        icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
+        duration: 2000
+      })
+      handleCloseCommandBar()
+    }
+    else {
+      setTheme('light')
+      localStorage.setItem('theme', 'light')
+      handleCloseCommandBar()
+      toast('Tema Claro Selecionado!', {
+        icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
+        description: 'Cuidado com os olhos...',
+        duration: 2000
+      })
+    }
   }
 
   const handleDarkTheme = () => {
-    setTheme('dark')
-    localStorage.setItem('theme', 'dark')
-    handleCloseCommandBar()
-    toast('Tema Escuro Selecionado!', {
-      icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
-      description: 'Tudo que um DEV precisa!',
-      duration: 2000
-    })
+    if (localStorage.getItem('theme') === 'dark') {
+      toast('Tema Escuro já está selecionado!', {
+        icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
+        duration: 2000
+      })
+      handleCloseCommandBar()
+    }
+    else {
+      setTheme('dark')
+      localStorage.setItem('theme', 'dark')
+      handleCloseCommandBar()
+      toast('Tema Escuro Selecionado!', {
+        icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
+        description: 'Tudo que um DEV precisa!',
+        duration: 2000
+      })
+    }
   }
 
   const handleSystemTheme = () => {
-    setTheme('system')
-    handleCloseCommandBar()
-    toast('Tema do Sistema Selecionado!', {
-      icon: <Pipette className='mr-2 h-4 w-4 text-gray-100' />,
-      description: 'Acompanhando o tema do seu sistema...',
-      duration: 2000
-    })
+    if (localStorage.getItem('theme') === 'system') {
+      toast('Tema do Sistema já está selecionado!', {
+        icon: <Pipette className='mr-2 h-4 w-4 text-violet-500' />,
+        duration: 2000
+      })
+      handleCloseCommandBar()
+    }
+    else {
+      setTheme('system')
+      localStorage.setItem('theme', 'system')
+      handleCloseCommandBar()
+      toast('Tema do Sistema Selecionado!', {
+        icon: <Pipette className="mr-2 h-4 w-4 text-violet-500" />,
+        description: 'Acompanhando o tema do seu sistema...',
+        duration: 2000
+      })
+    }
   }
 
   const handleOpenCommandBar = () => {

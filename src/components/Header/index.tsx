@@ -9,10 +9,10 @@ import { LogoBlack, LogoWhite } from '../Logos'
 
 
 const Header = () => {
-  const { theme, setTheme } = useTheme()
+  const { theme, resolvedTheme } = useTheme()
 
   const logoRotation = {
-    rotate: theme === 'dark' || theme === 'system'  ? -360 : -720,
+    rotate: theme === 'dark' || resolvedTheme === 'dark' ? -360 : -720,
   }
 
   return (
@@ -23,14 +23,14 @@ const Header = () => {
           transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
           animate={logoRotation}>
           <Link href='/'>
-            {theme === 'light' ? <LogoBlack /> : <LogoWhite />}
+            {theme === 'dark' || resolvedTheme === 'dark' ? <LogoWhite /> : <LogoBlack />}
           </Link>
         </motion.div>
         <div>
           <CommandButton />
         </div>
       </div>
-    </header >
+    </header>
   )
 }
 
