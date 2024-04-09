@@ -8,6 +8,7 @@ import React, { useEffect } from 'react'
 
 import { motion } from 'framer-motion'
 import {
+  AlertTriangle,
   CheckCircle,
   CircleUser,
   Code,
@@ -34,12 +35,14 @@ import {
 import { toast } from 'sonner'
 import { Button } from '../ui/button'
 
+import { useTranslations } from 'next-intl'
 
 const CommandButton = () => {
-  const { resolvedTheme, setTheme, theme } = useTheme()
-  const [open, setOpen] = React.useState(false)
+  const { setTheme } = useTheme()
   const pathname = usePathname()
   const router = useRouter()
+  const [open, setOpen] = React.useState(false)
+  const t = useTranslations('CommandBar')
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -94,13 +97,20 @@ const CommandButton = () => {
     navigator.clipboard.writeText(`philipemorais.tech${pathname}`)
       .then(() => {
         handleCloseCommandBar()
-        toast('Link copiado para a Área de Tranferência.', {
+        toast(t('toastCopy'), {
           icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
-          description: 'Agora você pode compartilhar!',
+          description: t('toastCopyDescription'),
           duration: 2000
         })
       })
-      .catch((error) => console.error('Error copying Link: ', error))
+      .catch((error) => {
+        toast(t('toastCopyError'),
+          {
+            icon: <AlertTriangle className='mr-2 h-4 w-4 text-red-500' />,
+            description: t('toastCopyErrorDescription') + error,
+            duration: 2000
+          })
+      })
   }
 
   const handleSendEmail = () => {
@@ -140,7 +150,7 @@ const CommandButton = () => {
 
   const handleLightTheme = () => {
     if (localStorage.getItem('theme') === 'light') {
-      toast('Tema Claro já está selecionado!', {
+      toast(t('toastThemeLightAlreadySelected'), {
         icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
         duration: 2000
       })
@@ -150,9 +160,9 @@ const CommandButton = () => {
       setTheme('light')
       localStorage.setItem('theme', 'light')
       handleCloseCommandBar()
-      toast('Tema Claro Selecionado!', {
+      toast(t('toastThemeLightSelected'), {
         icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
-        description: 'Cuidado com os olhos...',
+        description: t('toastThemeLightDescription'),
         duration: 2000
       })
     }
@@ -160,7 +170,7 @@ const CommandButton = () => {
 
   const handleDarkTheme = () => {
     if (localStorage.getItem('theme') === 'dark') {
-      toast('Tema Escuro já está selecionado!', {
+      toast(t('toastThemeDarkAlreadySelected'), {
         icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
         duration: 2000
       })
@@ -170,9 +180,9 @@ const CommandButton = () => {
       setTheme('dark')
       localStorage.setItem('theme', 'dark')
       handleCloseCommandBar()
-      toast('Tema Escuro Selecionado!', {
+      toast(t('toastThemeDarkSelected'), {
         icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
-        description: 'Tudo que um DEV precisa!',
+        description: t('toastThemeDarkDescription'),
         duration: 2000
       })
     }
@@ -180,7 +190,7 @@ const CommandButton = () => {
 
   const handleSystemTheme = () => {
     if (localStorage.getItem('theme') === 'system') {
-      toast('Tema do Sistema já está selecionado!', {
+      toast(t('toastThemeSystemAlreadySelected'), {
         icon: <Pipette className='mr-2 h-4 w-4 text-violet-500' />,
         duration: 2000
       })
@@ -190,9 +200,9 @@ const CommandButton = () => {
       setTheme('system')
       localStorage.setItem('theme', 'system')
       handleCloseCommandBar()
-      toast('Tema do Sistema Selecionado!', {
+      toast(t('toastThemeSystemSelected'), {
         icon: <Pipette className="mr-2 h-4 w-4 text-violet-500" />,
-        description: 'Acompanhando o tema do seu sistema...',
+        description: t('toastThemeSystemDescription'),
         duration: 2000
       })
     }
@@ -221,21 +231,21 @@ const CommandButton = () => {
             <CommandItem>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleCopyLink}>
                 <Copy className="mr-2 h-4 w-4" />
-                <span className='text-md'>Copiar Link</span>
+                <span className='text-md'>{t('buttonLink')}</span>
               </Button>
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>C</CommandShortcut>
             </CommandItem>
             <CommandItem>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleSendEmail}>
                 <MailOpen className="mr-2 h-4 w-4" />
-                <span className='text-md'>Enviar E-mail</span>
+                <span className='text-md'>{t('buttonEmail')}</span>
               </Button>
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>E</CommandShortcut>
             </CommandItem>
             <CommandItem>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleViewSource}>
                 <Code className="mr-2 h-4 w-4" />
-                <span className='text-md'>Ver Código-Fonte</span>
+                <span className='text-md'>{t('buttonSource')}</span>
               </Button>
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>V</CommandShortcut>
             </CommandItem>
@@ -246,7 +256,7 @@ const CommandButton = () => {
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoHome}>
                 <div className='flex'>
                   <Home className="mr-2 h-4 w-4" />
-                  <span className='text-md'>Home</span>
+                  <span className='text-md'>{t('buttonHome')}</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -258,7 +268,7 @@ const CommandButton = () => {
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoAbout}>
                 <div className='flex'>
                   <CircleUser className="mr-2 h-4 w-4" />
-                  <span className='text-md'>Sobre</span>
+                  <span className='text-md'>{t('buttonAbout')}</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -270,7 +280,7 @@ const CommandButton = () => {
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoProjects}>
                 <div className='flex'>
                   <Lightbulb className="mr-2 h-4 w-4" />
-                  <span className='text-md'>Projetos</span>
+                  <span className='text-md'>{t('buttonProjects')}</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -282,7 +292,7 @@ const CommandButton = () => {
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoSkills}>
                 <div className='flex'>
                   <Zap className="mr-2 h-4 w-4" />
-                  <span className='text-md'>Habilidades</span>
+                  <span className='text-md'>{t('buttonSkills')}</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -294,7 +304,7 @@ const CommandButton = () => {
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoUses}>
                 <div className='flex'>
                   <Laptop className="mr-2 h-4 w-4" />
-                  <span className='text-md'>Setup</span>
+                  <span className='text-md'>{t('buttonSetup')}</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -309,7 +319,7 @@ const CommandButton = () => {
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleLightTheme}>
                 <div className='flex'>
                   <Sun className="mr-2 h-4 w-4" />
-                  <span className='text-md'>Claro</span>
+                  <span className='text-md'>{t('buttonLightTheme')}</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -321,7 +331,7 @@ const CommandButton = () => {
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleDarkTheme}>
                 <div className='flex'>
                   <Moon className="mr-2 h-4 w-4" />
-                  <span className='text-md'>Escuro</span>
+                  <span className='text-md'>{t('buttonDarkTheme')}</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -333,7 +343,7 @@ const CommandButton = () => {
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleSystemTheme}>
                 <div className='flex'>
                   <Pipette className="mr-2 h-4 w-4" />
-                  <span className='text-md'>Sistema</span>
+                  <span className='text-md'>{t('buttonSystemTheme')}</span>
                 </div>
               </Button>
               <div className='flex gap-1'>

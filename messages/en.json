@@ -1,0 +1,28 @@
+{
+  "CommandBar": {
+    "toastCopy": "Link copied to clipboard.",
+    "toastCopyDescription": "Now you can share!",
+    "toastCopyError": "Failed to copy link to clipboard.",
+    "toastCopyErrorDescription": "Try again later. Error: ",
+    "toastThemeLightAlreadySelected": "Clear theme is already selected!",
+    "toastThemeLightSelected": "Clear theme selected!",
+    "toastThemeLightDescription": "Watch your eyes...",
+    "toastThemeDarkAlreadySelected": "Dark theme is already selected!",
+    "toastThemeDarkSelected": "Dark theme selected!",
+    "toastThemeDarkDescription": "Darkness is coming...",
+    "toastThemeSystemAlreadySelected": "System theme is already selected!",
+    "toastThemeSystemSelected": "System theme selected!",
+    "toastThemeSystemDescription": "Let the system decide...",
+    "buttonLink": "Copy Link",
+    "buttonEmail": "Send E-mail",
+    "buttonSource": "View Source",
+    "buttonHome": "Home",
+    "buttonAbout": "About",
+    "buttonProjects": "Projects",
+    "buttonSkills": "Skills",
+    "buttonSetup": "Setup",
+    "buttonLightTheme": "Light",
+    "buttonDarkTheme": "Dark",
+    "buttonSystemTheme": "System"
+  }
+}
