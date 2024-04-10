@@ -1,5 +1,6 @@
 import Hero from '@/components/Hero'
 import Navbar from '@/components/Navbar'
+import Start from '@/components/Start'
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <Navbar />
       <div className='bg-white dark:bg-[#303030] rounded-3xl p-10'>
         <Hero />
+        <Start />
       </div>
     </main>
   )

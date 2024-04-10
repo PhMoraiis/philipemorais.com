@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { useTypewriter } from 'react-simple-typewriter'
+import dynamic from 'next/dynamic'
 
 const Hero = () => {
   const router = useRouter()
@@ -39,4 +40,4 @@ const Hero = () => {
   )
 }
 
-export default Hero
+export default dynamic(() => Promise.resolve(Hero), { ssr: false })
