@@ -8,7 +8,7 @@ import CommandButton from '../CommandButton'
 import { LogoBlack, LogoWhite } from '../Logos'
 
 
-const Header = () => {
+const Navbar = () => {
   const { theme, resolvedTheme } = useTheme()
 
   const logoRotation = {
@@ -34,4 +34,4 @@ const Header = () => {
   )
 }
 
-export default dynamic(() => Promise.resolve(Header), { ssr: false })
+export default dynamic(() => Promise.resolve(Navbar), { ssr: false })

@@ -8,7 +8,6 @@ import React, { useEffect } from 'react'
 
 import { motion } from 'framer-motion'
 import {
-  AlertTriangle,
   CheckCircle,
   CircleUser,
   Code,
@@ -92,15 +91,15 @@ const CommandButton = () => {
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(`philipemorais.tech${pathname}`)
-    .then(() => {
-      handleCloseCommandBar()
-      toast('Link copied to clipboard.', {
-        icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
-        description: 'Now you can share!',
-        duration: 2000
+      .then(() => {
+        handleCloseCommandBar()
+        toast('Link copied to clipboard.', {
+          icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
+          description: 'Now you can share!',
+          duration: 2000
+        })
       })
-    })
-    .catch((error) => console.error('Error copying Link: ', error))
+      .catch((error) => console.error('Error copying Link: ', error))
   }
 
   const handleSendEmail = () => {
@@ -140,61 +139,61 @@ const CommandButton = () => {
 
   const handleLightTheme = () => {
     if (localStorage.getItem('theme') === 'light') {
-      toast('Clear theme is already selected!'), {
+      toast('Clear theme is already selected!', {
         icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
         duration: 2000
-      }
+      })
       handleCloseCommandBar()
     }
     else {
       setTheme('light')
       localStorage.setItem('theme', 'light')
       handleCloseCommandBar()
-      toast('Clear theme selected!'), {
+      toast('Clear theme selected!', {
         icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
         description: 'Watch your eyes...',
         duration: 2000
-      }
+      })
     }
   }
 
   const handleDarkTheme = () => {
     if (localStorage.getItem('theme') === 'dark') {
-      toast('Dark theme is already selected!'), {
+      toast('Dark theme is already selected!', {
         icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
         duration: 2000
-      }
+      })
       handleCloseCommandBar()
     }
     else {
       setTheme('dark')
       localStorage.setItem('theme', 'dark')
       handleCloseCommandBar()
-      toast('Dark theme selected!'), {
+      toast('Dark theme selected!', {
         icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
         description: 'Darkness is coming...',
         duration: 2000
-      }
+      })
     }
   }
 
   const handleSystemTheme = () => {
     if (localStorage.getItem('theme') === 'system') {
-      toast('System theme is already selected!'), {
+      toast('System theme is already selected!', {
         icon: <Pipette className='mr-2 h-4 w-4 text-violet-500' />,
         duration: 2000
-      }
+      })
       handleCloseCommandBar()
     }
     else {
       setTheme('system')
       localStorage.setItem('theme', 'system')
       handleCloseCommandBar()
-      toast('System theme selected!'), {
+      toast('System theme selected!', {
         icon: <Pipette className="mr-2 h-4 w-4 text-violet-500" />,
         description: 'Let the system decide...',
         duration: 2000
-      }
+      })
     }
   }
 
@@ -217,7 +216,7 @@ const CommandButton = () => {
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandList className='overflow'>
-          <CommandGroup heading="GERAL">
+          <CommandGroup heading="GENERAL">
             <CommandItem>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleCopyLink}>
                 <Copy className="mr-2 h-4 w-4" />
@@ -241,7 +240,7 @@ const CommandButton = () => {
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
-          <CommandGroup heading="IR PARA">
+          <CommandGroup heading="GO TO">
             <CommandItem className='flex justify-between'>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoHome}>
                 <div className='flex'>
@@ -304,7 +303,7 @@ const CommandButton = () => {
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
-          <CommandGroup heading="TEMAS">
+          <CommandGroup heading="THEMES">
             <CommandItem className='flex justify-between'>
               <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleLightTheme}>
                 <div className='flex'>
