@@ -156,3 +156,22 @@
   box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 0px 0px inset,
     rgba(0, 255, 87, 0.25) 0px 0px 16px 8px;
 }
+
+.blink-cursor {
+  animation: BlinkCursor 1.5s steps(2) infinite;
+}
+
+@keyframes BlinkCursor {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
