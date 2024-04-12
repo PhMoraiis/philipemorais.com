@@ -17,6 +17,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'pics.craiyon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.algoexpert.io',
       }
     ]
   }

@@ -1,15 +1,15 @@
 import Hero from '@/components/Hero'
 import Navbar from '@/components/Navbar'
-import Start from '@/components/Start'
+import Socials from '@/components/Socials'
+import Techs from '@/components/Techs'
 
 export default function Home() {
   return (
     <main className="container mx-auto max-w-md md:max-w-2xl lg:max-w-6xl">
       <Navbar />
-      <div className='bg-white dark:bg-[#303030] rounded-3xl p-10'>
-        <Hero />
-        <Start />
-      </div>
+      <Hero />
+      <Techs />
+      <Socials />
     </main>
   )
 }

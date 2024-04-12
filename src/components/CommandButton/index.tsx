@@ -19,8 +19,7 @@ import {
   MailOpen,
   Moon,
   Pipette,
-  Sun,
-  Zap
+  Sun
 } from 'lucide-react'
 
 import {
@@ -32,6 +31,7 @@ import {
   CommandShortcut
 } from '@/components/ui/command'
 import { toast } from 'sonner'
+import Magnetic from '../Magnetic'
 import { Button } from '../ui/button'
 
 const CommandButton = () => {
@@ -60,9 +60,6 @@ const CommandButton = () => {
           break
         case 'g' && 'p':
           handleGoProjects()
-          break
-        case 'g' && 'k':
-          handleGoSkills()
           break
         case 'g' && 'u':
           handleGoUses()
@@ -124,11 +121,6 @@ const CommandButton = () => {
 
   const handleGoProjects = () => {
     router.push('/projects')
-    handleCloseCommandBar()
-  }
-
-  const handleGoSkills = () => {
-    router.push('/skills')
     handleCloseCommandBar()
   }
 
@@ -218,22 +210,28 @@ const CommandButton = () => {
         <CommandList className='overflow'>
           <CommandGroup heading="GENERAL">
             <CommandItem>
-              <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleCopyLink}>
-                <Copy className="mr-2 h-4 w-4" />
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleCopyLink}>
+                <Magnetic>
+                  <Copy className="mr-2 h-4 w-4" />
+                </Magnetic>
                 <span className='text-md'>Copy Link</span>
               </Button>
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>C</CommandShortcut>
             </CommandItem>
             <CommandItem>
-              <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleSendEmail}>
-                <MailOpen className="mr-2 h-4 w-4" />
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleSendEmail}>
+                <Magnetic>
+                  <MailOpen className="mr-2 h-4 w-4" />
+                </Magnetic>
                 <span className='text-md'>Send E-mail</span>
               </Button>
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>E</CommandShortcut>
             </CommandItem>
             <CommandItem>
-              <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleViewSource}>
-                <Code className="mr-2 h-4 w-4" />
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleViewSource}>
+                <Magnetic>
+                  <Code className="mr-2 h-4 w-4" />
+                </Magnetic>
                 <span className='text-md'>View Source</span>
               </Button>
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>V</CommandShortcut>
@@ -242,9 +240,11 @@ const CommandButton = () => {
           <CommandSeparator />
           <CommandGroup heading="GO TO">
             <CommandItem className='flex justify-between'>
-              <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoHome}>
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleGoHome}>
                 <div className='flex'>
-                  <Home className="mr-2 h-4 w-4" />
+                  <Magnetic>
+                    <Home className="mr-2 h-4 w-4" />
+                  </Magnetic>
                   <span className='text-md'>Home</span>
                 </div>
               </Button>
@@ -254,9 +254,11 @@ const CommandButton = () => {
               </div>
             </CommandItem>
             <CommandItem className='flex justify-between'>
-              <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoAbout}>
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleGoAbout}>
                 <div className='flex'>
-                  <CircleUser className="mr-2 h-4 w-4" />
+                  <Magnetic>
+                    <CircleUser className="mr-2 h-4 w-4" />
+                  </Magnetic>
                   <span className='text-md'>About</span>
                 </div>
               </Button>
@@ -266,9 +268,11 @@ const CommandButton = () => {
               </div>
             </CommandItem>
             <CommandItem className='flex justify-between'>
-              <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoProjects}>
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleGoProjects}>
                 <div className='flex'>
-                  <Lightbulb className="mr-2 h-4 w-4" />
+                  <Magnetic>
+                    <Lightbulb className="mr-2 h-4 w-4" />
+                  </Magnetic>
                   <span className='text-md'>Projects</span>
                 </div>
               </Button>
@@ -278,21 +282,11 @@ const CommandButton = () => {
               </div>
             </CommandItem>
             <CommandItem className='flex justify-between'>
-              <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoSkills}>
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleGoUses}>
                 <div className='flex'>
-                  <Zap className="mr-2 h-4 w-4" />
-                  <span className='text-md'>Skills</span>
-                </div>
-              </Button>
-              <div className='flex gap-1'>
-                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>G</CommandShortcut>
-                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>K</CommandShortcut>
-              </div>
-            </CommandItem>
-            <CommandItem className='flex justify-between'>
-              <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleGoUses}>
-                <div className='flex'>
-                  <Laptop className="mr-2 h-4 w-4" />
+                  <Magnetic>
+                    <Laptop className="mr-2 h-4 w-4" />
+                  </Magnetic>
                   <span className='text-md'>Setup</span>
                 </div>
               </Button>
@@ -305,9 +299,11 @@ const CommandButton = () => {
           <CommandSeparator />
           <CommandGroup heading="THEMES">
             <CommandItem className='flex justify-between'>
-              <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleLightTheme}>
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleLightTheme}>
                 <div className='flex'>
-                  <Sun className="mr-2 h-4 w-4" />
+                  <Magnetic>
+                    <Sun className="mr-2 h-4 w-4" />
+                  </Magnetic>
                   <span className='text-md'>Light</span>
                 </div>
               </Button>
@@ -317,9 +313,11 @@ const CommandButton = () => {
               </div>
             </CommandItem>
             <CommandItem className='flex justify-between'>
-              <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleDarkTheme}>
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleDarkTheme}>
                 <div className='flex'>
-                  <Moon className="mr-2 h-4 w-4" />
+                  <Magnetic>
+                    <Moon className="mr-2 h-4 w-4" />
+                  </Magnetic>
                   <span className='text-md'>Dark</span>
                 </div>
               </Button>
@@ -329,9 +327,11 @@ const CommandButton = () => {
               </div>
             </CommandItem>
             <CommandItem className='flex justify-between'>
-              <Button variant="ghost" size="sm" className='m-0 p-0' onClick={handleSystemTheme}>
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleSystemTheme}>
                 <div className='flex'>
-                  <Pipette className="mr-2 h-4 w-4" />
+                  <Magnetic>
+                    <Pipette className="mr-2 h-4 w-4" />
+                  </Magnetic>
                   <span className='text-md'>System</span>
                 </div>
               </Button>

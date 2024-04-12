@@ -175,3 +175,33 @@
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
 }
+
+.mask {
+  user-select: none;
+
+  mask-image: linear-gradient(
+    to right,
+    hsl(0 0% 0% / 0),
+    hsl(0 0% 0% / 1) 10%,
+    hsl(0 0% 0% / 1) 90%,
+    hsl(0 0% 0% / 0)
+  );
+}
+
+@keyframes scrollX {
+  from {
+    left: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.largura {
+  width: clamp(10rem, 1rem + 40vmin, 30rem);
+  padding: calc(clamp(10rem, 1rem + 30vmin, 30rem) / 10);
+}
+
+.image {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}

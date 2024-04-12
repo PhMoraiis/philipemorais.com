@@ -1,7 +1,7 @@
-import './globals.css'
 import Providers from '@/components/ThemeProvider/theme-provider'
-import { Metadata } from 'next'
 import { Toaster } from '@/components/ui/sonner'
+import { Metadata } from 'next'
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Philipe Morais | Desenvolvedor Front-End e UX/UI Designer.',
@@ -18,9 +18,6 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
-  params: {
-    lng: string
-  }
 }) {
   return (
     <html lang='en' suppressHydrationWarning>
