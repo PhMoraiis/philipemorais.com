@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import dynamic from 'next/dynamic'
 import { useRef, useState } from 'react'
 
 const Magnetic = ({ children }: any) => {
@@ -38,4 +39,4 @@ const Magnetic = ({ children }: any) => {
   )
 }
 
-export default Magnetic
+export default dynamic(() => Promise.resolve(Magnetic), { ssr: false })

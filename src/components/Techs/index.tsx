@@ -1,10 +1,10 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useState } from 'react'
-
 
 interface IImageRowProps {
   images: { url: string, name: string }[]
@@ -17,12 +17,12 @@ interface IImageRowProps {
 const ImageRow = ({ images, isPaused, handleMouseEnter, handleMouseLeave }: IImageRowProps) => {
   return (
     <div
-      className={`flex-shrink-0 flex items-center justify-around whitespace-nowrap w-full animate-scrollX ${isPaused ? 'paused' : ''}`}
+      className={`flex flex-shrink-0 whitespace-normal justify-around items-center animate-scrollX ${isPaused ? 'paused' : ''}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {images.map(({ url, name }, index) => (
-        <div key={index} className='flex items-center'>
+        <div key={index} className='mx-8 md:mx-10 lg:mx-12'>
           <Image src={url} width={100} height={100} alt={name + 'Logo'} className='w-10 h-10' />
         </div>
       ))}
@@ -71,8 +71,21 @@ const Techs = () => {
     setIsPaused(false)
   }
 
+  /*   const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  const backgroundDark = useMotionTemplate`radial-gradient(200px circle at ${mouseX}px ${mouseY}px, rgba(38, 38, 38, 0.4), transparent 80%)` */
+
   return (
-    <section className='mt-6 bg-white dark:bg-[#303030] rounded-3xl p-10'>
+    <motion.section
+      /* onMouseMove={(e) => {
+        const { left, top } = e.currentTarget.getBoundingClientRect()
+
+        mouseX.set(e.clientX - left)
+        mouseY.set(e.clientY - top)
+      }} */
+      /* style={{ background: theme === 'dark' || resolvedTheme === 'dark' ? backgroundDark : '' }} */
+      className='mt-6 bg-white dark:bg-[#111110] rounded-xl p-10 shadow-sm'>
       <div className='w-full h-fit flex items-center justify-center'>
         <div className='flex w-full overflow-hidden mask'>
           {theme === 'dark' || resolvedTheme === 'dark' ? <BundleRow images={rowDark} isPaused={isPaused} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} /> :
@@ -80,7 +93,7 @@ const Techs = () => {
           }
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }
 

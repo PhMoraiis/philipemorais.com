@@ -207,14 +207,14 @@ const CommandButton = () => {
         <Command size={28} />
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandList className='overflow'>
+        <CommandList className='overflow font-Relative'>
           <CommandGroup heading="GENERAL">
             <CommandItem>
               <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleCopyLink}>
                 <Magnetic>
                   <Copy className="mr-2 h-4 w-4" />
                 </Magnetic>
-                <span className='text-md'>Copy Link</span>
+                <span className='text-md hover:animate-text-shake'>Copy Link</span>
               </Button>
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>C</CommandShortcut>
             </CommandItem>
@@ -223,7 +223,7 @@ const CommandButton = () => {
                 <Magnetic>
                   <MailOpen className="mr-2 h-4 w-4" />
                 </Magnetic>
-                <span className='text-md'>Send E-mail</span>
+                <span className='text-md hover:animate-text-shake'>Send E-mail</span>
               </Button>
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>E</CommandShortcut>
             </CommandItem>
@@ -232,7 +232,7 @@ const CommandButton = () => {
                 <Magnetic>
                   <Code className="mr-2 h-4 w-4" />
                 </Magnetic>
-                <span className='text-md'>View Source</span>
+                <span className='text-md hover:animate-text-shake'>View Source</span>
               </Button>
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>V</CommandShortcut>
             </CommandItem>
@@ -245,7 +245,7 @@ const CommandButton = () => {
                   <Magnetic>
                     <Home className="mr-2 h-4 w-4" />
                   </Magnetic>
-                  <span className='text-md'>Home</span>
+                  <span className='text-md hover:animate-text-shake'>Home</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -259,7 +259,7 @@ const CommandButton = () => {
                   <Magnetic>
                     <CircleUser className="mr-2 h-4 w-4" />
                   </Magnetic>
-                  <span className='text-md'>About</span>
+                  <span className='text-md hover:animate-text-shake'>About</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -273,7 +273,7 @@ const CommandButton = () => {
                   <Magnetic>
                     <Lightbulb className="mr-2 h-4 w-4" />
                   </Magnetic>
-                  <span className='text-md'>Projects</span>
+                  <span className='text-md hover:animate-text-shake'>Projects</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -287,7 +287,7 @@ const CommandButton = () => {
                   <Magnetic>
                     <Laptop className="mr-2 h-4 w-4" />
                   </Magnetic>
-                  <span className='text-md'>Setup</span>
+                  <span className='text-md hover:animate-text-shake'>Setup</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -304,7 +304,7 @@ const CommandButton = () => {
                   <Magnetic>
                     <Sun className="mr-2 h-4 w-4" />
                   </Magnetic>
-                  <span className='text-md'>Light</span>
+                  <span className='text-md hover:animate-text-shake'>Light</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -318,7 +318,7 @@ const CommandButton = () => {
                   <Magnetic>
                     <Moon className="mr-2 h-4 w-4" />
                   </Magnetic>
-                  <span className='text-md'>Dark</span>
+                  <span className='text-md hover:animate-text-shake'>Dark</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -332,7 +332,7 @@ const CommandButton = () => {
                   <Magnetic>
                     <Pipette className="mr-2 h-4 w-4" />
                   </Magnetic>
-                  <span className='text-md'>System</span>
+                  <span className='text-md hover:animate-text-shake'>System</span>
                 </div>
               </Button>
               <div className='flex gap-1'>

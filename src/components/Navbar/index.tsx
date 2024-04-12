@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import CommandButton from '../CommandButton'
 import { LogoBlack, LogoWhite } from '../Logos'
+import Magnetic from '../Magnetic'
 
 
 const Navbar = () => {
@@ -22,9 +23,11 @@ const Navbar = () => {
           whileHover={{ scale: 1.2 }}
           transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
           animate={logoRotation}>
-          <Link href='/'>
-            {theme === 'dark' || resolvedTheme === 'dark' ? <LogoWhite /> : <LogoBlack />}
-          </Link>
+          <Magnetic>
+            <Link href='/'>
+              {theme === 'dark' || resolvedTheme === 'dark' ? <LogoWhite /> : <LogoBlack />}
+            </Link>
+          </Magnetic>
         </motion.div>
         <div>
           <CommandButton />

@@ -2,6 +2,7 @@ import Hero from '@/components/Hero'
 import Navbar from '@/components/Navbar'
 import Socials from '@/components/Socials'
 import Techs from '@/components/Techs'
+import SelectedWorks from '@/components/SelectedWorks'
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Techs />
+      <SelectedWorks />
       <Socials />
     </main>
   )
