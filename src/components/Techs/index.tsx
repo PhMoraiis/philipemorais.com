@@ -85,7 +85,7 @@ const Techs = () => {
         mouseY.set(e.clientY - top)
       }} */
       /* style={{ background: theme === 'dark' || resolvedTheme === 'dark' ? backgroundDark : '' }} */
-      className='mt-6 bg-white dark:bg-[#111110] rounded-xl p-10 shadow-sm'>
+      className='mt-10 bg-white dark:bg-[#111110] rounded-xl p-10 shadow-sm'>
       <div className='w-full h-fit flex items-center justify-center'>
         <div className='flex w-full overflow-hidden mask'>
           {theme === 'dark' || resolvedTheme === 'dark' ? <BundleRow images={rowDark} isPaused={isPaused} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} /> :

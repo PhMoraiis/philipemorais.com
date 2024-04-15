@@ -1,26 +1,37 @@
 'use client'
+import { cn } from '@/lib/utils'
+import { Check } from 'lucide-react'
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
+import { Button } from '../ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 
-const Works = () => {
+type CardProps = React.ComponentProps<typeof Card>
+
+const Works = ({ className, ...props }: CardProps) => {
+
+  const imageBG = {
+    backgroundImage: 'url(/images/test.png)',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }
 
   return (
-    <section className='bg-white dark:bg-[#111110] rounded-xl shadow-sm mt-6 border border-white/10'>
-      <div className="overflow-hidden">
-        <Image src={'/images/Frame16.svg'} width={1000} height={500} alt='Nimbus Logo' className='w-full rounded-xl' />
-      </div>
-      <div className="dark:bg-[#0a0a0a] p-10 space-y-6 md:flex md:items-end md:justify-between lg:flex lg:items-end lg:justify-between">
-        <div className="flex flex-col items-start gap-4 md:gap-6 md:max-w-sm lg:gap-6 lg:max-w-lg">
-          <div className="flex items-center justify-center max-w-xs lg:max-w-md space-x-4">
-            <Image src={'/images/Nimbus.svg'} width={100} height={100} alt='Nimbus Logo' className='w-10 h-10' />
-            <h1 className="text-3xl leading-none font-Relative">Pathway</h1>
-          </div>
-          <p className="max-w-md font-RelativeBk lg:max-w-lg lg:text-lg">Currently working at Young Platform helping to concept.</p>
+    <Card className={cn('w-[380px] md:w-[300px] lg:w-[320px] h-[460px] shadow-xl', className)} {...props} style={imageBG}>
+      <CardHeader>
+        <CardTitle>Pathway</CardTitle>
+        <CardDescription>May 30, 2023</CardDescription>
+      </CardHeader>
+      <CardContent className="grid gap-4">
+        <div className=" flex items-center space-x-4 rounded-md p-4">
         </div>
-      </div>
-    </section>
+      </CardContent>
+      <CardFooter>
+        <Button className="w-full">
+          <Check className="mr-2 h-4 w-4" /> Mark all as read
+        </Button>
+      </CardFooter>
+    </Card>
   )
 }
 
 export default dynamic(() => Promise.resolve(Works), { ssr: false })
-
