@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic'
 const Scroll = () => {
 
   return (
-    <section className='my-24 hidden items-center flex-col gap-4 md:flex lg:flex'>
+    <section className='my-16 hidden items-center flex-col gap-4 md:flex lg:flex'>
       <motion.div
         animate={{ y: [0, -10, 0], transition: { duration: 1.5, repeat: Infinity, ease: 'easeIn' } }}
         // quando passar o mouse por cima, a animação para

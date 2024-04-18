@@ -110,6 +110,16 @@ const config = {
           '100%': {
             'transform': 'translateX(0)'
           }
+        },
+        'flip': {
+          'to': {
+            'transform': 'rotate(360deg)'
+          }
+        },
+        'rotate': {
+          'to': {
+            'transform': 'rotate(90deg)'
+          }
         }
       },
       animation: {
@@ -117,7 +127,9 @@ const config = {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'scrollX': 'scrollX 40s linear infinite',
         'shine': 'shine 4s linear infinite',
-        'text-shake': 'text-shake 1s ease 1'
+        'text-shake': 'text-shake 1s ease 1',
+        'flip': 'flip 6s infinite steps(2, end)',
+        'rotate': 'rotate 3s linear infinite both'
       },
     },
   },

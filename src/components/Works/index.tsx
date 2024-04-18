@@ -1,34 +1,31 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { Check } from 'lucide-react'
+import { Atom } from 'lucide-react'
 import dynamic from 'next/dynamic'
-import { Button } from '../ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
+import { Badge } from '../ui/badge'
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 
 type CardProps = React.ComponentProps<typeof Card>
 
 const Works = ({ className, ...props }: CardProps) => {
 
   const imageBG = {
-    backgroundImage: 'url(/images/test.png)',
+    backgroundImage: 'url(/images/Frame16.svg)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    border: 'none',
+    borderRadius: '0.75rem'
   }
 
   return (
-    <Card className={cn('w-[380px] md:w-[300px] lg:w-[320px] h-[460px] shadow-xl', className)} {...props} style={imageBG}>
+    <Card className={cn('w-[380px] md:w-full md:h-[330px] lg:w-full h-[380px] shadow-xl rounded-xl cursor-pointer', className)} {...props} style={imageBG}>
       <CardHeader>
         <CardTitle>Pathway</CardTitle>
         <CardDescription>May 30, 2023</CardDescription>
       </CardHeader>
-      <CardContent className="grid gap-4">
-        <div className=" flex items-center space-x-4 rounded-md p-4">
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button className="w-full">
-          <Check className="mr-2 h-4 w-4" /> Mark all as read
-        </Button>
+      <CardFooter className='gap-3'>
+        <Badge size="icon"><Atom size={18} />React</Badge>
+        <Badge size="icon"><Atom size={18} />React</Badge>
       </CardFooter>
     </Card>
   )
