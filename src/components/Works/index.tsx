@@ -18,7 +18,7 @@ const Works = ({ className, ...props }: CardProps) => {
   }
 
   return (
-    <Card className={cn('w-[380px] md:w-full md:h-[330px] lg:w-full h-[380px] shadow-xl rounded-xl cursor-pointer', className)} {...props} style={imageBG}>
+    <Card className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer', className)} {...props} style={imageBG}>
       <CardHeader>
         <CardTitle>Pathway</CardTitle>
         <CardDescription>May 30, 2023</CardDescription>

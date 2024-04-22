@@ -105,7 +105,7 @@ const CommandButton = () => {
   }
 
   const handleViewSource = () => {
-    window.open('https://github.com/PhMoraiis/Portfolio', '_blank')
+    window.open('https://github.com/PhMoraiis/philipemorais.tech', '_blank')
     handleCloseCommandBar()
   }
 
