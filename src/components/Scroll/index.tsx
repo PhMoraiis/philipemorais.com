@@ -16,7 +16,7 @@ const Scroll = () => {
         <Mouse size={30} />
       </motion.div>
       <h2 className='font-RelativeBk text-gray-400 mb-1 lg:text-lg animate-shine bg-[linear-gradient(110deg,#939393,45%,#1e2631,55%,#939393)] bg-[length:200%_100%] text-transparent bg-clip-text'>
-        Scroll page to see more
+      Role a página para ver mais
       </h2>
     </section>
   )

@@ -13,9 +13,12 @@ import {
   Code,
   Command,
   Copy,
+  Github,
   Home,
+  Instagram,
   Laptop,
   Lightbulb,
+  Linkedin,
   MailOpen,
   Moon,
   Pipette,
@@ -52,18 +55,27 @@ const CommandButton = () => {
         case 'v':
           handleViewSource()
           break
+        case 'g' && 'n':
+          handleGoLinkedin()
+          break
         case 'g' && 'h':
-          handleGoHome()
+          handleGoGithub()
           break
-        case 'g' && 'a':
-          handleGoAbout()
+        case 'g' && 'i':
+          handleGoInstagram()
           break
-        case 'g' && 'p':
-          handleGoProjects()
-          break
-        case 'g' && 'u':
-          handleGoUses()
-          break
+        // case 'g' && 'h':
+        //   handleGoHome()
+        //   break
+        // case 'g' && 'a':
+        //   handleGoAbout()
+        //   break
+        // case 'g' && 'p':
+        //   handleGoProjects()
+        //   break
+        // case 'g' && 'u':
+        //   handleGoUses()
+        //   break
         case 't' && 'l':
           handleLightTheme()
           break
@@ -100,8 +112,8 @@ const CommandButton = () => {
   }
 
   const handleSendEmail = () => {
-    router.push('/contact')
     handleCloseCommandBar()
+    window.open('mailto:philipe_m@icloud.com')
   }
 
   const handleViewSource = () => {
@@ -109,23 +121,38 @@ const CommandButton = () => {
     handleCloseCommandBar()
   }
 
-  const handleGoHome = () => {
-    router.push('/')
+  // const handleGoHome = () => {
+  //   router.push('/')
+  //   handleCloseCommandBar()
+  // }
+
+  // const handleGoAbout = () => {
+  //   router.push('/about')
+  //   handleCloseCommandBar()
+  // }
+
+  // const handleGoProjects = () => {
+  //   router.push('/projects')
+  //   handleCloseCommandBar()
+  // }
+
+  // const handleGoUses = () => {
+  //   router.push('/uses')
+  //   handleCloseCommandBar()
+  // }
+
+  const handleGoLinkedin = () => {
+    window.open('https://www.linkedin.com/in/ph-morais/', '_blank')
     handleCloseCommandBar()
   }
 
-  const handleGoAbout = () => {
-    router.push('/about')
+  const handleGoGithub = () => {
+    window.open('https://www.github.com/PhMoraiis', '_blank')
     handleCloseCommandBar()
   }
 
-  const handleGoProjects = () => {
-    router.push('/projects')
-    handleCloseCommandBar()
-  }
-
-  const handleGoUses = () => {
-    router.push('/uses')
+  const handleGoInstagram = () => {
+    window.open('https://www.instagram.com/philipemoraiis/', '_blank')
     handleCloseCommandBar()
   }
 
@@ -208,13 +235,13 @@ const CommandButton = () => {
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandList className='overflow font-Relative'>
-          <CommandGroup heading="GENERAL">
+          <CommandGroup heading="GERAL">
             <CommandItem>
               <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleCopyLink}>
                 <Magnetic>
                   <Copy className="mr-2 h-4 w-4" />
                 </Magnetic>
-                <span className='text-md hover:animate-text-shake'>Copy Link</span>
+                <span className='text-md hover:animate-text-shake'>Copiar Link</span>
               </Button>
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>C</CommandShortcut>
             </CommandItem>
@@ -223,7 +250,7 @@ const CommandButton = () => {
                 <Magnetic>
                   <MailOpen className="mr-2 h-4 w-4" />
                 </Magnetic>
-                <span className='text-md hover:animate-text-shake'>Send E-mail</span>
+                <span className='text-md hover:animate-text-shake'>Enviar E-mail</span>
               </Button>
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>E</CommandShortcut>
             </CommandItem>
@@ -232,13 +259,57 @@ const CommandButton = () => {
                 <Magnetic>
                   <Code className="mr-2 h-4 w-4" />
                 </Magnetic>
-                <span className='text-md hover:animate-text-shake'>View Source</span>
+                <span className='text-md hover:animate-text-shake'>Ver Código</span>
               </Button>
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>V</CommandShortcut>
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
-          <CommandGroup heading="GO TO">
+          <CommandGroup heading="REDES SOCIAIS">
+          <CommandItem className='flex justify-between'>
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleGoLinkedin}>
+                <div className='flex'>
+                  <Magnetic>
+                    <Linkedin className="mr-2 h-4 w-4" />
+                  </Magnetic>
+                  <span className='text-md hover:animate-text-shake'>LinkedIn</span>
+                </div>
+              </Button>
+              <div className='flex gap-1'>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>G</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>N</CommandShortcut>
+              </div>
+            </CommandItem>
+            <CommandItem className='flex justify-between'>
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleGoGithub}>
+                <div className='flex'>
+                  <Magnetic>
+                    <Github className="mr-2 h-4 w-4" />
+                  </Magnetic>
+                  <span className='text-md hover:animate-text-shake'>GitHub</span>
+                </div>
+              </Button>
+              <div className='flex gap-1'>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>G</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>H</CommandShortcut>
+              </div>
+            </CommandItem>
+            <CommandItem className='flex justify-between'>
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleGoInstagram}>
+                <div className='flex'>
+                  <Magnetic>
+                    <Instagram className="mr-2 h-4 w-4" />
+                  </Magnetic>
+                  <span className='text-md hover:animate-text-shake'>Instagram</span>
+                </div>
+              </Button>
+              <div className='flex gap-1'>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>G</CommandShortcut>
+                <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>I</CommandShortcut>
+              </div>
+            </CommandItem>
+          </CommandGroup>
+          {/* <CommandGroup heading="GO TO">
             <CommandItem className='flex justify-between'>
               <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleGoHome}>
                 <div className='flex'>
@@ -295,16 +366,16 @@ const CommandButton = () => {
                 <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>U</CommandShortcut>
               </div>
             </CommandItem>
-          </CommandGroup>
+          </CommandGroup> */}
           <CommandSeparator />
-          <CommandGroup heading="THEMES">
+          <CommandGroup heading="TEMAS">
             <CommandItem className='flex justify-between'>
               <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleLightTheme}>
                 <div className='flex'>
                   <Magnetic>
                     <Sun className="mr-2 h-4 w-4" />
                   </Magnetic>
-                  <span className='text-md hover:animate-text-shake'>Light</span>
+                  <span className='text-md hover:animate-text-shake'>Claro</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -318,7 +389,7 @@ const CommandButton = () => {
                   <Magnetic>
                     <Moon className="mr-2 h-4 w-4" />
                   </Magnetic>
-                  <span className='text-md hover:animate-text-shake'>Dark</span>
+                  <span className='text-md hover:animate-text-shake'>Escuro</span>
                 </div>
               </Button>
               <div className='flex gap-1'>
@@ -332,7 +403,7 @@ const CommandButton = () => {
                   <Magnetic>
                     <Pipette className="mr-2 h-4 w-4" />
                   </Magnetic>
-                  <span className='text-md hover:animate-text-shake'>System</span>
+                  <span className='text-md hover:animate-text-shake'>Sistema</span>
                 </div>
               </Button>
               <div className='flex gap-1'>

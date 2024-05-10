@@ -3,7 +3,6 @@ import Hero from '@/components/Hero'
 import Navbar from '@/components/Navbar'
 import Scroll from '@/components/Scroll'
 import SelectedWorks from '@/components/SelectedWorks'
-import Socials from '@/components/Socials'
 import Techs from '@/components/Techs'
 
 export default function Home() {
@@ -14,7 +13,6 @@ export default function Home() {
       <Techs />
       <Scroll />
       <SelectedWorks />
-      <Socials />
       <Footer />
     </main>
   )
