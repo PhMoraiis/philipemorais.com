@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { Badge } from '../ui/badge'
 import { ArrowRight } from 'lucide-react'
@@ -16,7 +15,7 @@ const SelectedWorks = () => {
           <h2 className='text-5xl font-bold flex items-center justify-center font-Relative'>Projetos selecionados</h2>
         </div>
         <div>
-          <Link href='/projects'>
+          <Link href='/soon'>
             <Badge variant="defaultPointer">Em Breve...<ArrowRight size={18} /></Badge>
           </Link>
         </div>
@@ -32,4 +31,4 @@ const SelectedWorks = () => {
   )
 }
 
-export default dynamic(() => Promise.resolve(SelectedWorks), { ssr: false })
+export default SelectedWorks

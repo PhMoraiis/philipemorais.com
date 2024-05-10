@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 import '@/app/globals.css'
 
 export const metadata: Metadata = {
-  title: 'Philipe Morais | Sobre mim.',
+  title: 'Philipe Morais | Em breve...',
   description: 'Desenvolvedor Front-End & UX/UI Designer, com foco em desenvolvimento de interfaces web criativas, acessíveis e performáticas.',
   icons: {
     icon: {

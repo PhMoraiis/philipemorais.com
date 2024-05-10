@@ -1,8 +1,7 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { CloudDrizzle, Code2, Database, Hexagon, Rocket } from 'lucide-react'
+import { CloudDrizzle, Database, Hexagon, Rocket } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import dynamic from 'next/dynamic'
 import { Badge } from '../ui/badge'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import { useState } from 'react'
@@ -24,7 +23,7 @@ const Works = ({ className, ...props }: CardProps) => {
 
 
   const imageBG = {
-    backgroundImage: `url(${isDark ? '/images/OnPholioDark.png' : '/images/OnPholioLight.png'})`,
+    backgroundImage: `url(${isDark ? '/images/OnPholioDark.webp' : '/images/OnPholioLight.webp'})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     border: 'none',
@@ -32,7 +31,7 @@ const Works = ({ className, ...props }: CardProps) => {
   }
 
   const mobileImageBG = {
-    backgroundImage: `url(${isDark ? '/images/OnPholioMobileDark.png' : '/images/OnPholioMobileLight.png'})`,
+    backgroundImage: `url(${isDark ? '/images/OnPholioMobileDark.webp' : '/images/OnPholioMobileLight.webp'})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     borderRadius: '0.75rem',
@@ -89,4 +88,4 @@ const Works = ({ className, ...props }: CardProps) => {
   )
 }
 
-export default dynamic(() => Promise.resolve(Works), { ssr: false })
+export default Works

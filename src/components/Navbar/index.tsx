@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import CommandButton from '../CommandButton'
 import { LogoBlack, LogoWhite } from '../Logos'
@@ -37,4 +36,4 @@ const Navbar = () => {
   )
 }
 
-export default dynamic(() => Promise.resolve(Navbar), { ssr: false })
+export default Navbar

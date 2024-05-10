@@ -18,19 +18,9 @@ const config = {
       },
     },
     fontFamily: {
-      Futura: ['Futura'],
-      FuturaBd: ['Futura Bold'],
-      FuturaBk: ['Futura Book'],
-      FuturaDemi: ['Futura Demi'],
-      FuturaExB: ['Futura ExtraBold'],
-      FuturaHv: ['Futura Heavy'],
-      FuturaLt: ['Futura Light'],
-      FuturaMd: ['Futura Medium'],
       Relative: ['Relative'],
       RelativeBd: ['Relative Bold'],
       RelativeBk: ['Relative Book'],
-      Visage: ['Visage'],
-      VisageBd: ['Visage Bold'],
     },
     extend: {
       colors: {

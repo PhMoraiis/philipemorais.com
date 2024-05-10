@@ -2,7 +2,6 @@
 import { cn } from '@/lib/utils'
 import { Atom, CloudDrizzle, Database, Hexagon } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import dynamic from 'next/dynamic'
 import { Badge } from '../ui/badge'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import { useState } from 'react'
@@ -24,7 +23,7 @@ const Works = ({ className, ...props }: CardProps) => {
 
 
   const imageBG = {
-    backgroundImage: `url(${isDark ? '/images/PathwayDark.png' : '/images/PathwayLight.png'})`,
+    backgroundImage: `url(${isDark ? '/images/PathwayDark.webp' : '/images/PathwayLight.webp'})`,
     backgroundSize: 'cover',
     backgroundPosition: '50% 73%',
     border: 'none',
@@ -32,7 +31,7 @@ const Works = ({ className, ...props }: CardProps) => {
   }
 
   const mobileImageBG = {
-    backgroundImage: `url(${isDark ? '/images/PathwayMobileDark.png' : '/images/PathwayMobileLight.png'})`,
+    backgroundImage: `url(${isDark ? '/images/PathwayMobileDark.webp' : '/images/PathwayMobileLight.webp'})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     borderRadius: '0.75rem',
@@ -89,4 +88,4 @@ const Works = ({ className, ...props }: CardProps) => {
   )
 }
 
-export default dynamic(() => Promise.resolve(Works), { ssr: false })
+export default Works

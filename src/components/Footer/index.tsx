@@ -3,12 +3,11 @@
 import { motion } from 'framer-motion'
 import { ArrowUp, CheckCircle, Copy, Github, Instagram, Linkedin } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import { toast } from 'sonner'
 import { LogoBlack, LogoWhite } from '../Logos'
 import Magnetic from '../Magnetic'
 import { Separator } from '../ui/separator'
-import { toast } from 'sonner'
 
 const Footer = () => {
   const { theme, resolvedTheme } = useTheme()
@@ -25,7 +24,12 @@ const Footer = () => {
     toast('Email copiado para área de transferência.', {
       icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
       description: 'Agora você pode falar comigo!',
-      duration: 2000
+      duration: 2000,
+      style: {
+        backgroundColor: '#111',
+        color: '#fff',
+        border: 'none'
+      }
     })
   }
 
@@ -96,7 +100,10 @@ const Footer = () => {
             </div>
           </div>
           <motion.div
-            transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
+            className='cursor-pointer'
+            animate={{ y: [0, -10, 0], transition: { duration: 2.5, repeat: Infinity, ease: 'easeIn' } }}
+            // quando passar o mouse por cima, a animação para
+            whileHover={{ y: 0, transition: { duration: 0.5 } }}
             onClick={handleScrollTop}
           >
             <ArrowUp size={48} />
@@ -112,4 +119,4 @@ const Footer = () => {
   )
 }
 
-export default dynamic(() => Promise.resolve(Footer), { ssr: false })
+export default Footer

@@ -1,7 +1,6 @@
 'use client'
 import { cn } from '@/lib/utils'
 import { Atom, Database, Hexagon, Pyramid } from 'lucide-react'
-import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { Badge } from '../ui/badge'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
@@ -19,7 +18,7 @@ const Works = ({ className, ...props }: CardProps) => {
   }
 
   const imageBG = {
-    backgroundImage: 'url(/images/Matcher.png)',
+    backgroundImage: 'url(/images/Matcher.webp)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     border: 'none',
@@ -27,7 +26,7 @@ const Works = ({ className, ...props }: CardProps) => {
   }
 
   const mobileImageBG = {
-    backgroundImage: 'url(/images/MatcherMobile.png)',
+    backgroundImage: 'url(/images/MatcherMobile.webp)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     borderRadius: '0.75rem',
@@ -86,4 +85,4 @@ const Works = ({ className, ...props }: CardProps) => {
   )
 }
 
-export default dynamic(() => Promise.resolve(Works), { ssr: false })
+export default Works
