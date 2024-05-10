@@ -1,6 +1,6 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { Atom, Database, Hexagon, Pyramid } from 'lucide-react'
+import { Atom, Framer } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { Badge } from '../ui/badge'
@@ -19,7 +19,7 @@ const Works = ({ className, ...props }: CardProps) => {
   }
 
   const imageBG = {
-    backgroundImage: 'url(/images/Matcher.png)',
+    backgroundImage: 'url(/images/Stellar.png)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     border: 'none',
@@ -27,34 +27,32 @@ const Works = ({ className, ...props }: CardProps) => {
   }
 
   const mobileImageBG = {
-    backgroundImage: 'url(/images/MatcherMobile.png)',
+    backgroundImage: 'url(/images/StellarMobile.png)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     borderRadius: '0.75rem',
     border: 'none'
   }
 
-  const handleGoMatcher = () => {
-    window.open('https://matchertft.vercel.app', '_blank')
+  const handleGoStellar = () => {
+    window.open('https://stellarti.tech', '_blank')
   }
 
   return (<>
     <Card className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG}
-      onClick={handleGoMatcher}
+      onClick={handleGoStellar}
     >
       <CardHeader>
-        <CardTitle className='text-secondary dark:text-primary'>Matcher</CardTitle>
-        <CardDescription className='text-secondary dark:text-primary'>De Gamers para Gamers, chaveamento de campeonatos para partidas de Teamfight Tactics.</CardDescription>
+        <CardTitle className='text-secondary dark:text-primary'>Stellar</CardTitle>
+        <CardDescription className='text-secondary dark:text-primary'>A empresa do futuro! Um site espetacular e criativo para autenticar a marca.</CardDescription>
       </CardHeader>
       <CardFooter className='gap-3'>
         <button className="inline-flex items-center rounded-full border px-3 py-1 gap-2 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
-          <div className={`rounded-full w-3 h-3 bg-[#DEFF1C] mr-2 ${isHover ? 'neonStop1' : 'neonStop2'} duration-300 ease-in-out`}></div>
-          Interrompido
+          <div className={`rounded-full w-3 h-3 bg-[#00eb4e] mr-2 ${isHover ? 'neon2' : 'neon'} duration-300 ease-in-out`}></div>
+          Online
         </button>
-        <Badge size="icon"><Atom className='text-[#61DAFB]' size={18} />React</Badge>
-        <Badge size="icon"><Hexagon color='#94C745' size={18} />NodeJS</Badge>
-        <Badge size="icon"><Pyramid color='#0B3B54' size={18} />Prisma</Badge>
-        <Badge size="icon"><Database color='#376696' size={18} />PostgreSQL</Badge>
+        <Badge size="icon"><Atom size={18} />NextJS</Badge>
+        <Badge size="icon"><Framer color='#F508AA' size={18} />Framer-Motion</Badge>
       </CardFooter>
     </Card>
     <Card
@@ -65,21 +63,19 @@ const Works = ({ className, ...props }: CardProps) => {
       )}
       style={mobileImageBG}
       {...props}
-      onClick={handleGoMatcher}
+      onClick={handleGoStellar}
     >
       <CardHeader>
-        <CardTitle className='text-secondary dark:text-primary'>Matcher</CardTitle>
-        <CardDescription className='text-secondary dark:text-primary'>De Gamers para Gamers, chaveamento de campeonatos para partidas de Teamfight Tactics.</CardDescription>
+        <CardTitle className='text-secondary dark:text-primary'>Stellar</CardTitle>
+        <CardDescription className='text-secondary dark:text-primary'>A empresa do futuro! Um site espetacular e criativo para autenticar a marca.</CardDescription>
       </CardHeader>
       <CardFooter className='gap-3 flex-wrap'>
         <button className="inline-flex items-center rounded-full border px-3 py-1 gap-2 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
-          <div className={`rounded-full w-3 h-3 bg-[#DEFF1C] mr-2 ${isHover ? 'neonStop1' : 'neonStop2'} duration-300 ease-in-out`}></div>
-          Interrompido
+          <div className={`rounded-full w-3 h-3 bg-[#00eb4e] mr-2 ${isHover ? 'neon2' : 'neon'} duration-300 ease-in-out`}></div>
+          Online
         </button>
-        <Badge size="icon"><Atom className='text-[#61DAFB]' size={18} />React</Badge>
-        <Badge size="icon"><Hexagon color='#94C745' size={18} />NodeJS</Badge>
-        <Badge size="icon"><Pyramid color='#0B3B54' size={18} />Prisma</Badge>
-        <Badge size="icon"><Database color='#376696' size={18} />PostgreSQL</Badge>
+        <Badge size="icon"><Atom size={18} />NextJS</Badge>
+        <Badge size="icon"><Framer color='#F508AA' size={18} />Framer-Motion</Badge>
       </CardFooter>
     </Card>
   </>

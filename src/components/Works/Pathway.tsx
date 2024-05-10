@@ -46,8 +46,8 @@ const Works = ({ className, ...props }: CardProps) => {
   return (<>
     <Card onClick={handleGoPathway} className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG}>
       <CardHeader>
-        <CardTitle className='text-black'>Pathway</CardTitle>
-        <CardDescription className='text-black'>App de monitoramento financeiro com definição de metas dinâmicas.</CardDescription>
+        <CardTitle className='text-black dark:text-primary'>Pathway</CardTitle>
+        <CardDescription className='text-black dark:text-primary'>App de monitoramento financeiro com definição de metas dinâmicas.</CardDescription>
       </CardHeader>
       <CardFooter className='gap-3'>
         <button className="inline-flex items-center rounded-full border px-3 py-1 gap-2 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
@@ -71,7 +71,7 @@ const Works = ({ className, ...props }: CardProps) => {
       onClick={handleGoPathway}
     >
       <CardHeader>
-        <CardTitle className='text-black'>Pathway</CardTitle>
+        <CardTitle className='text-black dark:text-primary'>Pathway</CardTitle>
         <CardDescription>App de monitoramento financeiro com definição de metas dinâmicas.</CardDescription>
       </CardHeader>
       <CardFooter className='gap-3 flex-wrap'>
