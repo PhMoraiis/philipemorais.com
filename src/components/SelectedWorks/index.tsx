@@ -25,7 +25,7 @@ const SelectedWorks = () => {
         <Stellar />
         <Onpholio />
         <Pathway />
-        <Nimbus />
+        {/* <Nimbus /> */}
         <Matcher />
       </div>
     </div>
