@@ -158,7 +158,7 @@ const CommandButton = () => {
 
   const handleLightTheme = () => {
     if (localStorage.getItem('theme') === 'light') {
-      toast('Clear theme is already selected!', {
+      toast('Tema claro já selecionado!', {
         icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
         duration: 2000
       })
@@ -168,9 +168,9 @@ const CommandButton = () => {
       setTheme('light')
       localStorage.setItem('theme', 'light')
       handleCloseCommandBar()
-      toast('Clear theme selected!', {
+      toast('Tema claro selecionado!', {
         icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
-        description: 'Watch your eyes...',
+        description: 'Cuidado com os olhos...',
         duration: 2000
       })
     }
@@ -178,9 +178,14 @@ const CommandButton = () => {
 
   const handleDarkTheme = () => {
     if (localStorage.getItem('theme') === 'dark') {
-      toast('Dark theme is already selected!', {
+      toast('Tema escuro já selecionado!', {
         icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
-        duration: 2000
+        duration: 2000,
+        style: {
+          backgroundColor: '#333',
+          color: '#fff',
+          border: 'none'
+        }
       })
       handleCloseCommandBar()
     }
@@ -188,19 +193,29 @@ const CommandButton = () => {
       setTheme('dark')
       localStorage.setItem('theme', 'dark')
       handleCloseCommandBar()
-      toast('Dark theme selected!', {
+      toast('Tema escuro selecionado!', {
         icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
-        description: 'Darkness is coming...',
-        duration: 2000
+        description: 'A escuridão está chegando...',
+        duration: 2000,
+        style: {
+          backgroundColor: '#333',
+          color: '#fff',
+          border: 'none'
+        }
       })
     }
   }
 
   const handleSystemTheme = () => {
     if (localStorage.getItem('theme') === 'system') {
-      toast('System theme is already selected!', {
+      toast('Tema do sistema já selecionado!', {
         icon: <Pipette className='mr-2 h-4 w-4 text-violet-500' />,
-        duration: 2000
+        duration: 2000,
+        style: {
+          backgroundColor: '#111',
+          color: '#fff',
+          border: 'none'
+        }
       })
       handleCloseCommandBar()
     }
@@ -208,10 +223,15 @@ const CommandButton = () => {
       setTheme('system')
       localStorage.setItem('theme', 'system')
       handleCloseCommandBar()
-      toast('System theme selected!', {
+      toast('Tema do sistema selecionado!', {
         icon: <Pipette className="mr-2 h-4 w-4 text-violet-500" />,
-        description: 'Let the system decide...',
-        duration: 2000
+        description: 'Deixe que ele decida...',
+        duration: 2000,
+        style: {
+          backgroundColor: '#111',
+          color: '#fff',
+          border: 'none'
+        }
       })
     }
   }

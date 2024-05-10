@@ -39,8 +39,12 @@ const Works = ({ className, ...props }: CardProps) => {
     border: 'none'
   }
 
+  const handleGoOnpholio = () => {
+    window.open('https://github.com/PhMoraiis/onpholio', '_blank')
+  }
+
   return (<>
-    <Card className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG}>
+    <Card onClick={handleGoOnpholio} className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG}>
       <CardHeader>
         <CardTitle className='text-primary'>OnPholio</CardTitle>
         <CardDescription className='text-primary'>Ferramenta criada para auxiliar no gerenciamento de textos e imagens para sites</CardDescription>
@@ -64,6 +68,7 @@ const Works = ({ className, ...props }: CardProps) => {
       )}
       style={mobileImageBG}
       {...props}
+      onClick={handleGoOnpholio}
     >
       <CardHeader>
         <CardTitle className='text-primary'>OnPholio</CardTitle>

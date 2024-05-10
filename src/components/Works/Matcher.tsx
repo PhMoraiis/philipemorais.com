@@ -1,10 +1,10 @@
 'use client'
 import { cn } from '@/lib/utils'
+import { Atom, Database, Hexagon, Pyramid } from 'lucide-react'
 import dynamic from 'next/dynamic'
+import { useState } from 'react'
 import { Badge } from '../ui/badge'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
-import { useState } from 'react'
-import { Atom, Database, Hexagon, Pyramid } from 'lucide-react'
 
 type CardProps = React.ComponentProps<typeof Card>
 
@@ -34,8 +34,14 @@ const Works = ({ className, ...props }: CardProps) => {
     border: 'none'
   }
 
+  const handleGoMatcher = () => {
+    window.open('https://matchertft.vercel.app', '_blank')
+  }
+
   return (<>
-    <Card className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG}>
+    <Card className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG}
+      onClick={handleGoMatcher}
+    >
       <CardHeader>
         <CardTitle className='text-secondary'>Matcher</CardTitle>
         <CardDescription className='text-secondary'>De Gamers para Gamers, chaveamento de campeonatos para partidas de Teamfight Tactics.</CardDescription>
@@ -59,6 +65,7 @@ const Works = ({ className, ...props }: CardProps) => {
       )}
       style={mobileImageBG}
       {...props}
+      onClick={handleGoMatcher}
     >
       <CardHeader>
         <CardTitle className='text-secondary dark:text-primary'>Matcher</CardTitle>

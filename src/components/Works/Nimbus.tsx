@@ -34,8 +34,12 @@ const Works = ({ className, ...props }: CardProps) => {
     border: 'none'
   }
 
+  const handleGoNimbus = () => {
+    window.open('https://github.com/PhMoraiis/Nimbus', '_blank')
+  }
+
   return (<>
-    <Card className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG}>
+    <Card onClick={handleGoNimbus} className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG}>
       <CardHeader>
         <CardTitle className='text-secondary'>Nimbus</CardTitle>
         <CardDescription className='text-secondary'>Uma plataforma completa de gestão de corretoras e seguradoras de planos.</CardDescription>
@@ -59,6 +63,7 @@ const Works = ({ className, ...props }: CardProps) => {
       )}
       style={mobileImageBG} 
       {...props}
+      onClick={handleGoNimbus}
     >
       <CardHeader>
         <CardTitle className='text-secondary dark:text-primary'>Nimbus</CardTitle>
