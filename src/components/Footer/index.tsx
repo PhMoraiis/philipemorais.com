@@ -22,9 +22,9 @@ const Footer = () => {
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText('philipe_m@icloud.com')
-    toast('Email copied to clipboard.', {
+    toast('Email copiado para área de transferência.', {
       icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
-      description: 'Now you can talk to me!',
+      description: 'Agora você pode falar comigo!',
       duration: 2000
     })
   }

@@ -74,7 +74,7 @@ const Works = ({ className, ...props }: CardProps) => {
       <CardFooter className='gap-3 flex-wrap'>
         <button className="inline-flex items-center rounded-full border px-3 py-1 gap-2 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
           <div className={`rounded-full w-3 h-3 bg-[#DEFF1C] mr-2 ${isHover ? 'neonStop1' : 'neonStop2'} duration-300 ease-in-out`}></div>
-          Em Desenvolvimento
+          Interrompido
         </button>
         <Badge size="icon"><Atom className='text-[#61DAFB]' size={18} />React</Badge>
         <Badge size="icon"><Hexagon color='#94C745' size={18} />NodeJS</Badge>
