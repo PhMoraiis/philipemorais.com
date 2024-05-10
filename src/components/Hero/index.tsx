@@ -1,15 +1,13 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 const Hero = () => {
-  const router = useRouter()
   const [isHover, setIsHover] = useState(false)
 
   const handleContact = () => {
-    router.push('/contact')
+    window.open('mailto:philipe_m@icloud.com')
   }
 
   const handleMouseEnter = () => {
