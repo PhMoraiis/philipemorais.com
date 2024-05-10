@@ -1,9 +1,29 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
   images: {
-    domains: ['i.ibb.co'],
-  },
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'pics.craiyon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.algoexpert.io',
+      }
+    ]
+  }
 }
 
 module.exports = nextConfig

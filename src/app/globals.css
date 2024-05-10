@@ -1,0 +1,230 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 96%; /* #f6f6f6 */
+    --foreground: 0 0% 20%; /* #333333 */
+
+    --card: 0 0% 96%;
+    --card-foreground: 0 0% 20%;
+
+    --popover: 0 0% 96%;
+    --popover-foreground: 0 0% 20%;
+
+    --primary: 220.9 39.3% 11%;
+    --primary-foreground: 0 0% 96%;
+
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 0 0% 90%; /*#e7e7e7 */
+
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+
+    --accent: 0 0% 82%;
+    --accent-foreground: 220.9 39.3% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 96%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 0 0% 20%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: #0a0a0a; /* #333333 */
+    --foreground: 0 0% 96%; /* #f6f6f6 */
+
+    --card: 0 0% 20%; /* #333333 */
+    --card-foreground: 0 0% 96%; /* #f6f6f6 */
+
+    --popover: 0 0% 20%; /* #333333 */
+    --popover-foreground: 0 0% 96%; /* #f6f6f6 */
+
+    --primary: 0 0% 96%; /* #f6f6f6 */
+    --primary-foreground: 220.9 39.3% 11%;
+
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 30%; /* #262626 */
+
+    --muted: 0 0% 10%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+
+    --accent: 0 0% 10%;
+    --accent-foreground: 0 0% 96%; /* #f6f6f6 */
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 96%; /* #f6f6f6 */
+
+    --border: 0 0% 30%;
+    --input: 0 0% 10%;
+    --ring: 216 12.2% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@font-face {
+  font-family: "Futura";
+  src: url("/fonts/Futura/FuturaBook.ttf");
+}
+
+@font-face {
+  font-family: "Futura Bold";
+  src: url("/fonts/Futura/FuturaBold.ttf");
+}
+
+@font-face {
+  font-family: "Futura Book";
+  src: url("/fonts/Futura/FuturaBook.ttf");
+}
+
+@font-face {
+  font-family: "Futura Demi";
+  src: url("/fonts/Futura/FuturaDemi.ttf");
+}
+
+@font-face {
+  font-family: "Futura ExtraBold";
+  src: url("/fonts/Futura/FuturaExtraBold.ttf");
+}
+
+@font-face {
+  font-family: "Futura Heavy";
+  src: url("/fonts/Futura/FuturaHeavy.ttf");
+}
+
+@font-face {
+  font-family: "Futura Light";
+  src: url("/fonts/Futura/FuturaLight.ttf");
+}
+
+@font-face {
+  font-family: "Futura Medium";
+  src: url("/fonts/Futura/FuturaMedium.ttf");
+}
+
+@font-face {
+  font-family: "Relative";
+  src: url("/fonts/Relative/Relative-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Relative Bold";
+  src: url("/fonts/Relative/Relative-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Relative Book";
+  src: url("/fonts/Relative/Relative-Book.ttf");
+}
+
+@font-face {
+  font-family: "Visage";
+  src: url("/fonts/Visage/VisageRegular.otf");
+}
+
+@font-face {
+  font-family: "Visage Bold";
+  src: url("/fonts/Visage/VisageBold.otf");
+}
+
+.overflow::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+
+.neon {
+  opacity: 1;
+  border-radius: 100%;
+  box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 0px 0px inset,
+    rgba(0, 255, 87, 0.25) 0px 0px 8px 4px;
+}
+
+.neon2 {
+  box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 0px 0px inset,
+    rgba(0, 255, 87, 0.25) 0px 0px 16px 8px;
+}
+
+
+.neonDev1 {
+  opacity: 1;
+  border-radius: 100%;
+  box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 0px 0px inset,
+  #1d48e140 0px 0px 8px 4px;
+}
+
+.neonDev2 {
+  box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 0px 0px inset,
+    #1d48e140 0px 0px 16px 8px;
+}
+
+.neonStop1 {
+  opacity: 1;
+  border-radius: 100%;
+  box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 0px 0px inset,
+  #b2bd1240 0px 0px 8px 4px;
+}
+
+.neonStop2 {
+  box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 0px 0px inset,
+    #b2bd1240 0px 0px 16px 8px;
+}
+
+.blink-cursor {
+  animation: BlinkCursor 1.5s steps(2) infinite;
+}
+
+@keyframes BlinkCursor {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.glass {
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+}
+
+.glass2 {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(13px);
+  -webkit-backdrop-filter: blur(13px);
+  border-radius: 10px;
+}
+
+.mask {
+  user-select: none;
+
+  mask-image: linear-gradient(
+    to right,
+    hsl(0 0% 0% / 0),
+    hsl(0 0% 0% / 1) 10%,
+    hsl(0 0% 0% / 1) 90%,
+    hsl(0 0% 0% / 0)
+  );
+}
+
+@keyframes scrollX {
+  from {
+    left: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
