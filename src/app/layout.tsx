@@ -1,5 +1,6 @@
 import Providers from '@/components/ThemeProvider/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Metadata } from 'next'
 import './globals.css'
 
@@ -22,7 +23,10 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body className='dark:bg-neutral-dark-background bg-neutral-light-background'>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <SpeedInsights />
+        </Providers>
         <Toaster />
       </body>
     </html>
