@@ -41,8 +41,8 @@ const Works = ({ className, ...props }: CardProps) => {
   return (<>
     <Card onClick={handleGoNimbus} className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG}>
       <CardHeader>
-        <CardTitle className='text-secondary'>Nimbus</CardTitle>
-        <CardDescription className='text-secondary'>Uma plataforma completa de gestão de corretoras e seguradoras de planos.</CardDescription>
+        <CardTitle className='text-secondary dark:text-primary'>Nimbus</CardTitle>
+        <CardDescription className='text-secondary dark:text-primary'>Uma plataforma completa de gestão de corretoras e seguradoras de planos.</CardDescription>
       </CardHeader>
       <CardFooter className='gap-3'>
         <button className="inline-flex items-center rounded-full border px-3 py-1 gap-2 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>

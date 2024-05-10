@@ -46,8 +46,8 @@ const Works = ({ className, ...props }: CardProps) => {
   return (<>
     <Card onClick={handleGoOnpholio} className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG}>
       <CardHeader>
-        <CardTitle className='text-black'>OnPholio</CardTitle>
-        <CardDescription>Ferramenta criada para auxiliar no gerenciamento de textos e imagens para sites</CardDescription>
+        <CardTitle className='text-black dark:text-primary'>OnPholio</CardTitle>
+        <CardDescription className='text-black dark:text-primary'>Ferramenta criada para auxiliar no gerenciamento de textos e imagens para sites</CardDescription>
       </CardHeader>
       <CardFooter className='gap-3'>
         <button className="inline-flex items-center rounded-full border px-3 py-1 gap-2 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
@@ -71,7 +71,7 @@ const Works = ({ className, ...props }: CardProps) => {
       onClick={handleGoOnpholio}
     >
       <CardHeader>
-        <CardTitle className='text-black'>OnPholio</CardTitle>
+        <CardTitle className='text-black dark:text-primary'>OnPholio</CardTitle>
         <CardDescription>Ferramenta criada para auxiliar no gerenciamento de textos e imagens para sites</CardDescription>
       </CardHeader>
       <CardFooter className='gap-3 flex-wrap'>

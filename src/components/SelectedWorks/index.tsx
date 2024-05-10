@@ -6,6 +6,7 @@ import Matcher from '../Works/Matcher'
 import Onpholio from '../Works/Onpholio'
 import Nimbus from '../Works/Nimbus'
 import Pathway from '../Works/Pathway'
+import Stellar from '../Works/Stellar'
 
 const SelectedWorks = () => {
   return (
@@ -21,6 +22,7 @@ const SelectedWorks = () => {
         </div>
       </div>
       <div className='grid grid-cols-1 space-y-6 md:gap-6 md:items-center md:justify-center md:place-items-center md:space-y-0 lg:gap-y-10'>
+        <Stellar />
         <Onpholio />
         <Pathway />
         <Nimbus />
