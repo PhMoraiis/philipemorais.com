@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { Mouse } from 'lucide-react'
-import dynamic from 'next/dynamic'
 
 const Scroll = () => {
 
@@ -22,4 +21,4 @@ const Scroll = () => {
   )
 }
 
-export default dynamic(() => Promise.resolve(Scroll), { ssr: false })
+export default Scroll

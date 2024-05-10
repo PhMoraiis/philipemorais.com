@@ -1,6 +1,5 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import { useState } from 'react'
 
 const Hero = () => {
@@ -53,4 +52,4 @@ const Hero = () => {
   )
 }
 
-export default dynamic(() => Promise.resolve(Hero), { ssr: false })
+export default Hero

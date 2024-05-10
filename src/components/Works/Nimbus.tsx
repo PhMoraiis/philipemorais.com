@@ -1,6 +1,5 @@
 'use client'
 import { cn } from '@/lib/utils'
-import dynamic from 'next/dynamic'
 import { Badge } from '../ui/badge'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import { useState } from 'react'
@@ -19,7 +18,7 @@ const Works = ({ className, ...props }: CardProps) => {
   }
 
   const imageBG = {
-    backgroundImage: 'url(/images/Nimbus.png)',
+    backgroundImage: 'url(/images/Nimbus.webp)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     border: 'none',
@@ -27,7 +26,7 @@ const Works = ({ className, ...props }: CardProps) => {
   }
 
   const mobileImageBG = {
-    backgroundImage: 'url(/images/NimbusMobile.png)',
+    backgroundImage: 'url(/images/NimbusMobile.webp)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     borderRadius: '0.75rem',
@@ -84,4 +83,4 @@ const Works = ({ className, ...props }: CardProps) => {
   )
 }
 
-export default dynamic(() => Promise.resolve(Works), { ssr: false })
+export default Works

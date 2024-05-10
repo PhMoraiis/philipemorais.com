@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
-import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -97,4 +96,4 @@ const Techs = () => {
   )
 }
 
-export default dynamic(() => Promise.resolve(Techs), { ssr: false })
+export default Techs

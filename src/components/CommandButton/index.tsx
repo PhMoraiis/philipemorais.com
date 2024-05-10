@@ -2,22 +2,17 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import dynamic from 'next/dynamic'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 
 import { motion } from 'framer-motion'
 import {
   CheckCircle,
-  CircleUser,
   Code,
   Command,
   Copy,
   Github,
-  Home,
   Instagram,
-  Laptop,
-  Lightbulb,
   Linkedin,
   MailOpen,
   Moon,
@@ -102,9 +97,9 @@ const CommandButton = () => {
     navigator.clipboard.writeText(`philipemorais.tech${pathname}`)
       .then(() => {
         handleCloseCommandBar()
-        toast('Link copied to clipboard.', {
+        toast('Link copiado para a área de transferência.', {
           icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
-          description: 'Now you can share!',
+          description: 'Agora você pode compartilhar!',
           duration: 2000
         })
       })
@@ -438,5 +433,5 @@ const CommandButton = () => {
   )
 }
 
-export default dynamic(() => Promise.resolve(CommandButton), { ssr: false })
+export default CommandButton
 
