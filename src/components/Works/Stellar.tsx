@@ -34,7 +34,7 @@ const Works = ({ className, ...props }: CardProps) => {
   }
 
   const handleGoStellar = () => {
-    window.open('https://stellarti.tech', '_blank')
+    window.open('https://stellarbr.tech', '_blank')
   }
 
   return (<>
