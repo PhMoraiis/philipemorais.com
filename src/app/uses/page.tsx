@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar'
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 
-export default function Soon() {
+export default function Uses() {
   return (
     <main className="container mx-auto max-w-lg md:max-w-2xl lg:max-w-6xl">
       <Navbar />

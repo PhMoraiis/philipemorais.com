@@ -2,10 +2,10 @@
 
 import { motion } from 'framer-motion'
 import { Github, Instagram, Linkedin, Mail } from 'lucide-react'
+import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
-import { useTheme } from 'next-themes'
 
 const Hero = () => {
   const [isHover, setIsHover] = useState(false)
@@ -23,9 +23,16 @@ const Hero = () => {
     rotate: theme === 'dark' || resolvedTheme === 'dark' ? -360 : -720,
   }
 
+  // Objeto contendo os dados dos links
+  const socialLinks = [
+    { href: 'https://www.linkedin.com/in/ph-morais', icon: <Linkedin size={24} /> },
+    { href: 'https://www.github.com/PhMoraiis', icon: <Github size={24} /> },
+    { href: 'https://www.instagram.com/philipemoraiis', icon: <Instagram size={24} /> },
+    { href: 'mailto:philipe_m@icloud.com', icon: <Mail size={24} /> },
+  ]
+
   return (
-    <section
-      className='bg-white dark:bg-[#111110] rounded-xl p-10 shadow-sm'>
+    <section className='bg-white dark:bg-[#111110] rounded-xl p-10 shadow-sm'>
       <div className="mt-20 md:flex md:items-end md:justify-between lg:flex lg:items-end lg:justify-between">
         <div className="flex flex-col items-start gap-4 md:gap-6 md:max-w-sm lg:gap-6 lg:max-w-lg">
           <div className="max-w-xs lg:max-w-md">
@@ -49,56 +56,25 @@ const Hero = () => {
                 </DialogDescription>
               </DialogHeader>
               <ul className='flex items-center justify-center gap-4'>
-                <li>
-                  <Link href="https://www.linkedin.com/in/ph-morais" target='_blank'>
-                    <motion.button
-                      className="border border-input bg-background dark:border-border rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative"
-                      whileHover={{ scale: 1.2 }}
-                      transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
-                      animate={logoRotation}>
-                      <Linkedin size={24} />
-                    </motion.button>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="https://www.github.com/PhMoraiis" target='_blank'>
-                    <motion.button
-                      className="border border-input bg-background dark:border-border rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative"
-                      whileHover={{ scale: 1.2 }}
-                      transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
-                      animate={logoRotation}>
-                      <Github size={24} />
-                    </motion.button>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="https://www.instagram.com/philipemoraiis" target='_blank'>
-                    <motion.button
-                      className="border border-input bg-background dark:border-border rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative"
-                      whileHover={{ scale: 1.2 }}
-                      transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
-                      animate={logoRotation}>
-                      <Instagram size={24} />
-                    </motion.button>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="mailto:philipe_m@icloud.com?" target='_blank'>
-                    <motion.button
-                      className="border border-input bg-background dark:border-border rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative"
-                      whileHover={{ scale: 1.2 }}
-                      transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
-                      animate={logoRotation}>
-                      <Mail size={24} />
-                    </motion.button>
-                  </Link>
-                </li>
+                {socialLinks.map((link, index) => (
+                  <li key={index}>
+                    <Link href={link.href} target='_blank'>
+                      <motion.button
+                        className="border border-primary bg-transparent dark:border-gray-400 rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative"
+                        whileHover={{ scale: 1.2 }}
+                        transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
+                        animate={logoRotation}>
+                        {link.icon}
+                      </motion.button>
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </DialogContent>
           </Dialog>
         </div>
       </div>
-    </section >
+    </section>
   )
 }
 
