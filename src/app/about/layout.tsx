@@ -4,7 +4,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Philipe Morais | Em breve...',
+  title: 'Philipe Morais | Sobre mim',
   description: 'Desenvolvedor Front-End & UX/UI Designer, com foco em desenvolvimento de interfaces web criativas, acessíveis e performáticas.',
   icons: {
     icon: {
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function SoonLayout({
+export default function AboutLayout({
   children,
 }: {
   children: React.ReactNode
