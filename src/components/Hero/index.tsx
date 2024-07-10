@@ -1,13 +1,15 @@
 'use client'
 
+import { motion } from 'framer-motion'
+import { Github, Instagram, Linkedin, Mail } from 'lucide-react'
+import Link from 'next/link'
 import { useState } from 'react'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
+import { useTheme } from 'next-themes'
 
 const Hero = () => {
   const [isHover, setIsHover] = useState(false)
-
-  const handleContact = () => {
-    window.open('mailto:philipe_m@icloud.com')
-  }
+  const { theme, resolvedTheme } = useTheme()
 
   const handleMouseEnter = () => {
     setIsHover(true)
@@ -17,20 +19,13 @@ const Hero = () => {
     setIsHover(false)
   }
 
-  // const mouseX = useMotionValue(0)
-  // const mouseY = useMotionValue(0)
-  // const backgroundDark = useMotionTemplate`radial-gradient(200px circle at ${mouseX}px ${mouseY}px, rgba(38, 38, 38, 0.4), transparent 80%)`
+  const logoRotation = {
+    rotate: theme === 'dark' || resolvedTheme === 'dark' ? -360 : -720,
+  }
 
   return (
     <section
-      className='bg-white dark:bg-[#111110] rounded-xl p-10 shadow-sm'
-      /* onMouseMove={(e) => {
-        const { left, top } = e.currentTarget.getBoundingClientRect()
-
-        mouseX.set(e.clientX - left)
-        mouseY.set(e.clientY - top)
-      }}
-      style={{ background: theme === 'dark' || resolvedTheme === 'dark' ? backgroundDark : '' }}> */>
+      className='bg-white dark:bg-[#111110] rounded-xl p-10 shadow-sm'>
       <div className="mt-20 md:flex md:items-end md:justify-between lg:flex lg:items-end lg:justify-between">
         <div className="flex flex-col items-start gap-4 md:gap-6 md:max-w-sm lg:gap-6 lg:max-w-lg">
           <div className="max-w-xs lg:max-w-md">
@@ -39,13 +34,68 @@ const Hero = () => {
           </div>
           <p className="max-w-md font-RelativeBk lg:max-w-lg lg:text-lg">Criador de soluções inovadoras, criativas e centradas no usuário. Acredito que a tecnologia pode melhorar vidas e inspirar pessoas.</p>
         </div>
-        <div
-          className="flex flex-col items-start my-12 md:m-0 lg:m-0">
-          <span className="font-RelativeBk text-gray-400 mb-1 lg:text-lg animate-shine bg-[linear-gradient(110deg,#939393,45%,#1e2631,55%,#939393)] bg-[length:200%_100%] text-transparent bg-clip-text">Disponível para trabalho:</span>
-          <button className="border border-input bg-background rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative" onClick={handleContact} onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
-            <div className={`rounded-full w-3 h-3 bg-[#00eb4e] mr-2 ${isHover ? 'neon2' : 'neon'} duration-300 ease-in-out`}></div>
-            Contato
-          </button>
+        <div className='flex flex-col items-start my-12 md:m-0 lg:m-0'>
+          <Dialog>
+            <span className="font-RelativeBk text-gray-400 mb-1 lg:text-lg animate-shine bg-[linear-gradient(110deg,#939393,45%,#1e2631,55%,#939393)] bg-[length:200%_100%] text-transparent bg-clip-text">Disponível para trabalho:</span>
+            <DialogTrigger className="border border-input bg-background rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
+              <div className={`rounded-full w-3 h-3 bg-[#00eb4e] mr-2 ${isHover ? 'neon2' : 'neon'} duration-300 ease-in-out`}></div>
+              Contato
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Opções de contato</DialogTitle>
+                <DialogDescription>
+                  Selecione uma opção de contato e você será redirecionado para falar comigo!
+                </DialogDescription>
+              </DialogHeader>
+              <ul className='flex items-center justify-center gap-4'>
+                <li>
+                  <Link href="https://www.linkedin.com/in/ph-morais" target='_blank'>
+                    <motion.button
+                      className="border border-input bg-background dark:border-border rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative"
+                      whileHover={{ scale: 1.2 }}
+                      transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
+                      animate={logoRotation}>
+                      <Linkedin size={24} />
+                    </motion.button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="https://www.github.com/PhMoraiis" target='_blank'>
+                    <motion.button
+                      className="border border-input bg-background dark:border-border rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative"
+                      whileHover={{ scale: 1.2 }}
+                      transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
+                      animate={logoRotation}>
+                      <Github size={24} />
+                    </motion.button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="https://www.instagram.com/philipemoraiis" target='_blank'>
+                    <motion.button
+                      className="border border-input bg-background dark:border-border rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative"
+                      whileHover={{ scale: 1.2 }}
+                      transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
+                      animate={logoRotation}>
+                      <Instagram size={24} />
+                    </motion.button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="mailto:philipe_m@icloud.com?" target='_blank'>
+                    <motion.button
+                      className="border border-input bg-background dark:border-border rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative"
+                      whileHover={{ scale: 1.2 }}
+                      transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
+                      animate={logoRotation}>
+                      <Mail size={24} />
+                    </motion.button>
+                  </Link>
+                </li>
+              </ul>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </section >
