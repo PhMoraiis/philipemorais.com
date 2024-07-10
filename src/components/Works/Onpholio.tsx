@@ -1,6 +1,6 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { CloudDrizzle, Database, Hexagon, Rocket } from 'lucide-react'
+import { Atom, CloudDrizzle, Database, Hexagon, Rocket } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { Badge } from '../ui/badge'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
@@ -53,7 +53,7 @@ const Works = ({ className, ...props }: CardProps) => {
           <div className={`rounded-full w-3 h-3 bg-[#4D4DFF] mr-2 ${isHover ? 'neonDev1' : 'neonDev2'} duration-300 ease-in-out`}></div>
           Em Desenvolvimento
         </button>
-        <Badge size="icon"><Rocket color='#FF6208' size={18} />Astro</Badge>
+        <Badge size="icon"><Atom size={18} />NextJS</Badge>
         <Badge size="icon"><Hexagon color='#94C745' size={18} />NodeJS</Badge>
         <Badge size="icon"><CloudDrizzle color='#C7F755' size={18} />Drizzle</Badge>
         <Badge size="icon"><Database color='#376696' size={18} />PostgreSQL</Badge>
