@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface IImageRowProps {
   images: { url: string, name: string }[]
@@ -14,6 +14,11 @@ interface IImageRowProps {
 
 // Componente reutilizável para renderizar uma linha de imagens
 const ImageRow = ({ images, isPaused, handleMouseEnter, handleMouseLeave }: IImageRowProps) => {
+
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  if (!mounted) return null
+
   return (
     <div
       className={`flex flex-shrink-0 whitespace-normal justify-around items-center animate-scrollX ${isPaused ? 'paused' : ''}`}

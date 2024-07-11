@@ -6,6 +6,7 @@ import Link from 'next/link'
 import CommandButton from '../CommandButton'
 import { LogoBlack, LogoWhite } from '../Logos'
 import Magnetic from '../Magnetic'
+import { useEffect, useState } from 'react'
 
 
 const Navbar = () => {
@@ -14,6 +15,10 @@ const Navbar = () => {
   const logoRotation = {
     rotate: theme === 'dark' || resolvedTheme === 'dark' ? -360 : -720,
   }
+
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  if (!mounted) return null
 
   return (
     <header>
