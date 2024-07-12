@@ -3,7 +3,7 @@
 
 import { useTheme } from 'next-themes'
 import { usePathname, useRouter } from 'next/navigation'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { motion } from 'framer-motion'
 import {
@@ -240,6 +240,10 @@ const CommandButton = () => {
     setOpen(false)
   }
 
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  if (!mounted) return null
+
   return (
     <motion.div
       whileHover={{ scale: 1.2 }}
@@ -281,7 +285,7 @@ const CommandButton = () => {
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading="REDES SOCIAIS">
-          <CommandItem className='flex justify-between'>
+            <CommandItem className='flex justify-between'>
               <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleGoLinkedin}>
                 <div className='flex'>
                   <Magnetic>

@@ -1,6 +1,6 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { Atom, CloudDrizzle, Database, Hexagon, Rocket } from 'lucide-react'
+import { Atom, CloudDrizzle, Database, Hexagon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { Badge } from '../ui/badge'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'

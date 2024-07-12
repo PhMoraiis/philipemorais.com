@@ -8,6 +8,7 @@ import { toast } from 'sonner'
 import { LogoBlack, LogoWhite } from '../Logos'
 import Magnetic from '../Magnetic'
 import { Separator } from '../ui/separator'
+import { useEffect, useState } from 'react'
 
 const Footer = () => {
   const { theme, resolvedTheme } = useTheme()
@@ -36,6 +37,10 @@ const Footer = () => {
   const logoRotation = {
     rotate: theme === 'dark' || resolvedTheme === 'dark' ? -360 : -720,
   }
+
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  if (!mounted) return null
 
   return (
     <section className='mt-12 bg-white dark:bg-[#111110] rounded-xl p-10 shadow-sm mb-6'>

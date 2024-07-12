@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Github, Instagram, Linkedin, Mail } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
 
 const Hero = () => {
@@ -30,6 +30,10 @@ const Hero = () => {
     { href: 'https://www.instagram.com/philipemoraiis', icon: <Instagram size={24} /> },
     { href: 'mailto:philipe_m@icloud.com', icon: <Mail size={24} /> },
   ]
+
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  if (!mounted) return null
 
   return (
     <section className='bg-white dark:bg-[#111110] rounded-xl p-10 shadow-sm'>
