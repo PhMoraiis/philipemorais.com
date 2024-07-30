@@ -1,0 +1,72 @@
+{
+  "Hero": {
+    "title": "Eu sou Philipe",
+    "paragraph": "Criador de soluções inovadoras, criativas e centradas no usuário. Acredito que a tecnologia pode melhorar vidas e inspirar pessoas.",
+    "cta": "Disponivel para trabalho:",
+    "buttonText": "Contato",
+    "dialogTitle": "Opções de contato",
+    "dialogDescription": "Selecione uma opção de contato e você será redirecionado para falar comigo!"
+  },
+  "Scroll": {
+    "title": "Role a página para ver mais"
+  },
+  "Projects": {
+    "title": "Projetos Selecionados",
+    "StellarDescription": "A empresa do futuro! Um site espetacular e criativo para autenticar a marca.",
+    "StellarStatus": "Online",
+    "OnPholioDescription": "Ferramenta criada para auxiliar no gerenciamento de textos e imagens para sites.",
+    "OnPholioStatus": "Em Desenvolvimento",
+    "PathwayDescription": "App de monitoramento financeiro com definição de metas dinâmicas.",
+    "PathwayStatus": "Em Desenvolvimento",
+    "NimbusDescription": "Uma plataforma completa de gestão de corretoras e seguradoras de planos.",
+    "NimbusStatus": "Em Desenvolvimento",
+    "MatcherDescription": "De Gamers para Gamers, chaveamento de campeonatos para partidas de Teamfight Tactics.",
+    "MatcherStatus": "Interrompido",
+    "buttonSoon": "Em Breve..."
+  },
+  "Footer": {
+    "title": "Fale Comigo!",
+    "paragraph": "Se você quiser conversar sobre um projeto, envie-me um e-mail e retornarei em breve.",
+    "rights": "Todos os direitos reservados",
+    "toast": "Email copiado para área de transferência.",
+    "toastDescription": "Agora você pode falar comigo!"
+  },
+  "CommandBar": {
+    "CommandGroup1": "GERAL",
+    "CommandGroup2": "REDES SOCIAIS",
+    "CommandGroup3": "VÁ PARA",
+    "CommandGroup4": "TEMAS",
+    "CommandGroup5": "IDIOMAS",
+    "buttonLink": "Copiar Link",
+    "buttonEmail": "Enviar E-mail",
+    "buttonSource": "Ver Código",
+    "buttonAbout": "Sobre",
+    "buttonProjects": "Projetos",
+    "buttonSetup": "Setup",
+    "buttonLightTheme": "Claro",
+    "buttonDarkTheme": "Escuro",
+    "buttonUSA": "Inglês",
+    "buttonBR": "Português"
+  },
+  "Toasts": {
+    "toastCopy": "Link copiado para a área de transferência!",
+    "toastCopyDescription": "Agora você pode compartilhar!",
+    "toastThemeLightAlreadySelected": "Tema claro já selecionado!",
+    "toastThemeLightSelected": "Tema claro selecionado!",
+    "toastThemeLightDescription": "Cuidado com os olhos...",
+    "toastThemeDarkAlreadySelected": "Tema escuro já selecionado!",
+    "toastThemeDarkSelected": "Tema escuro selecionado!",
+    "toastThemeDarkDescription": "A escuridão está chegando...",
+    "toastLanguage": "Language changed!"
+  },
+  "Soon": {
+    "title": "Disponivel em Breve...",
+    "paragraph": "Desculpe, a página que está procurando está em construção.",
+    "buttonTitle": "Voltar"
+  },
+  "NotFound": {
+    "title": "Página não Encontrada...",
+    "paragraph": "Desculpe, a página que está procurando não existe.",
+    "buttonTitle": "Voltar"
+  }
+}

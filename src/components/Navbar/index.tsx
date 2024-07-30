@@ -3,10 +3,10 @@
 import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import CommandButton from '../CommandButton'
 import { LogoBlack, LogoWhite } from '../Logos'
 import Magnetic from '../Magnetic'
-import { useEffect, useState } from 'react'
 
 
 const Navbar = () => {

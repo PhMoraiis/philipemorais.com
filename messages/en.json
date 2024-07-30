@@ -1,0 +1,72 @@
+{
+  "Hero": {
+    "title": "I'm Philipe",
+    "paragraph": "Creator of innovative, creative and user-centric solutions. I believe that technology can improve lives and inspire people.",
+    "cta": "Available for work:",
+    "buttonText": "Contact",
+    "dialogTitle": "Contact options",
+    "dialogDescription": "Select a contact option and you will be redirected to talk to me!"
+  },
+  "Scroll": {
+    "title": "Scroll down to see more"
+  },
+  "Projects": {
+    "title": "Selected Projects",
+    "StellarDescription": "The company of the future! A spectacular and creative website to authenticate your brand.",
+    "StellarStatus": "Online",
+    "OnPholioDescription": "Tool created to help manage texts and images for websites.",
+    "OnPholioStatus": "Under development",
+    "PathwayDescription": "Financial monitoring app with dynamic goal setting.",
+    "PathwayStatus": "Under development",
+    "NimbusDescription": "A complete management platform for insurance brokers and plans.",
+    "NimbusStatus": "Under development",
+    "MatcherDescription": "From Gamers to Gamers, championship brackets for Teamfight Tactics matches.",
+    "MatcherStatus": "Interrupted",
+    "buttonSoon": "Coming Soon..."
+  },
+  "Footer": {
+    "title": "Talk to me!",
+    "paragraph": "If you would like to discuss a project, please email me and I will get back to you shortly.",
+    "rights": "All rights reserved",
+    "toast": "Email copied to clipboard.",
+    "toastDescription": "Now you can talk to me!"
+  },
+  "CommandBar": {
+    "CommandGroup1": "GENERAL",
+    "CommandGroup2": "SOCIAL MEDIA",
+    "CommandGroup3": "GO TO",
+    "CommandGroup4": "THEMES",
+    "CommandGroup5": "LANGUAGES",
+    "buttonLink": "Copy Link",
+    "buttonEmail": "Send E-mail",
+    "buttonSource": "View Source",
+    "buttonAbout": "About",
+    "buttonProjects": "Projects",
+    "buttonSetup": "Setup",
+    "buttonLightTheme": "Light",
+    "buttonDarkTheme": "Dark",
+    "buttonUSA": "English",
+    "buttonBR": "Portuguese"
+  },
+  "Toasts": {
+    "toastCopy": "Link copied to clipboard.",
+    "toastCopyDescription": "Now you can share!",
+    "toastThemeLightAlreadySelected": "Clear theme is already selected!",
+    "toastThemeLightSelected": "Clear theme selected!",
+    "toastThemeLightDescription": "Watch your eyes...",
+    "toastThemeDarkAlreadySelected": "Dark theme is already selected!",
+    "toastThemeDarkSelected": "Dark theme selected!",
+    "toastThemeDarkDescription": "Darkness is coming...",
+    "toastLanguage": "Idioma alterado!"
+  },
+  "Soon": {
+    "title": "Available Soon...",
+    "paragraph": "Sorry, the page you are looking for is under construction.",
+    "buttonTitle": "Return"
+  },
+  "NotFound": {
+    "title": "Page not found...",
+    "paragraph": "Sorry, the page you are looking for does not exist.",
+    "buttonTitle": "Return"
+  }
+}

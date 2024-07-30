@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Desenvolvedor Front-End & UX/UI Designer, com foco em desenvolvimento de interfaces web criativas, acessíveis e performáticas.'
 }
 
-export default function SoonLayout({
+export default function ProjectsLayout({
   children,
 }: {
   children: React.ReactNode

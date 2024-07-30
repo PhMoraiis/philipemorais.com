@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Github, Instagram, Linkedin, Mail } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -10,6 +11,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 const Hero = () => {
   const [isHover, setIsHover] = useState(false)
   const { theme, resolvedTheme } = useTheme()
+  const t = useTranslations('Hero')
 
   const handleMouseEnter = () => {
     setIsHover(true)
@@ -40,23 +42,23 @@ const Hero = () => {
       <div className="mt-20 md:flex md:items-end md:justify-between lg:flex lg:items-end lg:justify-between">
         <div className="flex flex-col items-start gap-4 md:gap-6 md:max-w-sm lg:gap-6 lg:max-w-lg">
           <div className="max-w-xs lg:max-w-md">
-            <h1 className="text-[2.8rem] leading-none font-Relative md:text-5xl lg:text-6xl">Eu sou Philipe</h1>
+            <h1 className="text-[2.8rem] leading-none font-Relative md:text-5xl lg:text-6xl">{t('title')}</h1>
             <span className="text-[2.8rem] leading-none font-Relative md:text-5xl lg:text-6xl"> - Frontend Developer & UX/UI Designer</span>
           </div>
-          <p className="max-w-md font-RelativeBk lg:max-w-lg lg:text-lg">Criador de soluções inovadoras, criativas e centradas no usuário. Acredito que a tecnologia pode melhorar vidas e inspirar pessoas.</p>
+          <p className="max-w-md font-RelativeBk lg:max-w-lg lg:text-lg">{t('paragraph')}</p>
         </div>
         <div className='flex flex-col items-start my-12 md:m-0 lg:m-0'>
           <Dialog>
-            <span className="font-RelativeBk text-gray-400 mb-1 lg:text-lg animate-shine bg-[linear-gradient(110deg,#939393,45%,#1e2631,55%,#939393)] bg-[length:200%_100%] text-transparent bg-clip-text">Disponível para trabalho:</span>
+            <span className="font-RelativeBk text-gray-400 mb-1 lg:text-lg animate-shine bg-[linear-gradient(110deg,#939393,45%,#1e2631,55%,#939393)] bg-[length:200%_100%] text-transparent bg-clip-text">{t('cta')}</span>
             <DialogTrigger className="border border-input bg-background rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
               <div className={`rounded-full w-3 h-3 bg-[#00eb4e] mr-2 ${isHover ? 'neon2' : 'neon'} duration-300 ease-in-out`}></div>
-              Contato
+              {t('buttonText')}
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Opções de contato</DialogTitle>
+                <DialogTitle>{t('dialogTitle')}</DialogTitle>
                 <DialogDescription>
-                  Selecione uma opção de contato e você será redirecionado para falar comigo!
+                  {t('dialogDescription')}
                 </DialogDescription>
               </DialogHeader>
               <ul className='flex items-center justify-center gap-4'>
