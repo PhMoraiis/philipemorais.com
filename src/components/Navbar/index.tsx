@@ -3,10 +3,11 @@
 import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import CommandButton from '../CommandButton'
 import { LogoBlack, LogoWhite } from '../Logos'
 import Magnetic from '../Magnetic'
-import { useEffect, useState } from 'react'
+import LocaleSwitcher from '../LocaleSwitcher'
 
 
 const Navbar = () => {
@@ -35,6 +36,9 @@ const Navbar = () => {
         </motion.div>
         <div>
           <CommandButton />
+        </div>
+        <div className="absolute right-8 top-8">
+          <LocaleSwitcher />
         </div>
       </div>
     </header>

@@ -3,7 +3,7 @@
 
 import { useTheme } from 'next-themes'
 import { usePathname, useRouter } from 'next/navigation'
-import React, { startTransition, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { motion } from 'framer-motion'
 import {
@@ -31,12 +31,16 @@ import {
   CommandSeparator,
   CommandShortcut
 } from '@/components/ui/command'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 import Magnetic from '../Magnetic'
 import { Button } from '../ui/button'
+import LocaleSwitcherSelect from '../LocaleSwitcherSelect'
+import { LiaFlagUsaSolid } from 'react-icons/lia'
+import { GiBrazilFlag } from 'react-icons/gi'
 
 const CommandButton = () => {
+  const locale = useLocale()
   const { setTheme } = useTheme()
   const pathname = usePathname()
   const router = useRouter()
@@ -336,7 +340,7 @@ const CommandButton = () => {
                   <span className='text-md hover:animate-text-shake'>{t('buttonSetup')}</span>
                 </div>
               </Button>
-              <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>U</CommandShortcut>
+              <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>S</CommandShortcut>
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
@@ -364,19 +368,20 @@ const CommandButton = () => {
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>D</CommandShortcut>
             </CommandItem>
           </CommandGroup>
-          <CommandGroup heading={t('CommandGroup5')}>
-            <CommandItem className='flex justify-between'>
-              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleLightTheme}>
-                <div className='flex'>
-                  <Magnetic>
-                    <Sun className="mr-2 h-4 w-4" />
-                  </Magnetic>
-                  <span className='text-md hover:animate-text-shake'>{t('buttonLightTheme')}</span>
-                </div>
-              </Button>
-              <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>L</CommandShortcut>
-            </CommandItem>
-          </CommandGroup>
+          <CommandSeparator />
+          <LocaleSwitcherSelect defaultValue={locale}
+            items={[
+              {
+                value: 'en',
+                label: 'English',
+                icon: <LiaFlagUsaSolid />
+              },
+              {
+                value: 'pt-br',
+                label: 'Portuguese',
+                icon: <GiBrazilFlag />
+              }
+            ]} />
         </CommandList>
       </CommandDialog>
     </motion.div >

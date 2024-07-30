@@ -44,7 +44,9 @@
     "buttonProjects": "Projetos",
     "buttonSetup": "Setup",
     "buttonLightTheme": "Claro",
-    "buttonDarkTheme": "Escuro"
+    "buttonDarkTheme": "Escuro",
+    "buttonUSA": "Inglês",
+    "buttonBR": "Português"
   },
   "Toasts": {
     "toastCopy": "Link copiado para a área de transferência!",

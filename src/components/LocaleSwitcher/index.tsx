@@ -1,8 +1,9 @@
-import { useLocale, useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
 import LocaleSwitcherSelect from '../LocaleSwitcherSelect'
+import { LiaFlagUsaSolid } from 'react-icons/lia'
+import { GiBrazilFlag } from 'react-icons/gi'
 
 export default function LocaleSwitcher() {
-  const t = useTranslations('LocaleSwitcher')
   const locale = useLocale()
 
   return (
@@ -11,14 +12,15 @@ export default function LocaleSwitcher() {
       items={[
         {
           value: 'en',
-          label: t('en')
+          label: 'English',
+          icon: <LiaFlagUsaSolid />
         },
         {
           value: 'pt-br',
-          label: t('pt-br')
+          label: 'Portuguese',
+          icon: <GiBrazilFlag />
         }
       ]}
-      label={t('label')}
     />
   )
 }

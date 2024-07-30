@@ -42,9 +42,11 @@
     "buttonSource": "View Source",
     "buttonAbout": "About",
     "buttonProjects": "Projects",
-    "buttonSetup": "Uses",
+    "buttonSetup": "Setup",
     "buttonLightTheme": "Light",
-    "buttonDarkTheme": "Dark"
+    "buttonDarkTheme": "Dark",
+    "buttonUSA": "English",
+    "buttonBR": "Portuguese"
   },
   "Toasts": {
     "toastCopy": "Link copied to clipboard.",
