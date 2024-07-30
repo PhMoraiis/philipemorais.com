@@ -5,11 +5,13 @@ import { useTheme } from 'next-themes'
 import { Badge } from '../ui/badge'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 type CardProps = React.ComponentProps<typeof Card>
 
 const Works = ({ className, ...props }: CardProps) => {
   const [isHover, setIsHover] = useState(false)
+  const t = useTranslations('Projects')
   const handleMouseEnter = () => {
     setIsHover(true)
   }
@@ -46,12 +48,12 @@ const Works = ({ className, ...props }: CardProps) => {
     <Card onClick={handleGoPathway} className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG}>
       <CardHeader>
         <CardTitle className='text-black dark:text-primary'>Pathway</CardTitle>
-        <CardDescription className='text-black dark:text-primary'>App de monitoramento financeiro com definição de metas dinâmicas.</CardDescription>
+        <CardDescription className='text-black dark:text-primary'>{t('PathwayDescription')}</CardDescription>
       </CardHeader>
       <CardFooter className='gap-3'>
         <button className="inline-flex items-center rounded-full border px-3 py-1 gap-2 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
           <div className={`rounded-full w-3 h-3 bg-[#4D4DFF] mr-2 ${isHover ? 'neonDev1' : 'neonDev2'} duration-300 ease-in-out`}></div>
-          Em Desenvolvimento
+          {t('PathwayStatus')}
         </button>
         <Badge size="icon"><Atom size={18} />NextJS</Badge>
         <Badge size="icon"><Hexagon color='#94C745' size={18} />NodeJS</Badge>
@@ -71,12 +73,12 @@ const Works = ({ className, ...props }: CardProps) => {
     >
       <CardHeader>
         <CardTitle className='text-black dark:text-primary'>Pathway</CardTitle>
-        <CardDescription>App de monitoramento financeiro com definição de metas dinâmicas.</CardDescription>
+        <CardDescription>{t('PathwayDescription')}</CardDescription>
       </CardHeader>
       <CardFooter className='gap-3 flex-wrap'>
         <button className="inline-flex items-center rounded-full border px-3 py-1 gap-2 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
           <div className={`rounded-full w-3 h-3 bg-[#4D4DFF] mr-2 ${isHover ? 'neonDev1' : 'neonDev2'} duration-300 ease-in-out`}></div>
-          Em Desenvolvimento
+          {t('PathwayStatus')}
         </button>
         <Badge size="icon"><Atom size={18} />NextJS</Badge>
         <Badge size="icon"><Hexagon color='#94C745' size={18} />NodeJS</Badge>

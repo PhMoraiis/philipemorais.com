@@ -4,11 +4,13 @@ import { Atom, Framer } from 'lucide-react'
 import { useState } from 'react'
 import { Badge } from '../ui/badge'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
+import { useTranslations } from 'next-intl'
 
 type CardProps = React.ComponentProps<typeof Card>
 
 const Works = ({ className, ...props }: CardProps) => {
   const [isHover, setIsHover] = useState(false)
+  const t = useTranslations('Projects')
   const handleMouseEnter = () => {
     setIsHover(true)
   }
@@ -43,12 +45,12 @@ const Works = ({ className, ...props }: CardProps) => {
     >
       <CardHeader>
         <CardTitle className='text-secondary dark:text-primary'>Stellar</CardTitle>
-        <CardDescription className='text-secondary dark:text-primary'>A empresa do futuro! Um site espetacular e criativo para autenticar a marca.</CardDescription>
+        <CardDescription className='text-secondary dark:text-primary'>{t('StellarDescription')}</CardDescription>
       </CardHeader>
       <CardFooter className='gap-3'>
         <button className="inline-flex items-center rounded-full border px-3 py-1 gap-2 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
           <div className={`rounded-full w-3 h-3 bg-[#00eb4e] mr-2 ${isHover ? 'neon2' : 'neon'} duration-300 ease-in-out`}></div>
-          Online
+          {t('StellarStatus')}
         </button>
         <Badge size="icon"><Atom size={18} />NextJS</Badge>
         <Badge size="icon"><Framer color='#F508AA' size={18} />Framer-Motion</Badge>
@@ -66,12 +68,12 @@ const Works = ({ className, ...props }: CardProps) => {
     >
       <CardHeader>
         <CardTitle className='text-secondary dark:text-primary'>Stellar</CardTitle>
-        <CardDescription className='text-secondary dark:text-primary'>A empresa do futuro! Um site espetacular e criativo para autenticar a marca.</CardDescription>
+        <CardDescription className='text-secondary dark:text-primary'>{t('StellarDescription')}</CardDescription>
       </CardHeader>
       <CardFooter className='gap-3 flex-wrap'>
         <button className="inline-flex items-center rounded-full border px-3 py-1 gap-2 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
           <div className={`rounded-full w-3 h-3 bg-[#00eb4e] mr-2 ${isHover ? 'neon2' : 'neon'} duration-300 ease-in-out`}></div>
-          Online
+          {t('StellarStatus')}
         </button>
         <Badge size="icon"><Atom size={18} />NextJS</Badge>
         <Badge size="icon"><Framer color='#F508AA' size={18} />Framer-Motion</Badge>
