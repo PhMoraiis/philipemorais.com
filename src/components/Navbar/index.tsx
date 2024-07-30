@@ -37,9 +37,6 @@ const Navbar = () => {
         <div>
           <CommandButton />
         </div>
-        <div className="absolute right-8 top-8">
-          <LocaleSwitcher />
-        </div>
       </div>
     </header>
   )

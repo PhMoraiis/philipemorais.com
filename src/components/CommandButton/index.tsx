@@ -3,7 +3,7 @@
 
 import { useTheme } from 'next-themes'
 import { usePathname, useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useTransition } from 'react'
 
 import { motion } from 'framer-motion'
 import {
@@ -31,15 +31,17 @@ import {
   CommandSeparator,
   CommandShortcut
 } from '@/components/ui/command'
+import { Locale } from '@/config'
+import { setUserLocale } from '@/services/locale'
 import { useLocale, useTranslations } from 'next-intl'
+import { GiBrazilFlag } from 'react-icons/gi'
+import { LiaFlagUsaSolid } from 'react-icons/lia'
 import { toast } from 'sonner'
 import Magnetic from '../Magnetic'
 import { Button } from '../ui/button'
-import LocaleSwitcherSelect from '../LocaleSwitcherSelect'
-import { LiaFlagUsaSolid } from 'react-icons/lia'
-import { GiBrazilFlag } from 'react-icons/gi'
 
 const CommandButton = () => {
+  const [isPending, startTransition] = useTransition()
   const locale = useLocale()
   const { setTheme } = useTheme()
   const pathname = usePathname()
@@ -221,6 +223,14 @@ const CommandButton = () => {
   useEffect(() => setMounted(true), [])
   if (!mounted) return null
 
+
+  const handleLocaleChange = (locale: string) => {
+    startTransition(() => {
+      setUserLocale(locale as Locale)
+      handleCloseCommandBar()
+    })
+  }
+
   return (
     <motion.div
       whileHover={{ scale: 1.2 }}
@@ -340,7 +350,7 @@ const CommandButton = () => {
                   <span className='text-md hover:animate-text-shake'>{t('buttonSetup')}</span>
                 </div>
               </Button>
-              <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>S</CommandShortcut>
+              <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>U</CommandShortcut>
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
@@ -369,19 +379,28 @@ const CommandButton = () => {
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
-          <LocaleSwitcherSelect defaultValue={locale}
-            items={[
-              {
-                value: 'en',
-                label: 'English',
-                icon: <LiaFlagUsaSolid />
-              },
-              {
-                value: 'pt-br',
-                label: 'Portuguese',
-                icon: <GiBrazilFlag />
-              }
-            ]} />
+          <CommandGroup heading={t('CommandGroup5')}>
+            <CommandItem className='flex justify-between'>
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={() => handleLocaleChange('en')}>
+                <div className='flex'>
+                  <Magnetic>
+                    <LiaFlagUsaSolid className="mr-2 h-4 w-4" />
+                  </Magnetic>
+                  <span className='text-md hover:animate-text-shake'>{t('buttonUSA')}</span>
+                </div>
+              </Button>
+            </CommandItem>
+            <CommandItem className='flex justify-between'>
+              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={() => handleLocaleChange('pt-br')}>
+                <div className='flex'>
+                  <Magnetic>
+                    <GiBrazilFlag className="mr-2 h-4 w-4" />
+                  </Magnetic>
+                  <span className='text-md hover:animate-text-shake'>{t('buttonBR')}</span>
+                </div>
+              </Button>
+            </CommandItem>
+          </CommandGroup>
         </CommandList>
       </CommandDialog>
     </motion.div >
