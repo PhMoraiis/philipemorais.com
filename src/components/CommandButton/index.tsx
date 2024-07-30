@@ -7,6 +7,7 @@ import React, { useEffect, useState, useTransition } from 'react'
 
 import { motion } from 'framer-motion'
 import {
+  Check,
   CheckCircle,
   CircleUser,
   Code,
@@ -15,6 +16,7 @@ import {
   Github,
   Home,
   Instagram,
+  Languages,
   Laptop,
   Lightbulb,
   Linkedin,
@@ -42,6 +44,7 @@ import { Button } from '../ui/button'
 
 const CommandButton = () => {
   const [isPending, startTransition] = useTransition()
+  const [activeLocale, setActiveLocale] = useState<Locale>('en')
   const locale = useLocale()
   const { setTheme } = useTheme()
   const pathname = usePathname()
@@ -227,7 +230,12 @@ const CommandButton = () => {
   const handleLocaleChange = (locale: string) => {
     startTransition(() => {
       setUserLocale(locale as Locale)
+      setActiveLocale(locale as Locale)
       handleCloseCommandBar()
+    })
+    toast(tt('toastLanguage'), {
+      icon: <Languages className='mr-2 h-4 w-4' />,
+      duration: 2000
     })
   }
 
@@ -380,7 +388,7 @@ const CommandButton = () => {
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading={t('CommandGroup5')}>
-            <CommandItem className='flex justify-between'>
+            <CommandItem className={`flex justify-between ${activeLocale === 'en' ? 'bg-accent' : ''}`}>
               <Button variant="noHover" size="sm" className='m-0 p-0' onClick={() => handleLocaleChange('en')}>
                 <div className='flex'>
                   <Magnetic>
@@ -389,9 +397,12 @@ const CommandButton = () => {
                   <span className='text-md hover:animate-text-shake'>{t('buttonUSA')}</span>
                 </div>
               </Button>
+              {
+                activeLocale === 'en' && <CommandShortcut className='text-lg p-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'><Check className="h-4 w-4" /></CommandShortcut>
+              }
             </CommandItem>
-            <CommandItem className='flex justify-between'>
-              <Button variant="noHover" size="sm" className='m-0 p-0' onClick={() => handleLocaleChange('pt-br')}>
+            <CommandItem className={`flex justify-between ${activeLocale === 'pt-br' ? 'bg-accent' : ''}`}>
+              <Button variant="noHover" size="sm" className='`m-0 p-0' onClick={() => handleLocaleChange('pt-br')}>
                 <div className='flex'>
                   <Magnetic>
                     <GiBrazilFlag className="mr-2 h-4 w-4" />
@@ -399,6 +410,9 @@ const CommandButton = () => {
                   <span className='text-md hover:animate-text-shake'>{t('buttonBR')}</span>
                 </div>
               </Button>
+              {
+                activeLocale === 'pt-br' && <CommandShortcut className='text-lg p-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'><Check className="h-4 w-4" /></CommandShortcut>
+              }
             </CommandItem>
           </CommandGroup>
         </CommandList>

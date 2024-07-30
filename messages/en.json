@@ -56,11 +56,17 @@
     "toastThemeLightDescription": "Watch your eyes...",
     "toastThemeDarkAlreadySelected": "Dark theme is already selected!",
     "toastThemeDarkSelected": "Dark theme selected!",
-    "toastThemeDarkDescription": "Darkness is coming..."
+    "toastThemeDarkDescription": "Darkness is coming...",
+    "toastLanguage": "Idioma alterado!"
   },
   "Soon": {
     "title": "Available Soon...",
     "paragraph": "Sorry, the page you are looking for is under construction.",
+    "buttonTitle": "Return"
+  },
+  "NotFound": {
+    "title": "Page not found...",
+    "paragraph": "Sorry, the page you are looking for does not exist.",
     "buttonTitle": "Return"
   }
 }

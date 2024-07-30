@@ -5,13 +5,7 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Philipe Morais | Sobre mim',
-  description: 'Desenvolvedor Front-End & UX/UI Designer, com foco em desenvolvimento de interfaces web criativas, acessíveis e performáticas.',
-  icons: {
-    icon: {
-      url: '/icons/favicon.svg',
-      type: 'image/svg+xml',
-    }
-  },
+  description: 'Desenvolvedor Front-End & UX/UI Designer, com foco em desenvolvimento de interfaces web criativas, acessíveis e performáticas.'
 }
 
 export default function AboutLayout({

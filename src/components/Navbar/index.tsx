@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react'
 import CommandButton from '../CommandButton'
 import { LogoBlack, LogoWhite } from '../Logos'
 import Magnetic from '../Magnetic'
-import LocaleSwitcher from '../LocaleSwitcher'
 
 
 const Navbar = () => {

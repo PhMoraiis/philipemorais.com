@@ -56,11 +56,17 @@
     "toastThemeLightDescription": "Cuidado com os olhos...",
     "toastThemeDarkAlreadySelected": "Tema escuro já selecionado!",
     "toastThemeDarkSelected": "Tema escuro selecionado!",
-    "toastThemeDarkDescription": "A escuridão está chegando..."
+    "toastThemeDarkDescription": "A escuridão está chegando...",
+    "toastLanguage": "Language changed!"
   },
   "Soon": {
     "title": "Disponivel em Breve...",
     "paragraph": "Desculpe, a página que está procurando está em construção.",
+    "buttonTitle": "Voltar"
+  },
+  "NotFound": {
+    "title": "Página não Encontrada...",
+    "paragraph": "Desculpe, a página que está procurando não existe.",
     "buttonTitle": "Voltar"
   }
 }

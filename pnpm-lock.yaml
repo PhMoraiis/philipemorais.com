@@ -50,9 +50,6 @@ importers:
       cmdk:
         specifier: ^1.0.0
         version: 1.0.0(@types/react-dom@18.2.18)(@types/react@18.2.48)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      lottie-react:
-        specifier: ^2.4.0
-        version: 2.4.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       next:
         specifier: 14.1.4
         version: 14.1.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -76,19 +73,19 @@ importers:
         version: 1.0.7(tailwindcss@3.4.1)
     devDependencies:
       '@types/node':
-        specifier: ^20
+        specifier: ^20.11.5
         version: 20.11.5
       '@types/react':
-        specifier: ^18
+        specifier: ^18.2.48
         version: 18.2.48
       '@types/react-dom':
-        specifier: ^18
+        specifier: ^18.2.18
         version: 18.2.18
       autoprefixer:
-        specifier: ^10.0.1
+        specifier: ^10.4.17
         version: 10.4.17(postcss@8.4.33)
       eslint:
-        specifier: ^8
+        specifier: ^8.56.0
         version: 8.56.0
       eslint-config-next:
         specifier: 14.1.4
@@ -96,9 +93,6 @@ importers:
       framer-motion:
         specifier: ^11.0.3
         version: 11.0.3(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      gsap:
-        specifier: ^3.12.5
-        version: 3.12.5
       lucide-react:
         specifier: ^0.317.0
         version: 0.317.0(react@18.2.0)
@@ -106,22 +100,16 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1(next@14.1.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       postcss:
-        specifier: ^8
+        specifier: ^8.4.33
         version: 8.4.33
       react-icons:
         specifier: ^5.2.1
         version: 5.2.1(react@18.2.0)
-      react-simple-typewriter:
-        specifier: ^5.0.1
-        version: 5.0.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      tailwind-scrollbar:
-        specifier: ^3.0.5
-        version: 3.0.5(tailwindcss@3.4.1)
       tailwindcss:
-        specifier: ^3.3.0
+        specifier: ^3.4.1
         version: 3.4.1
       typescript:
-        specifier: ^5
+        specifier: ^5.3.3
         version: 5.3.3
 
 packages:
@@ -1135,11 +1123,8 @@ packages:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
 
-  caniuse-lite@1.0.30001579:
-    resolution: {integrity: sha512-u5AUVkixruKHJjw/pj9wISlcMpgFWzSrczLZbrqBSxukQixmg0SJ5sZTpvaFvxU0HoQKd4yoyAogyrAz9pzJnA==}
-
-  caniuse-lite@1.0.30001600:
-    resolution: {integrity: sha512-+2S9/2JFhYmYaDpZvo0lKkfvuKIglrx68MwOBqMGHhQsNkLjB5xtc/TGoEPs+MxjSyN/72qer2g97nzR641mOQ==}
+  caniuse-lite@1.0.30001644:
+    resolution: {integrity: sha512-YGvlOZB4QhZuiis+ETS0VXR+MExbFf4fZYYeMTEE0aTQd/RdIjkTyZjLrbYVKnHzppDvnOhritRVv+i7Go6mHw==}
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -1545,9 +1530,6 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
-  gsap@3.12.5:
-    resolution: {integrity: sha512-srBfnk4n+Oe/ZnMIOXt3gT605BX9x5+rh/prT2F1SsNJsU1XuMiP0E2aptW481OnonOGACZWBqseH5Z7csHxhQ==}
-
   has-bigints@1.0.2:
     resolution: {integrity: sha512-tSvCKtBr9lkF0Ex0aQiP9N+OpV4zi2r/Nee5VkRDbaqv35RLYMzbwQfFSZZH0kR+Rd6302UJZ2p/bJCEoR3VoQ==}
 
@@ -1794,15 +1776,6 @@ packages:
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
-
-  lottie-react@2.4.0:
-    resolution: {integrity: sha512-pDJGj+AQlnlyHvOHFK7vLdsDcvbuqvwPZdMlJ360wrzGFurXeKPr8SiRCjLf3LrNYKANQtSsh5dz9UYQHuqx4w==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-
-  lottie-web@5.12.2:
-    resolution: {integrity: sha512-uvhvYPC8kGPjXT3MyKMrL3JitEAmDMp30lVkuq/590Mw9ok6pWcFCwXJveo0t5uqYw1UREQHofD+jVpdjBv8wg==}
 
   lru-cache@10.1.0:
     resolution: {integrity: sha512-/1clY/ui8CzjKFyjdvwPWJUYKiFVXG2I2cY0ssG7h4+hwk+XOIX7ZSG9Q7TW8TW3Kp3BUSqgFWBLgL4PJ+Blag==}
@@ -2101,13 +2074,6 @@ packages:
       '@types/react':
         optional: true
 
-  react-simple-typewriter@5.0.1:
-    resolution: {integrity: sha512-vA5HkABwJKL/DJ4RshSlY/igdr+FiVY4MLsSQYJX6FZG/f1/VwN4y1i3mPXRyfaswrvI8xii1kOVe1dYtO2Row==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      react: '>=18.0.0'
-      react-dom: '>=18.0.0'
-
   react-style-singleton@2.2.1:
     resolution: {integrity: sha512-ZWj0fHEMyWkHzKYUr2Bs/4zU6XLmq9HsgBURm7g5pAVfyn49DgUiNgY2d4lXRlYSiCif9YBGpQleewkcqddc7g==}
     engines: {node: '>=10'}
@@ -2299,12 +2265,6 @@ packages:
 
   tailwind-merge@2.2.2:
     resolution: {integrity: sha512-tWANXsnmJzgw6mQ07nE3aCDkCK4QdT3ThPMCzawoYA2Pws7vSTCvz3Vrjg61jVUGfFZPJzxEP+NimbcW+EdaDw==}
-
-  tailwind-scrollbar@3.0.5:
-    resolution: {integrity: sha512-0ZwxTivevqq9BY9fRP9zDjHl7Tu+J5giBGbln+0O1R/7nHtBUKnjQcA1aTIhK7Oyjp6Uc/Dj6/dn8Dq58k5Uww==}
-    engines: {node: '>=12.13.0'}
-    peerDependencies:
-      tailwindcss: 3.x
 
   tailwindcss-animate@1.0.7:
     resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
@@ -3434,7 +3394,7 @@ snapshots:
   autoprefixer@10.4.17(postcss@8.4.33):
     dependencies:
       browserslist: 4.22.2
-      caniuse-lite: 1.0.30001579
+      caniuse-lite: 1.0.30001644
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -3470,7 +3430,7 @@ snapshots:
 
   browserslist@4.22.2:
     dependencies:
-      caniuse-lite: 1.0.30001579
+      caniuse-lite: 1.0.30001644
       electron-to-chromium: 1.4.639
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
@@ -3491,9 +3451,7 @@ snapshots:
 
   camelcase-css@2.0.1: {}
 
-  caniuse-lite@1.0.30001579: {}
-
-  caniuse-lite@1.0.30001600: {}
+  caniuse-lite@1.0.30001644: {}
 
   chalk@4.1.2:
     dependencies:
@@ -4062,8 +4020,6 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  gsap@3.12.5: {}
-
   has-bigints@1.0.2: {}
 
   has-flag@4.0.0: {}
@@ -4295,14 +4251,6 @@ snapshots:
     dependencies:
       js-tokens: 4.0.0
 
-  lottie-react@2.4.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
-    dependencies:
-      lottie-web: 5.12.2
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-
-  lottie-web@5.12.2: {}
-
   lru-cache@10.1.0: {}
 
   lru-cache@6.0.0:
@@ -4367,7 +4315,7 @@ snapshots:
       '@next/env': 14.1.4
       '@swc/helpers': 0.5.2
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001600
+      caniuse-lite: 1.0.30001644
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.2.0
@@ -4586,11 +4534,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.2.48
 
-  react-simple-typewriter@5.0.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
-    dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-
   react-style-singleton@2.2.1(@types/react@18.2.48)(react@18.2.0):
     dependencies:
       get-nonce: 1.0.1
@@ -4806,10 +4749,6 @@ snapshots:
   tailwind-merge@2.2.2:
     dependencies:
       '@babel/runtime': 7.24.1
-
-  tailwind-scrollbar@3.0.5(tailwindcss@3.4.1):
-    dependencies:
-      tailwindcss: 3.4.1
 
   tailwindcss-animate@1.0.7(tailwindcss@3.4.1):
     dependencies:
