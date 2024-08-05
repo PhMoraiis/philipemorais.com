@@ -27,15 +27,16 @@ import {
 
 import {
   CommandDialog,
+  CommandEmpty,
   CommandGroup,
+  CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
   CommandShortcut
 } from '@/components/ui/command'
 import { Locale } from '@/config'
 import { setUserLocale } from '@/services/locale'
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { GiBrazilFlag } from 'react-icons/gi'
 import { LiaFlagUsaSolid } from 'react-icons/lia'
 import { toast } from 'sonner'
@@ -45,7 +46,6 @@ import { Button } from '../ui/button'
 const CommandButton = () => {
   const [isPending, startTransition] = useTransition()
   const [activeLocale, setActiveLocale] = useState<Locale>('en')
-  const locale = useLocale()
   const { setTheme } = useTheme()
   const pathname = usePathname()
   const router = useRouter()
@@ -53,57 +53,76 @@ const CommandButton = () => {
   const t = useTranslations('CommandBar')
   const tt = useTranslations('Toasts')
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      switch (event.key) {
-        case 'c':
-          handleCopyLink()
-          break
-        case 'e':
-          handleSendEmail()
-          break
-        case 'v':
-          handleViewSource()
-          break
-        case 'n':
-          handleGoLinkedin()
-          break
-        case 'g':
-          handleGoGithub()
-          break
-        case 'i':
-          handleGoInstagram()
-          break
-        case 'h':
-          handleGoHome()
-          break
-        case 'a':
-          handleGoAbout()
-          break
-        case 'p':
-          handleGoProjects()
-          break
-        case 'u':
-          handleGoUses()
-          break
-        case 'l':
-          handleLightTheme()
-          break
-        case 'd':
-          handleDarkTheme()
-          break
-        default:
-          break
-      }
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
+      event.preventDefault()
+      setOpen((open) => !open)
     }
+    else if (event.key === 'c') {
+      event.preventDefault()
+      handleCopyLink()
+    }
+    else if (event.key === 'e') {
+      event.preventDefault()
+      handleSendEmail()
+    }
+    else if (event.key === 'v') {
+      event.preventDefault()
+      handleViewSource()
+    }
+    else if (event.key === 'n') {
+      event.preventDefault()
+      handleGoLinkedin()
+    }
+    else if (event.key === 'g') {
+      event.preventDefault()
+      handleGoGithub()
+    }
+    else if (event.key === 'i') {
+      event.preventDefault()
+      handleGoInstagram()
+    }
+    else if (event.key === 'h') {
+      event.preventDefault()
+      handleGoHome()
+    }
+    else if (event.key === 'a') {
+      event.preventDefault()
+      handleGoAbout()
+    }
+    else if (event.key === 'p') {
+      event.preventDefault()
+      handleGoProjects()
+    }
+    else if (event.key === 'u') {
+      event.preventDefault()
+      handleGoUses()
+    }
+    else if (event.key === 'l') {
+      event.preventDefault()
+      handleLightTheme()
+    }
+    else if (event.key === 'd') {
+      event.preventDefault()
+      handleDarkTheme()
+    }
+  }
 
-    window.addEventListener('keydown', handleKeyDown)
-
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
     return () => {
-      window.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('keydown', handleKeyDown)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const onFocus = () => {
+    document.removeEventListener('keydown', handleKeyDown)
+  }
+
+  const onBlur = () => {
+    document.addEventListener('keydown', handleKeyDown)
+  }
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(`philipemorais.com${pathname}`)
@@ -241,14 +260,15 @@ const CommandButton = () => {
 
   return (
     <motion.div
-      whileHover={{ scale: 1.2 }}
       transition={{ type: 'spring', stiffness: 150, damping: 17, bounce: 1 }}
       className='flex justify-between items-center'>
-      <Button onClick={handleOpenCommandBar} variant='noHover' size='icon'>
-        <Command size={28} />
+      <Button onClick={handleOpenCommandBar} variant='default' size='sm' className='gap-2'>
+        Press CTRL+K to start <Command size={22} />
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput onFocus={onFocus} onBlur={onBlur} placeholder="Type a command or search..." />
         <CommandList className='overflow font-Relative'>
+          <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading={t('CommandGroup1')}>
             <CommandItem>
               <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleCopyLink}>
@@ -278,7 +298,6 @@ const CommandButton = () => {
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>V</CommandShortcut>
             </CommandItem>
           </CommandGroup>
-          <CommandSeparator />
           <CommandGroup heading={t('CommandGroup2')}>
             <CommandItem className='flex justify-between'>
               <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleGoLinkedin}>
@@ -314,7 +333,6 @@ const CommandButton = () => {
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>I</CommandShortcut>
             </CommandItem>
           </CommandGroup>
-          <CommandSeparator />
           <CommandGroup heading={t('CommandGroup3')}>
             <CommandItem className='flex justify-between'>
               <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleGoHome}>
@@ -361,7 +379,6 @@ const CommandButton = () => {
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>U</CommandShortcut>
             </CommandItem>
           </CommandGroup>
-          <CommandSeparator />
           <CommandGroup heading={t('CommandGroup4')}>
             <CommandItem className='flex justify-between'>
               <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleLightTheme}>
@@ -386,7 +403,6 @@ const CommandButton = () => {
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>D</CommandShortcut>
             </CommandItem>
           </CommandGroup>
-          <CommandSeparator />
           <CommandGroup heading={t('CommandGroup5')}>
             <CommandItem className={`flex justify-between ${activeLocale === 'en' ? 'bg-accent' : ''}`}>
               <Button variant="noHover" size="sm" className='m-0 p-0' onClick={() => handleLocaleChange('en')}>
