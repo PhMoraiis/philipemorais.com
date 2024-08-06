@@ -27,9 +27,7 @@ import {
 
 import {
   CommandDialog,
-  CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
   CommandShortcut
@@ -115,14 +113,6 @@ const CommandButton = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const onFocus = () => {
-    document.removeEventListener('keydown', handleKeyDown)
-  }
-
-  const onBlur = () => {
-    document.addEventListener('keydown', handleKeyDown)
-  }
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(`philipemorais.com${pathname}`)
@@ -266,9 +256,7 @@ const CommandButton = () => {
         Press CTRL+K to start <Command size={22} />
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput onFocus={onFocus} onBlur={onBlur} placeholder="Type a command or search..." />
         <CommandList className='overflow font-Relative'>
-          <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading={t('CommandGroup1')}>
             <CommandItem>
               <Button variant="noHover" size="sm" className='m-0 p-0' onClick={handleCopyLink}>
