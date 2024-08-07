@@ -12,7 +12,6 @@ interface IImageRowProps {
   handleMouseLeave: () => void
 }
 
-// Componente reutilizável para renderizar uma linha de imagens
 const ImageRow = ({ images, isPaused, handleMouseEnter, handleMouseLeave }: IImageRowProps) => {
 
   const [mounted, setMounted] = useState(false)
@@ -53,7 +52,8 @@ const Techs = () => {
     { url: '/images/TailwindDark.svg', name: 'Tailwind CSS' },
     { url: '/images/NodeDark.svg', name: 'Node.js' },
     { url: '/images/JavaDark.svg', name: 'Java' },
-    { url: '/images/PostgresDark.svg', name: 'PostgreSQL' }
+    { url: '/images/PostgresDark.svg', name: 'PostgreSQL' },
+    { url: '/images/FigmaDark.svg', name: 'Figma' }
   ]
 
   const rowLight = [
@@ -64,7 +64,8 @@ const Techs = () => {
     { url: '/images/TailwindLight.svg', name: 'Tailwind CSS' },
     { url: '/images/NodeLight.svg', name: 'Node.js' },
     { url: '/images/JavaLight.svg', name: 'Java' },
-    { url: '/images/PostgresLight.svg', name: 'PostgreSQL' }
+    { url: '/images/PostgresLight.svg', name: 'PostgreSQL' },
+    { url: '/images/FigmaLight.svg', name: 'Figma' }
   ]
 
   const handleMouseEnter = () => {
@@ -75,20 +76,8 @@ const Techs = () => {
     setIsPaused(false)
   }
 
-  /*   const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  const backgroundDark = useMotionTemplate`radial-gradient(200px circle at ${mouseX}px ${mouseY}px, rgba(38, 38, 38, 0.4), transparent 80%)` */
-
   return (
     <motion.section
-      /* onMouseMove={(e) => {
-        const { left, top } = e.currentTarget.getBoundingClientRect()
-
-        mouseX.set(e.clientX - left)
-        mouseY.set(e.clientY - top)
-      }} */
-      /* style={{ background: theme === 'dark' || resolvedTheme === 'dark' ? backgroundDark : '' }} */
       className='mt-10 bg-white dark:bg-[#111110] rounded-xl p-10 shadow-sm'>
       <div className='w-full h-fit flex items-center justify-center'>
         <div className='flex w-full overflow-hidden mask'>
