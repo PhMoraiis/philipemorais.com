@@ -1,11 +1,11 @@
 'use client'
 import { cn } from '@/lib/utils'
 import { Atom, CloudDrizzle, Database, Hexagon } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 import { Badge } from '../ui/badge'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
-import { useState } from 'react'
-import { useTranslations } from 'next-intl'
 
 type CardProps = React.ComponentProps<typeof Card>
 
@@ -43,6 +43,10 @@ const Works = ({ className, ...props }: CardProps) => {
   const handleGoOnpholio = () => {
     window.open('https://github.com/PhMoraiis/onpholio', '_blank')
   }
+
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  if (!mounted) return null
 
   return (<>
     <Card onClick={handleGoOnpholio} className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG}>

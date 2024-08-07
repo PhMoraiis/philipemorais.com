@@ -146,21 +146,18 @@
 }
 
 .glass {
-  background: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(1px);
+  backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(1px);
 }
 
 .glass2 {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(13px);
-  -webkit-backdrop-filter: blur(13px);
-  border-radius: 10px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .mask {
   user-select: none;
-
   mask-image: linear-gradient(
     to right,
     hsl(0 0% 0% / 0),
