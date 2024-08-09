@@ -19,9 +19,6 @@ model User {
   name                 String
   email                String    @unique
   password             String
-  passwordResetToken   String?
-  passwordResetExpires DateTime?
-  role                 Role      @default(ADMIN)
 
   @@map("users")
 }
@@ -47,11 +44,6 @@ model Tech {
   projectsId String?
 
   @@map("techs")
-}
-
-enum Role {
-  USER
-  ADMIN
 }
 
 enum Status {
