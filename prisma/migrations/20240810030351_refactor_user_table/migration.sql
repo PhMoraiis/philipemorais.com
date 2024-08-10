@@ -1,7 +1,4 @@
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
-
--- CreateEnum
 CREATE TYPE "Status" AS ENUM ('ONLINE', 'DEVELOPMENT', 'INTERRUPTED');
 
 -- CreateTable
@@ -10,9 +7,6 @@ CREATE TABLE "users" (
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "passwordResetToken" TEXT,
-    "passwordResetExpires" TIMESTAMP(3),
-    "role" "Role" NOT NULL DEFAULT 'ADMIN',
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );

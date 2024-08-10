@@ -1,5 +1,3 @@
-'use client'
-
 import Navbar from '@/components/Navbar'
 import SoonComponent from '@/components/SoonComponent'
 import { Metadata } from 'next'

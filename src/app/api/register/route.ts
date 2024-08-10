@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
   }
 
   const hash = bcrypt.hashSync(password, 8)
-  prisma.user.create({
+  const user = await prisma.user.create({
     data: {
       name,
       email,
@@ -24,5 +24,15 @@ export async function POST(request: NextRequest) {
     }
   })
 
-  return NextResponse.json({})
+  if (!user) {
+    return NextResponse.json({
+      error: 'User not created'
+    }, {
+      status: 400
+    })
+  }
+
+  return NextResponse.json({
+    message: 'User created with success!'
+  })
 }
