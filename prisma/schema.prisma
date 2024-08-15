@@ -15,10 +15,10 @@ datasource db {
 }
 
 model User {
-  id                   String    @id @default(cuid())
-  name                 String
-  email                String    @unique
-  password             String
+  id       String @id @default(cuid())
+  name     String
+  email    String @unique
+  password String
 
   @@map("users")
 }
@@ -31,14 +31,14 @@ model Projects {
   longDescription  String
   href             String
   status           Status   @default(ONLINE)
-  techs            Tech[]
+  techs            Tech[]   
 
   @@map("projects")
 }
 
 model Tech {
   id         String    @id @default(cuid())
-  name       String
+  name       String    @unique
   icon       String
   Projects   Projects? @relation(fields: [projectsId], references: [id])
   projectsId String?
