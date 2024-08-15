@@ -31,17 +31,16 @@ model Projects {
   longDescription  String
   href             String
   status           Status   @default(ONLINE)
-  techs            Tech[]   
+  techs            Tech[]
 
   @@map("projects")
 }
 
 model Tech {
-  id         String    @id @default(cuid())
-  name       String    @unique
-  icon       String
-  Projects   Projects? @relation(fields: [projectsId], references: [id])
-  projectsId String?
+  id       String    @id @default(cuid())
+  name     String    @unique
+  icon     String
+  projects Projects[]
 
   @@map("techs")
 }

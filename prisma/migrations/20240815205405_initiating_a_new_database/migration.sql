@@ -29,13 +29,30 @@ CREATE TABLE "techs" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "icon" TEXT NOT NULL,
-    "projectsId" TEXT,
 
     CONSTRAINT "techs_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "_ProjectsToTech" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "techs_name_key" ON "techs"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_ProjectsToTech_AB_unique" ON "_ProjectsToTech"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_ProjectsToTech_B_index" ON "_ProjectsToTech"("B");
+
 -- AddForeignKey
-ALTER TABLE "techs" ADD CONSTRAINT "techs_projectsId_fkey" FOREIGN KEY ("projectsId") REFERENCES "projects"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "_ProjectsToTech" ADD CONSTRAINT "_ProjectsToTech_A_fkey" FOREIGN KEY ("A") REFERENCES "projects"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_ProjectsToTech" ADD CONSTRAINT "_ProjectsToTech_B_fkey" FOREIGN KEY ("B") REFERENCES "techs"("id") ON DELETE CASCADE ON UPDATE CASCADE;
