@@ -1,4 +1,4 @@
-import { Hexagon, Home, LayoutDashboard, ToggleLeft } from 'lucide-react'
+import { Hexagon, Home, SquareTerminal, ToggleLeft } from 'lucide-react'
 import { Badge } from '../ui/badge'
 
 import Link from 'next/link'
@@ -29,7 +29,7 @@ const Sidebar = () => {
               href="/dashboard/projects"
               className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${pathname === '/dashboard/projects' ? 'text-primary' : ''}`}
             >
-              <LayoutDashboard className="h-4 w-4" />
+              <SquareTerminal className="h-4 w-4" />
               Projetos
               <Badge variant={pathname === '/dashboard/projects' ? 'default' : 'outline'} className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
                 6

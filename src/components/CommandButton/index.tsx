@@ -421,7 +421,7 @@ const CommandButton = () => {
           </CommandGroup>
         </CommandList>
       </CommandDialog>
-    </motion.div >
+    </motion.div>
   )
 }
 
