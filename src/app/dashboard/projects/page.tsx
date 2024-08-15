@@ -2,17 +2,73 @@
 
 import Sidebar from '@/components/Sidebar'
 import Topbar from '@/components/Topbar'
+import { MultiStepLoader as Loader } from '@/components/ui/multi-step-loader'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { apiClient } from '@/lib/apiClient'
 import { ListFilter, MoreHorizontal, PlusCircle, Trash2 } from 'lucide-react'
 
 import Image from 'next/image'
+import { useEffect } from 'react'
+import useTechStore from '@/stores/techStore'
+import useProjectStore from '@/stores/projectStore'
 
 const ProjectsDashboard = () => {
+  const { projects, loading: loadingProjects, setProjects, setLoading: setLoadingProjects, setError: setProjectError } = useProjectStore()
+
+  useEffect(() => {
+    const getProjects = async () => {
+      setLoadingProjects(true)
+      try {
+        const data = await apiClient('/api/projects')
+        setProjects(data)
+      } catch (error) {
+        setProjectError('Failed to fetch projects')
+      } finally {
+        setLoadingProjects(false)
+      }
+    }
+
+    getProjects()
+  }, [setProjects, setLoadingProjects, setProjectError])
+
+  const loadingStates = [
+    {
+      text: 'Bem vindo ao OnPholio',
+    },
+    {
+      text: 'Explorando novos horizontes',
+    },
+    {
+      text: 'Preparando um café delicioso',
+    },
+    {
+      text: 'Decifrando os segredos do universo',
+    },
+    {
+      text: 'Fazendo algumas alterações no tempo',
+    },
+    {
+      text: 'Preparando o palco',
+    },
+    {
+      text: 'Coletando estrelas',
+    },
+    {
+      text: 'Deixando as engrenagens girarem',
+    },
+  ]
+
+  if (loadingProjects) {
+    return (
+      <Loader loadingStates={loadingStates} loading={loadingProjects} duration={2000} />
+    )
+  }
+
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <Sidebar />
