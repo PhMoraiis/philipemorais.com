@@ -9,9 +9,9 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model User {
@@ -24,23 +24,27 @@ model User {
 }
 
 model Projects {
-  id               String   @id @default(cuid())
+  id               String    @id @default(cuid())
   name             String
   images           String[]
   shortDescription String
   longDescription  String
   href             String
-  status           Status   @default(ONLINE)
+  status           Status    @default(ONLINE)
   techs            Tech[]
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime? @updatedAt
 
   @@map("projects")
 }
 
 model Tech {
-  id       String    @id @default(cuid())
-  name     String    @unique
-  icon     String
-  projects Projects[]
+  id        String     @id @default(cuid())
+  name      String     @unique
+  icon      String
+  projects  Projects[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime?  @updatedAt
 
   @@map("techs")
 }

@@ -20,6 +20,8 @@ CREATE TABLE "projects" (
     "longDescription" TEXT NOT NULL,
     "href" TEXT NOT NULL,
     "status" "Status" NOT NULL DEFAULT 'ONLINE',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "projects_pkey" PRIMARY KEY ("id")
 );
@@ -29,6 +31,8 @@ CREATE TABLE "techs" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "icon" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "techs_pkey" PRIMARY KEY ("id")
 );
