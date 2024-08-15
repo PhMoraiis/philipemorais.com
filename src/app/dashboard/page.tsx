@@ -4,6 +4,7 @@ import Sidebar from '@/components/Sidebar'
 import Topbar from '@/components/Topbar'
 import { Button } from '@/components/ui/button'
 import { MultiStepLoader as Loader } from '@/components/ui/multi-step-loader'
+import { apiClient } from '@/lib/apiClient'
 import useProjectStore from '@/stores/projectStore'
 import useTechStore from '@/stores/techStore'
 import { useEffect } from 'react'
@@ -16,7 +17,7 @@ const Dashboard = () => {
     const fetchProjects = async () => {
       setLoadingProjects(true)
       try {
-        const response = await fetch('/api/projects')
+        const response = await apiClient('/api/projects')
         const data = await response.json()
         setProjects(data)
       } catch (error) {
@@ -29,7 +30,7 @@ const Dashboard = () => {
     const fetchTechs = async () => {
       setLoadingTechs(true)
       try {
-        const response = await fetch('/api/tech')
+        const response = await apiClient('/api/techs')
         const data = await response.json()
         setTechs(data)
       } catch (error) {
