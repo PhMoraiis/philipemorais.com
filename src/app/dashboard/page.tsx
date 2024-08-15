@@ -22,10 +22,7 @@ const Dashboard = () => {
       } catch (error) {
         setProjectError('Failed to fetch projects')
       } finally {
-        // Simulating a loading timeout
-        setTimeout(() => {
-          setLoadingProjects(false)
-        }, 12000) // Altere o tempo aqui, se necessário
+        setLoadingProjects(false)
       }
     }
 
@@ -38,10 +35,7 @@ const Dashboard = () => {
       } catch (error) {
         setTechError('Failed to fetch techs')
       } finally {
-        // Simulating a loading timeout
-        setTimeout(() => {
-          setLoadingTechs(false)
-        }, 12000) // Altere o tempo aqui, se necessário
+        setLoadingTechs(false)
       }
     }
 
