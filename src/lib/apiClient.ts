@@ -1,9 +1,9 @@
-import { cookies } from 'next/headers'
+import Cookies from 'js-cookie'
 
 export const apiClient = async (url: string, options?: RequestInit) => {
-  const token = cookies().get('token') 
+  const token = Cookies.get('token')
   try {
-    const response = await fetch(url, {
+    const response = await fetch('http://localhost:3000' + url, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
@@ -16,8 +16,7 @@ export const apiClient = async (url: string, options?: RequestInit) => {
       throw new Error(`Request failed with status ${response.status}`)
     }
 
-    const data = await response.json()
-    return data
+    return await response.json()
   } catch (error) {
     console.error('API Request Error:', error)
     throw error

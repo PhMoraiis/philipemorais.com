@@ -1,5 +1,6 @@
 'use client'
 
+import { apiClient } from '@/lib/apiClient'
 import useProjectStore from '@/stores/projectStore'
 import useTechStore from '@/stores/techStore'
 import { motion } from 'framer-motion'
@@ -9,7 +10,6 @@ import Magnetic from '../Magnetic'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '../ui/command'
-import { apiClient } from '@/lib/apiClient'
 
 const SearchBar = () => {
   const [open, setOpen] = useState(false)
@@ -37,7 +37,7 @@ const SearchBar = () => {
 
     const fetchTechs = async () => {
       try {
-        const response = await apiClient('/api/tech')
+        const response = await apiClient('/api/techs')
         const data = await response.json()
         setTechs(data)
       } catch (error) {
@@ -52,7 +52,6 @@ const SearchBar = () => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setProjects, setTechs, setLoadingProjects, setLoadingTechs, setProjectError, setTechError])
 
   return (
