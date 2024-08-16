@@ -1,6 +1,5 @@
 'use client'
 
-import { apiClient } from '@/lib/apiClient'
 import useProjectStore from '@/stores/projectStore'
 import useTechStore from '@/stores/techStore'
 import { motion } from 'framer-motion'
@@ -25,28 +24,28 @@ const SearchBar = () => {
   }
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    const getProjects = async () => {
       try {
-        const response = await apiClient('/api/projects')
+        const response = await fetch('/api/projects')
         const data = await response.json()
         setProjects(data)
       } catch (error) {
-        setProjectError('Failed to fetch projects')
+        setProjectError('Failed to get projects')
       }
     }
 
-    const fetchTechs = async () => {
+    const getTechs = async () => {
       try {
-        const response = await apiClient('/api/techs')
+        const response = await fetch('/api/techs')
         const data = await response.json()
         setTechs(data)
       } catch (error) {
-        setTechError('Failed to fetch techs')
+        setTechError('Failed to get techs')
       }
     }
 
-    fetchProjects()
-    fetchTechs()
+    getProjects()
+    getTechs()
 
     document.addEventListener('keydown', handleKeyDown)
     return () => {

@@ -9,7 +9,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { apiClient } from '@/lib/apiClient'
 import { ListFilter, MoreHorizontal, PlusCircle, Trash2 } from 'lucide-react'
 
 import Image from 'next/image'
@@ -24,7 +23,8 @@ const ProjectsDashboard = () => {
     const getProjects = async () => {
       setLoadingProjects(true)
       try {
-        const data = await apiClient('/api/projects')
+        const response = await fetch('/api/projects')
+        const data = await response.json()
         setProjects(data)
       } catch (error) {
         setProjectError('Failed to fetch projects')

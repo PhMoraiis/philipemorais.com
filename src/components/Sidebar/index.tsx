@@ -1,7 +1,6 @@
 import { Hexagon, Home, SquareTerminal, ToggleLeft } from 'lucide-react'
 import { Badge } from '../ui/badge'
 
-import { apiClient } from '@/lib/apiClient'
 import useProjectStore from '@/stores/projectStore'
 import useTechStore from '@/stores/techStore'
 import Link from 'next/link'
@@ -14,26 +13,28 @@ const Sidebar = () => {
   const { techs, setTechs, setError: setTechError } = useTechStore()
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    const getProjects = async () => {
       try {
-        const data = await apiClient('/api/projects')
+        const response = await fetch('/api/projects')
+        const data = await response.json()
         setProjects(data)
       } catch (error) {
-        setProjectError('Failed to fetch projects')
+        setProjectError('Failed to get projects')
       }
     }
 
-    const fetchTechs = async () => {
+    const getTechs = async () => {
       try {
-        const data = await apiClient('/api/techs')
+        const response = await fetch('/api/techs')
+        const data = await response.json()
         setTechs(data)
       } catch (error) {
-        setTechError('Failed to fetch techs')
+        setTechError('Failed to get techs')
       }
     }
 
-    fetchProjects()
-    fetchTechs()
+    getProjects()
+    getTechs()
   }, [setProjects, setTechs, setProjectError, setTechError])
 
   return (
