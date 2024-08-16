@@ -31,36 +31,3 @@ export async function POST(request: NextRequest) {
     }, { status: 400 })
   }
 }
-
-export async function DELETE(request: NextRequest) {
-  try {
-    const { id } = await request.json()
-    const tech = await prisma.tech.delete({
-      where: { id }
-    })
-
-    return NextResponse.json(tech)
-  } catch (error: any) {
-    return NextResponse.json({
-      error: 'Tech not deleted',
-      details: error.message
-    }, { status: 400 })
-  }
-}
-
-export async function PUT(request: NextRequest) {
-  try {
-    const { id, name, icon } = await request.json()
-    const tech = await prisma.tech.update({
-      where: { id },
-      data: { name, icon }
-    })
-
-    return NextResponse.json(tech)
-  } catch (error: any) {
-    return NextResponse.json({
-      error: 'Tech not updated',
-      details: error.message
-    }, { status: 400 })
-  }
-}
