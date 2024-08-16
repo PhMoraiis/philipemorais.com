@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.5",
@@ -40,6 +41,9 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/types": "^19.0.3",
     "@prisma/client": "^5.18.0",
     "@types/bcrypt": "^5.0.2",
     "@types/js-cookie": "^3.0.6",
@@ -50,6 +54,7 @@
     "eslint": "^8.56.0",
     "eslint-config-next": "14.1.4",
     "framer-motion": "^11.0.3",
+    "husky": "^9.1.4",
     "next-themes": "^0.2.1",
     "postcss": "^8.4.33",
     "prisma": "^5.18.0",
