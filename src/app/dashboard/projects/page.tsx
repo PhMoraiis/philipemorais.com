@@ -79,11 +79,9 @@ const ProjectsDashboard = () => {
             <div className="flex items-center">
               <TabsList>
                 <TabsTrigger value="all">Todos</TabsTrigger>
-                <TabsTrigger value="active">Ativos</TabsTrigger>
-                <TabsTrigger value="draft">Rascunho</TabsTrigger>
-                <TabsTrigger value="archived" className="hidden sm:flex">
-                  Arquivados
-                </TabsTrigger>
+                <TabsTrigger value="active">Online</TabsTrigger>
+                <TabsTrigger value="draft">Em Desenvolvimento</TabsTrigger>
+                <TabsTrigger value="archived" className="hidden sm:flex">Interrompidos</TabsTrigger>
               </TabsList>
               <div className="ml-auto flex items-center gap-2">
                 <DropdownMenu>
@@ -91,20 +89,17 @@ const ProjectsDashboard = () => {
                     <Button variant="outline" size="sm" className="h-8 gap-1">
                       <ListFilter className="h-3.5 w-3.5" />
                       <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                        Filtros
+                        Ordenar
                       </span>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Filtrar por</DropdownMenuLabel>
+                    <DropdownMenuLabel>Ordenar por</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuCheckboxItem checked>
-                      Ativos
-                    </DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem>Rascunhos</DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem>
-                      Arquivados
-                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem checked>Nome</DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem>Status</DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem>Data de Criação</DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem>Data de Atualização</DropdownMenuCheckboxItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
                 <Button size="sm" className="h-8 gap-1">
@@ -137,6 +132,9 @@ const ProjectsDashboard = () => {
                         <TableHead className="hidden md:table-cell">
                           Criado em
                         </TableHead>
+                        <TableHead className="hidden md:table-cell">
+                          Atualizado em
+                        </TableHead>
                         <TableHead>
                           <span className="sr-only">Actions</span>
                         </TableHead>
@@ -165,6 +163,9 @@ const ProjectsDashboard = () => {
                         </TableCell>
                         <TableCell className="hidden md:table-cell text-blue-500 underline cursor-pointer">
                           https://laserlemonademachine.com
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          2023-07-12 10:42 AM
                         </TableCell>
                         <TableCell className="hidden md:table-cell">
                           2023-07-12 10:42 AM

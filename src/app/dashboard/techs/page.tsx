@@ -224,34 +224,22 @@ const TechsDashboard = () => {
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 mt-2">
           <Tabs defaultValue="all">
             <div className="flex items-center">
-              <TabsList>
-                <TabsTrigger value="all">Todas</TabsTrigger>
-                <TabsTrigger value="active">Ativas</TabsTrigger>
-                <TabsTrigger value="draft">Rascunho</TabsTrigger>
-                <TabsTrigger value="archived" className="hidden sm:flex">
-                  Arquivadas
-                </TabsTrigger>
-              </TabsList>
               <div className="ml-auto flex items-center gap-2">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="sm" className="h-8 gap-1">
                       <ListFilter className="h-3.5 w-3.5" />
                       <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                        Filtros
+                        Ordenar
                       </span>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Filtrar por</DropdownMenuLabel>
+                    <DropdownMenuLabel>Ordenar por</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuCheckboxItem checked>
-                      Ativas
-                    </DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem>Rascunhos</DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem>
-                      Arquivadas
-                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem checked>Nome</DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem>Data de Criação</DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem>Data de Atualização</DropdownMenuCheckboxItem>
                   </DropdownMenuContent>
                   <Button size="sm" className="h-8 gap-1" onClick={handleRefresh} disabled={refreshLoading}>
                     {refreshLoading ? (
