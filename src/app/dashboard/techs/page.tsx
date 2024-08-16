@@ -4,25 +4,31 @@ import Sidebar from '@/components/Sidebar'
 import Topbar from '@/components/Topbar'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer'
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { MultiStepLoader as Loader } from '@/components/ui/multi-step-loader'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { ListFilter, MoreHorizontal, PlusCircle, Trash2 } from 'lucide-react'
+import { CheckCircle, ListFilter, Loader2, MoreHorizontal, Pen, PlusCircle, RefreshCcw, Trash2 } from 'lucide-react'
+import { toast } from 'sonner'
 
-import { apiClient } from '@/lib/apiClient'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import useTechStore from '@/stores/techStore'
 import Image from 'next/image'
-import { useEffect } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 
 const TechsDashboard = () => {
-  const { techs, loading: loadingTechs, setTechs, setLoading: setLoadingTechs, setError: setTechError } = useTechStore()
+  const { techs, loading: loadingTechs, setTechs, setLoading: setLoadingTechs, setError: setTechError, addTech } = useTechStore()
+  const [refreshLoading, setRefreshLoading] = useState(false)
+  const [neverAtualized, setNeverAtualized] = useState(false)
 
   useEffect(() => {
     const getTechs = async () => {
       setLoadingTechs(true)
       try {
-        const data = await apiClient('/api/techs')
+        const response = await fetch('/api/techs')
+        const data = await response.json()
         setTechs(data)
         console.log(data)
       } catch (error) {
@@ -68,6 +74,148 @@ const TechsDashboard = () => {
     )
   }
 
+  const handleCreateTech = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const formData = new FormData(event.target as HTMLFormElement)
+    const name = formData.get('name') as string
+    const icon = formData.get('icon') as string
+
+    try {
+      const response = await fetch('/api/techs', {
+        method: 'POST',
+        body: JSON.stringify({ name, icon }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      const newTech = await response.json()
+      addTech(newTech)
+      toast.success('Tecnologia criada com sucesso!', {
+        icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
+        description: `${newTech.name} Criada com sucesso`,
+        duration: 2000,
+      })
+
+    } catch (error) {
+      setTechError('Failed to create tech')
+      toast.error('Erro ao criar tecnologia.', {
+        description: 'Ocorreu um erro ao tentar criar a tecnologia. Por favor, tente novamente.',
+        duration: 2000,
+      })
+    }
+  }
+
+  const handleEditTech = async (event: FormEvent<HTMLFormElement>, id: string) => {
+    event.preventDefault()
+
+    const formData = new FormData(event.currentTarget)
+    const name = formData.get('name') as string
+    const icon = formData.get('icon') as string
+
+    // Obtenha a tecnologia atual para comparação
+    const currentTech = techs.find(tech => tech.id === id)
+    if (!currentTech) return // Se a tecnologia não for encontrada, não faz nada
+
+    // Prepare o objeto com apenas os campos alterados
+    const updatedFields: { name?: string; icon?: string } = {}
+    if (name && name !== currentTech.name) updatedFields.name = name
+    if (icon && icon !== currentTech.icon) updatedFields.icon = icon
+
+    try {
+      const response = await fetch(`/api/techs/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(updatedFields),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error('Falha ao editar tecnologia')
+      }
+
+      const updatedTech = await response.json()
+      setTechs(techs.map(tech => tech.id === id ? updatedTech : tech)) // Atualiza o estado
+
+      toast.success('Tecnologia editada com sucesso', {
+        icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
+        description: `${name || currentTech.name} foi atualizada com sucesso`,
+        duration: 2000
+      })
+    } catch (error) {
+      toast.error('Erro ao editar tecnologia', {
+        description: 'Ocorreu um erro ao tentar editar a tecnologia. Por favor, tente novamente.',
+        duration: 2000
+      })
+    }
+  }
+
+
+  const handleDeleteTech = async (id: string) => {
+    try {
+      await fetch(`/api/techs/${id}`, { method: 'DELETE' })
+      setTechs(techs.filter((tech) => tech.id !== id))
+      toast.success('Tecnologia excluída com sucesso', {
+        icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
+        description: `${techs.find((tech) => tech.id === id)?.name} excluída com sucesso`,
+        duration: 2000
+      })
+    } catch (error) {
+      toast.error('Erro ao excluir tecnologia', {
+        description: 'Ocorreu um erro ao tentar excluir a tecnologia. Por favor, tente novamente.',
+        duration: 2000
+      })
+    }
+  }
+
+  const handleRefresh = async () => {
+    setRefreshLoading(true)
+    const fetchWithTimeout = (url: string, options: RequestInit, timeout: number) => {
+      return new Promise<Response>((resolve, reject) => {
+        const timer = setTimeout(() => reject(new Error('Request timed out')), timeout)
+        fetch(url, options)
+          .then(response => {
+            clearTimeout(timer)
+            resolve(response)
+          })
+          .catch(error => {
+            clearTimeout(timer)
+            reject(error)
+          })
+      })
+    }
+
+    try {
+      const timeout = 300000 // 5 minutos
+      const response = await fetchWithTimeout('/api/techs', {}, timeout)
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch: ${response.status}`)
+      }
+
+      const data = await response.json()
+      setTechs(data)
+    } catch (error) {
+      setTechError('Failed to refresh techs')
+      console.error('Fetch error:', error)
+    } finally {
+      setRefreshLoading(false)
+    }
+  }
+
+  const verificarAtualizacao = (tech: { updatedAt: string, createdAt: string }) => {
+    if (tech.updatedAt === tech.createdAt) {
+      return 'Nunca atualizada'
+    } else {
+      return new Intl.DateTimeFormat('pt-BR', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+      }).format(new Date(tech.updatedAt))
+    }
+  }
+
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <Sidebar />
@@ -105,13 +253,50 @@ const TechsDashboard = () => {
                       Arquivadas
                     </DropdownMenuCheckboxItem>
                   </DropdownMenuContent>
+                  <Button size="sm" className="h-8 gap-1" onClick={handleRefresh} disabled={refreshLoading}>
+                    {refreshLoading ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <RefreshCcw className="h-3.5 w-3.5" />
+                    )}
+                  </Button>
                 </DropdownMenu>
-                <Button size="sm" className="h-8 gap-1">
-                  <PlusCircle className="h-3.5 w-3.5" />
-                  <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                    Adicionar Tecnologia
-                  </span>
-                </Button>
+                <Drawer>
+                  <DrawerTrigger asChild>
+                    <Button size="sm" className="h-8 gap-1">
+                      <PlusCircle className="h-3.5 w-3.5" />
+                      <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                        Adicionar Tecnologia
+                      </span>
+                    </Button>
+                  </DrawerTrigger>
+                  <DrawerContent>
+                    <div className="mx-auto w-full max-w-sm">
+                      <DrawerHeader>
+                        <DrawerTitle>Nova Tecnologia</DrawerTitle>
+                        <DrawerDescription>Crie uma nova tecnologia.</DrawerDescription>
+                      </DrawerHeader>
+                      <form onSubmit={handleCreateTech} className='space-y-2 p-4 pb-0'>
+                        <div className="space-y-2">
+                          <Label htmlFor="name">Nome</Label>
+                          <Input id="name" name="name" placeholder="Nome da tecnologia" required />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="icon">Ícone</Label>
+                          <Input id="icon" name="icon" placeholder="Icone da tecnologia" required />
+                        </div>
+                        <DrawerFooter>
+                          <DrawerClose asChild>
+                            <Button type='submit'>Criar Tecnologia</Button>
+                          </DrawerClose>
+                          <DrawerClose asChild>
+                            <Button variant="outline">Cancelar</Button>
+                          </DrawerClose>
+                        </DrawerFooter>
+                      </form>
+                    </div>
+                  </DrawerContent>
+                </Drawer>
               </div>
             </div>
             <TabsContent value="all">
@@ -132,6 +317,9 @@ const TechsDashboard = () => {
                         <TableHead>Nome</TableHead>
                         <TableHead className="hidden md:table-cell">
                           Criado em
+                        </TableHead>
+                        <TableHead className="hidden md:table-cell">
+                          Atualizado em
                         </TableHead>
                         <TableHead>
                           <span className="sr-only">Actions</span>
@@ -169,6 +357,9 @@ const TechsDashboard = () => {
                                   timeStyle: 'short',
                                 }).format(new Date(tech.createdAt))}
                               </TableCell>
+                              <TableCell className="hidden md:table-cell">
+                                {verificarAtualizacao(tech)}
+                              </TableCell>
                               <TableCell>
                                 <DropdownMenu>
                                   <DropdownMenuTrigger asChild>
@@ -183,8 +374,38 @@ const TechsDashboard = () => {
                                   </DropdownMenuTrigger>
                                   <DropdownMenuContent align="end" className='space-y-1'>
                                     <DropdownMenuLabel>Ações</DropdownMenuLabel>
-                                    <DropdownMenuItem>Editar</DropdownMenuItem>
-                                    <DropdownMenuItem className='flex justify-between bg-red-500'>Excluir <Trash2 className='h-4 w-4' /> </DropdownMenuItem>
+                                    <Drawer>
+                                      <DrawerTrigger asChild>
+                                        <Button className='flex justify-between w-full' size='sm' variant='outline'>Editar <Pen className='h-4 w-4' /></Button>
+                                      </DrawerTrigger>
+                                      <DrawerContent>
+                                        <div className="mx-auto w-full max-w-sm">
+                                          <DrawerHeader>
+                                            <DrawerTitle>Editar {tech.name}</DrawerTitle>
+                                            <DrawerDescription>Edite com sabedoria a tecnologia escolhida.</DrawerDescription>
+                                          </DrawerHeader>
+                                          <form onSubmit={(event) => handleEditTech(event, tech.id)} className='space-y-2 p-4 pb-0'>
+                                            <div className="space-y-2">
+                                              <Label htmlFor="name">Nome</Label>
+                                              <Input id="name" name="name" placeholder={tech.name} />
+                                            </div>
+                                            <div className="space-y-2">
+                                              <Label htmlFor="icon">Ícone</Label>
+                                              <Input id="icon" name="icon" placeholder={tech.icon} />
+                                            </div>
+                                            <DrawerFooter>
+                                              <DrawerClose asChild>
+                                                <Button type='submit'>Editar Tecnologia</Button>
+                                              </DrawerClose>
+                                              <DrawerClose asChild>
+                                                <Button variant="outline">Cancelar</Button>
+                                              </DrawerClose>
+                                            </DrawerFooter>
+                                          </form>
+                                        </div>
+                                      </DrawerContent>
+                                    </Drawer>
+                                    <Button onClick={() => handleDeleteTech(tech.id)} className='flex justify-between w-full hover:bg-red-500' size='sm' variant='outline'>Excluir <Trash2 className='h-4 w-4' /></Button>
                                   </DropdownMenuContent>
                                 </DropdownMenu>
                               </TableCell>
