@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 
 export async function GET() {
   try {
@@ -13,21 +13,25 @@ export async function GET() {
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     const { name, icon } = await request.json()
-    const tech = await prisma.tech.create({
+
+    const newTech = await prisma.tech.create({
       data: {
         name,
         icon,
-      }
+      },
     })
 
-    return NextResponse.json(tech)
+    return NextResponse.json(newTech)
   } catch (error: any) {
-    return NextResponse.json({
-      error: 'Tech not created',
-      details: error.message
-    }, { status: 400 })
+    return NextResponse.json(
+      {
+        error: 'Failed to create technology',
+        details: error.message,
+      },
+      { status: 500 }
+    )
   }
 }

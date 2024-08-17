@@ -1,48 +1,55 @@
 import prisma from '@/lib/prisma'
-import { Status } from '@prisma/client'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+  const { id } = params
+
   try {
-    const project = await prisma.projects.delete({
-      where: { id: params.id },
+    await prisma.project.delete({
+      where: { id },
     })
 
-    return NextResponse.json(project)
+    return NextResponse.json({ message: 'Project deleted successfully' })
   } catch (error: any) {
-    return NextResponse.json({
-      error: 'Project not deleted',
-      details: error.message
-    }, { status: 400 })
+    return NextResponse.json(
+      {
+        error: 'Failed to delete project',
+        details: error.message,
+      },
+      { status: 500 }
+    )
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
-  try {
-    const { name, images, shortDescription, longDescription, href, status, techs } = await request.json()
-    const projectStatus = status ?? undefined
+export async function PUT(request: Request, { params }: { params: { id: string } }) {
+  const { id } = params
 
-    const project = await prisma.projects.update({
-      where: { id: params.id },
+  try {
+    const { name, image, shortDescription, longDescription, href, status, techIds } = await request.json()
+
+    const updatedProject = await prisma.project.update({
+      where: { id },
       data: {
         name,
-        images,
+        image,
         shortDescription,
         longDescription,
         href,
-        status: projectStatus as Status,
+        status,
         techs: {
-          connect: techs.length > 0 ? techs.map((techID: string) => ({ id: techID })) : [],
-        }
+          set: techIds.map((id: string) => ({ id })),
+        },
       },
-      include: { techs: true }
     })
 
-    return NextResponse.json(project)
+    return NextResponse.json(updatedProject)
   } catch (error: any) {
-    return NextResponse.json({
-      error: 'Project not updated',
-      details: error.message
-    }, { status: 400 })
+    return NextResponse.json(
+      {
+        error: 'Failed to update project',
+        details: error.message,
+      },
+      { status: 500 }
+    )
   }
 }

@@ -1,31 +1,48 @@
 import prisma from '@/lib/prisma'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+  const { id } = params
+
   try {
-    const tech = await prisma.tech.delete({
-      where: { id: params.id }
+    await prisma.tech.delete({
+      where: { id },
     })
 
-    return NextResponse.json(tech)
+    return NextResponse.json({ message: 'Technology deleted successfully' })
   } catch (error: any) {
-    return NextResponse.json({ error: 'Tech not deleted' }, { status: 400 })
+    return NextResponse.json(
+      {
+        error: 'Failed to delete technology',
+        details: error.message,
+      },
+      { status: 500 }
+    )
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: { id: string } }) {
+  const { id } = params
+
   try {
     const { name, icon } = await request.json()
-    const tech = await prisma.tech.update({
-      where: { id: params.id },
-      data: { name, icon }
+
+    const updatedTech = await prisma.tech.update({
+      where: { id },
+      data: {
+        name,
+        icon,
+      },
     })
 
-    return NextResponse.json(tech)
+    return NextResponse.json(updatedTech)
   } catch (error: any) {
-    return NextResponse.json({
-      error: 'Tech not updated',
-      details: error.message
-    }, { status: 400 })
+    return NextResponse.json(
+      {
+        error: 'Failed to update technology',
+        details: error.message,
+      },
+      { status: 500 }
+    )
   }
 }
