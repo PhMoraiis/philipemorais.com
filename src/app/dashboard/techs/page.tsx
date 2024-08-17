@@ -21,7 +21,6 @@ import { FormEvent, useEffect, useState } from 'react'
 const TechsDashboard = () => {
   const { techs, loading: loadingTechs, setTechs, setLoading: setLoadingTechs, setError: setTechError, addTech } = useTechStore()
   const [refreshLoading, setRefreshLoading] = useState(false)
-  const [neverAtualized, setNeverAtualized] = useState(false)
 
   useEffect(() => {
     const getTechs = async () => {
@@ -107,7 +106,7 @@ const TechsDashboard = () => {
     }
   }
 
-  const handleEditTech = async (event: FormEvent<HTMLFormElement>, id: string) => {
+  const handleUpdateTech = async (event: FormEvent<HTMLFormElement>, id: string) => {
     event.preventDefault()
 
     const formData = new FormData(event.currentTarget)
@@ -372,7 +371,7 @@ const TechsDashboard = () => {
                                             <DrawerTitle>Editar {tech.name}</DrawerTitle>
                                             <DrawerDescription>Edite com sabedoria a tecnologia escolhida.</DrawerDescription>
                                           </DrawerHeader>
-                                          <form onSubmit={(event) => handleEditTech(event, tech.id)} className='space-y-2 p-4 pb-0'>
+                                          <form onSubmit={(event) => handleUpdateTech(event, tech.id)} className='space-y-2 p-4 pb-0'>
                                             <div className="space-y-2">
                                               <Label htmlFor="name">Nome</Label>
                                               <Input id="name" name="name" placeholder={tech.name} />

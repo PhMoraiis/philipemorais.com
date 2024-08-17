@@ -2,22 +2,30 @@
 
 import Sidebar from '@/components/Sidebar'
 import Topbar from '@/components/Topbar'
-import { MultiStepLoader as Loader } from '@/components/ui/multi-step-loader'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { MultiStepLoader as Loader } from '@/components/ui/multi-step-loader'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { ListFilter, MoreHorizontal, PlusCircle, Trash2 } from 'lucide-react'
+import { CheckCircle, ListFilter, Loader2, MoreHorizontal, Pen, PlusCircle, RefreshCcw, Trash2 } from 'lucide-react'
 
-import Image from 'next/image'
-import { useEffect } from 'react'
-import useTechStore from '@/stores/techStore'
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer'
+import { Input } from '@/components/ui/input'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 import useProjectStore from '@/stores/projectStore'
+import useTechStore from '@/stores/techStore'
+import { Label } from '@radix-ui/react-dropdown-menu'
+import Image from 'next/image'
+import { FormEvent, useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
 const ProjectsDashboard = () => {
+  const [refreshLoading, setRefreshLoading] = useState(false)
+  const [selectedTechs, setSelectedTechs] = useState<string[]>([])
   const { projects, loading: loadingProjects, setProjects, setLoading: setLoadingProjects, setError: setProjectError } = useProjectStore()
+  const { techs, loading: loadingTechs, setTechs, setLoading: setLoadingTechs, setError: setTechError, addTech } = useTechStore()
 
   useEffect(() => {
     const getProjects = async () => {
@@ -33,8 +41,23 @@ const ProjectsDashboard = () => {
       }
     }
 
+    const getTechs = async () => {
+      setLoadingTechs(true)
+      try {
+        const response = await fetch('/api/techs')
+        const data = await response.json()
+        setTechs(data)
+      } catch (error) {
+        setTechError('Failed to fetch techs')
+      } finally {
+        setLoadingTechs(false)
+      }
+    }
+
     getProjects()
-  }, [setProjects, setLoadingProjects, setProjectError])
+    getTechs()
+
+  }, [setProjects, setLoadingProjects, setProjectError, setTechs, setLoadingTechs, setTechError])
 
   const loadingStates = [
     {
@@ -63,10 +86,193 @@ const ProjectsDashboard = () => {
     },
   ]
 
-  if (loadingProjects) {
+  const loading = loadingProjects || loadingTechs
+
+  if (loading) {
     return (
-      <Loader loadingStates={loadingStates} loading={loadingProjects} duration={2000} />
+      <Loader loadingStates={loadingStates} loading={loading} duration={2000} />
     )
+  }
+
+  const handleTechChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const options = event.target.options
+    const value: string[] = []
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        value.push(options[i].value)
+      }
+    }
+    setSelectedTechs(value)
+  }
+
+  const handleCreateProject = async (event: React.FormEvent) => {
+    event.preventDefault()
+    const formData = new FormData(event.target as HTMLFormElement)
+
+    const projectData = {
+      name: formData.get('name') as string,
+      images: (formData.get('images') as string).split(',').map(image => image.trim()),
+      shortDescription: formData.get('shortDescription') as string,
+      longDescription: formData.get('longDescription') as string,
+      href: formData.get('href') as string,
+      status: formData.get('status') as string,
+      techs: selectedTechs, // Use o estado para tecnologias selecionadas
+    }
+
+    try {
+      const response = await fetch('/api/projects', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(projectData),
+      })
+
+      if (!response.ok) throw new Error('Erro ao criar o projeto')
+
+      const newProject = await response.json()
+
+      console.log(newProject)
+      setProjects([...projects, newProject])
+      toast.success('Projeto criado com sucesso!', {
+        icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
+        description: `${newProject.name} criado com sucesso!`,
+        duration: 2000,
+      })
+    } catch (error: any) {
+      console.error(error)
+      toast.error('Erro ao criar o projeto', {
+        icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
+        description: error.message || 'Ocorreu um erro ao tentar criar o projeto. Por favor, tente novamente.',
+        duration: 2000,
+      })
+    }
+  }
+
+
+  const handleUpdateProject = async (event: FormEvent<HTMLFormElement>, id: string) => {
+    event.preventDefault()
+
+    const formData = new FormData(event.target as HTMLFormElement)
+    const projectData = {
+      name: formData.get('name') as string,
+      images: (formData.get('images') as string).split(',').map(image => image.trim()),
+      shortDescription: formData.get('shortDescription') as string,
+      longDescription: formData.get('longDescription') as string,
+      href: formData.get('href') as string,
+      status: formData.get('status') as string,
+      techs: selectedTechs,
+    }
+
+    console.log(projectData)
+
+    const currentProject = projects.find(project => project.id === id)
+    if (!currentProject) return // Se o projeto não for encontrado, não faz nada
+
+    const updatedFields: { name?: string; images?: string[]; shortDescription?: string; longDescription?: string; href?: string; status?: string; techs?: string[] } = {}
+    if (projectData.name && projectData.name !== currentProject.name) updatedFields.name = projectData.name
+    if (projectData.images && projectData.images !== currentProject.images) updatedFields.images = projectData.images
+    if (projectData.shortDescription && projectData.shortDescription !== currentProject.shortDescription) updatedFields.shortDescription = projectData.shortDescription
+    if (projectData.longDescription && projectData.longDescription !== currentProject.longDescription) updatedFields.longDescription = projectData.longDescription
+    if (projectData.href && projectData.href !== currentProject.href) updatedFields.href = projectData.href
+    if (projectData.status && projectData.status !== currentProject.status) updatedFields.status = projectData.status
+    if (projectData.techs && projectData.techs !== currentProject.techs) updatedFields.techs = projectData.techs
+
+    console.log(updatedFields)
+    try {
+      const response = await fetch(`/api/projects/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(updatedFields),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (!response.ok) throw new Error('Erro ao atualizar o projeto')
+
+      console.log(response)
+      const updatedProject = await response.json()
+      console.log(updatedProject)
+      setProjects(projects.map(project => (project.id === id ? updatedProject : project)))
+      console.log(projects)
+
+      toast.success('Projeto atualizado com sucesso!', {
+        icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
+        description: `${updatedProject.name} atualizado com sucesso!`,
+        duration: 2000,
+      })
+    } catch (error) {
+      toast.error('Erro ao atualizar o projeto', {
+        icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
+        description: 'Ocorreu um erro ao tentar editar o projeto. Por favor, tente novamente.',
+        duration: 2000,
+      })
+    }
+  }
+
+  const handleDeleteProject = async (id: string) => {
+    try {
+      await fetch(`/api/projects/${id}`, {
+        method: 'DELETE',
+      })
+      setProjects(projects.filter(project => project.id !== id))
+      toast.success('Projeto excluído com sucesso!', {
+        icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
+        description: `${projects.find(project => project.id === id)?.name} excluído com sucesso`,
+        duration: 2000
+      })
+    } catch (error) {
+      toast.error('Erro ao excluir projeto', {
+        description: 'Ocorreu um erro ao tentar excluir o projeto. Por favor, tente novamente.',
+        duration: 2000
+      })
+    }
+  }
+
+  const handleRefresh = async () => {
+    setRefreshLoading(true)
+    const fetchWithTimeout = (url: string, options: RequestInit, timeout: number) => {
+      return new Promise<Response>((resolve, reject) => {
+        const timer = setTimeout(() => reject(new Error('Request timed out')), timeout)
+        fetch(url, options)
+          .then(response => {
+            clearTimeout(timer)
+            resolve(response)
+          })
+          .catch(error => {
+            clearTimeout(timer)
+            reject(error)
+          })
+      })
+    }
+
+    try {
+      const timeout = 300000 // 5 minutos
+      const response = await fetchWithTimeout('/api/projects', {}, timeout)
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch: ${response.status}`)
+      }
+
+      const data = await response.json()
+      setProjects(data)
+    } catch (error) {
+      setProjectError('Failed to refresh Projects')
+      console.error('Fetch error:', error)
+    } finally {
+      setRefreshLoading(false)
+    }
+  }
+
+  const verificarAtualizacao = (project: { updatedAt: string, createdAt: string }) => {
+    if (project.updatedAt === project.createdAt) {
+      return 'Nunca atualizada'
+    } else {
+      return new Intl.DateTimeFormat('pt-BR', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+      }).format(new Date(project.updatedAt))
+    }
   }
 
   return (
@@ -101,13 +307,88 @@ const ProjectsDashboard = () => {
                     <DropdownMenuCheckboxItem>Data de Criação</DropdownMenuCheckboxItem>
                     <DropdownMenuCheckboxItem>Data de Atualização</DropdownMenuCheckboxItem>
                   </DropdownMenuContent>
+                  <Button size="sm" className="h-8 gap-1" onClick={handleRefresh} disabled={refreshLoading}>
+                    {refreshLoading ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <RefreshCcw className="h-3.5 w-3.5" />
+                    )}
+                  </Button>
                 </DropdownMenu>
-                <Button size="sm" className="h-8 gap-1">
-                  <PlusCircle className="h-3.5 w-3.5" />
-                  <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                    Adicionar Projeto
-                  </span>
-                </Button>
+                <Drawer>
+                  <DrawerTrigger asChild>
+                    <Button size="sm" className="h-8 gap-1">
+                      <PlusCircle className="h-3.5 w-3.5" />
+                      <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                        Adicionar Projeto
+                      </span>
+                    </Button>
+                  </DrawerTrigger>
+                  <DrawerContent>
+                    <div className="mx-auto w-full max-w-sm">
+                      <DrawerHeader>
+                        <DrawerTitle>Novo Projeto</DrawerTitle>
+                        <DrawerDescription>Crie um novo projeto.</DrawerDescription>
+                      </DrawerHeader>
+                      <form className='space-y-2 p-4 pb-0' onSubmit={handleCreateProject}>
+                        <div className="space-y-2">
+                          <Label>Nome</Label>
+                          <Input id="name" name="name" placeholder="Nome do projeto" required />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Imagens</Label>
+                          <Input id="images" name="images" placeholder="URLs das imagens (separadas por vírgula)" required />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Descrição Curta</Label>
+                          <Input id="shortDescription" name="shortDescription" placeholder="Descrição curta do projeto" required />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Descrição Longa</Label>
+                          <Input id="longDescription" name="longDescription" placeholder="Descrição longa do projeto" required />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Link</Label>
+                          <Input id="href" name="href" placeholder="Link para o projeto" required />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Status</Label>
+                          <Select>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Selecione o status" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectLabel>Status</SelectLabel>
+                                <SelectItem value="ONLINE">Online</SelectItem>
+                                <SelectItem value="DEVELOPMENT">Em Desenvolvimento</SelectItem>
+                                <SelectItem value="INTERRUPTED">Interrompido</SelectItem>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Tecnologias</Label>
+                          <select className='w-full h-10 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer' id="techs" name="techs" multiple>
+                            {techs.map((tech) => (
+                              <option key={tech.id} value={tech.id}>
+                                {tech.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <DrawerFooter>
+                          <DrawerClose asChild>
+                            <Button type='submit'>Criar Projeto</Button>
+                          </DrawerClose>
+                          <DrawerClose asChild>
+                            <Button variant="outline">Cancelar</Button>
+                          </DrawerClose>
+                        </DrawerFooter>
+                      </form>
+                    </div>
+                  </DrawerContent>
+                </Drawer>
               </div>
             </div>
             <TabsContent value="all">
@@ -115,7 +396,7 @@ const ProjectsDashboard = () => {
                 <CardHeader>
                   <CardTitle>Todos os Projetos</CardTitle>
                   <CardDescription>
-                    Manage your products and view their sales performance.
+                    Gerencie os seus projetos.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -140,57 +421,141 @@ const ProjectsDashboard = () => {
                         </TableHead>
                       </TableRow>
                     </TableHeader>
-                    <TableBody>
-                      <TableRow>
-                        <TableCell className="hidden sm:table-cell">
-                          <Image
-                            alt="Product image"
-                            className="aspect-square rounded-md object-cover"
-                            height="64"
-                            src="/placeholder.svg"
-                            width="64"
-                          />
-                        </TableCell>
-                        <TableCell className="font-medium">
-                          Laser Lemonade Machine
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant="outline">Draft</Badge>
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          A description of the product. A description of the
-                          product.
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell text-blue-500 underline cursor-pointer">
-                          https://laserlemonademachine.com
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          2023-07-12 10:42 AM
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          2023-07-12 10:42 AM
-                        </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                aria-haspopup="true"
-                                size="icon"
-                                variant="ghost"
-                              >
-                                <MoreHorizontal className="h-4 w-4" />
-                                <span className="sr-only">Toggle menu</span>
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className='space-y-1'>
-                              <DropdownMenuLabel>Ações</DropdownMenuLabel>
-                              <DropdownMenuItem>Editar</DropdownMenuItem>
-                              <DropdownMenuItem className='flex justify-between bg-red-500'>Excluir <Trash2 className='h-4 w-4' /> </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                    </TableBody>
+                    {projects.length === 0 ? (
+                      <TableBody>
+                        <TableRow>
+                          <TableCell colSpan={4} className="h-24 text-center">
+                            Nenhum projeto encontrado
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    ) : (
+                      <>
+                        <TableBody>
+                          {projects.map((project) => (
+                            <TableRow key={project.id}>
+                              <TableCell className="hidden sm:table-cell">
+                                <Image
+                                  alt="Product image"
+                                  className="aspect-square rounded-md object-cover"
+                                  height="64"
+                                  src={project.images[0]}
+                                  width="64"
+                                />
+                              </TableCell>
+                              <TableCell className="font-medium">
+                                {project.name}
+                              </TableCell>
+                              <TableCell>
+                                <Badge variant="outline">{project.status}</Badge>
+                              </TableCell>
+                              <TableCell className="hidden md:table-cell">
+                                {project.shortDescription}
+                              </TableCell>
+                              <TableCell className="hidden md:table-cell text-blue-500 underline cursor-pointer">
+                                {project.href}
+                              </TableCell>
+                              <TableCell className="hidden md:table-cell">
+                                {new Intl.DateTimeFormat('pt-BR', {
+                                  dateStyle: 'medium',
+                                  timeStyle: 'short',
+                                }).format(new Date(project.createdAt))}
+                              </TableCell>
+                              <TableCell className="hidden md:table-cell">
+                                {verificarAtualizacao(project)}
+                              </TableCell>
+                              <TableCell>
+                                <DropdownMenu>
+                                  <DropdownMenuTrigger asChild>
+                                    <Button
+                                      aria-haspopup="true"
+                                      size="icon"
+                                      variant="ghost"
+                                    >
+                                      <MoreHorizontal className="h-4 w-4" />
+                                      <span className="sr-only">Toggle menu</span>
+                                    </Button>
+                                  </DropdownMenuTrigger>
+                                  <DropdownMenuContent align="end" className='space-y-1'>
+                                    <DropdownMenuLabel>Ações</DropdownMenuLabel>
+                                    <Drawer>
+                                      <DrawerTrigger asChild>
+                                        <Button className='flex justify-between w-full' size='sm' variant='outline'>Editar <Pen className='h-4 w-4' /></Button>
+                                      </DrawerTrigger>
+                                      <DrawerContent>
+                                        <div className="mx-auto w-full max-w-sm">
+                                          <DrawerHeader>
+                                            <DrawerTitle>Editar {project.name}</DrawerTitle>
+                                            <DrawerDescription>Edite com sabedoria o projeto escolhido.</DrawerDescription>
+                                          </DrawerHeader>
+                                          <form onSubmit={(event) => handleUpdateProject(event, project.id)} className='space-y-2 p-4 pb-0'>
+                                            <div className="space-y-2">
+                                              <Label>Nome</Label>
+                                              <Input id="name" name="name" placeholder={project.name} required />
+                                            </div>
+                                            <div className="space-y-2">
+                                              <Label>Imagens</Label>
+                                              <Input id="images" name="images" placeholder="URLs das imagens (separadas por vírgula)" required />
+                                            </div>
+                                            <div className="space-y-2">
+                                              <Label>Descrição Curta</Label>
+                                              <Input id="shortDescription" name="shortDescription" placeholder={project.shortDescription} required />
+                                            </div>
+                                            <div className="space-y-2">
+                                              <Label>Descrição Longa</Label>
+                                              <Input id="longDescription" name="longDescription" placeholder={project.longDescription} required />
+                                            </div>
+                                            <div className="space-y-2">
+                                              <Label>Link</Label>
+                                              <Input id="href" name="href" placeholder={project.href} required />
+                                            </div>
+                                            <div className="space-y-2">
+                                              <Label>Status</Label>
+                                              <Select>
+                                                <SelectTrigger>
+                                                  <SelectValue placeholder="Selecione o status" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                  <SelectGroup>
+                                                    <SelectLabel>Status</SelectLabel>
+                                                    <SelectItem value="ONLINE">Online</SelectItem>
+                                                    <SelectItem value="DEVELOPMENT">Em Desenvolvimento</SelectItem>
+                                                    <SelectItem value="INTERRUPTED">Interrompido</SelectItem>
+                                                  </SelectGroup>
+                                                </SelectContent>
+                                              </Select>
+                                            </div>
+                                            <div className="space-y-2">
+                                              <Label>Tecnologias</Label>
+                                              <select className='w-full h-10 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer' id="techs" name="techs" multiple>
+                                                {techs.map((tech) => (
+                                                  <option key={tech.id} value={tech.id}>
+                                                    {tech.name}
+                                                  </option>
+                                                ))}
+                                              </select>
+                                            </div>
+                                            <DrawerFooter>
+                                              <DrawerClose asChild>
+                                                <Button type='submit'>Editar Projeto</Button>
+                                              </DrawerClose>
+                                              <DrawerClose asChild>
+                                                <Button variant="outline">Cancelar</Button>
+                                              </DrawerClose>
+                                            </DrawerFooter>
+                                          </form>
+                                        </div>
+                                      </DrawerContent>
+                                    </Drawer>
+                                    <Button onClick={() => handleDeleteProject(project.id)} className='flex justify-between w-full hover:bg-red-500' size='sm' variant='outline'>Excluir <Trash2 className='h-4 w-4' /> </Button>
+                                  </DropdownMenuContent>
+                                </DropdownMenu>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </>
+                    )}
                   </Table>
                 </CardContent>
                 <CardFooter>
@@ -204,7 +569,7 @@ const ProjectsDashboard = () => {
           </Tabs>
         </main>
       </div>
-    </div>
+    </div >
   )
 }
 

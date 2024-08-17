@@ -17,6 +17,18 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const { name, images, shortDescription, longDescription, href, status, techs } = await request.json()
+
+    // Validate required fields
+    if (!name || !shortDescription || !longDescription || !href) {
+      return NextResponse.json({
+        error: 'Missing required fields',
+      }, { status: 400 })
+    }
+
+    // Handle status as nullable
+    const projectStatus = status ?? undefined
+
+    // Create the project
     const project = await prisma.projects.create({
       data: {
         name,
@@ -24,63 +36,20 @@ export async function POST(request: NextRequest) {
         shortDescription,
         longDescription,
         href,
-        status: status as Status,
+        status: projectStatus as Status, // Ensure Status type is handled correctly
         techs: {
-          connect: techs.map((techID: string) => ({ id: techID }))
-        }
+          connect: techs.length > 0 ? techs.map((techID: string) => ({ id: techID })) : [],
+        },
       },
-      include: { techs: true }
+      include: { techs: true },
     })
 
     return NextResponse.json(project)
   } catch (error: any) {
+    console.error('Error creating project:', error)
     return NextResponse.json({
       error: 'Project not created',
-      details: error.message
-    }, { status: 400 })
-  }
-}
-
-export async function DELETE(request: NextRequest) {
-  try {
-    const { id } = await request.json()
-    const project = await prisma.projects.delete({
-      where: { id }
-    })
-
-    return NextResponse.json(project)
-  } catch (error: any) {
-    return NextResponse.json({
-      error: 'Project not deleted',
-      details: error.message
-    }, { status: 400 })
-  }
-}
-
-export async function PUT(request: NextRequest) {
-  try {
-    const { id, name, images, shortDescription, longDescription, href, status, techs } = await request.json()
-    const project = await prisma.projects.update({
-      where: { id },
-      data: {
-        name,
-        images,
-        shortDescription,
-        longDescription,
-        href,
-        status: status as Status,
-        techs: {
-          connect: techs.map((techID: string) => ({ id: techID }))
-        }
-      },
-      include: { techs: true }
-    })
-
-    return NextResponse.json(project)
-  } catch (error: any) {
-    return NextResponse.json({
-      error: 'Project not updated',
-      details: error.message
+      details: error.message,
     }, { status: 400 })
   }
 }
