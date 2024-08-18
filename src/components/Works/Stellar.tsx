@@ -1,10 +1,10 @@
 'use client'
 import { cn } from '@/lib/utils'
 import { Atom, Framer } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { Badge } from '../ui/badge'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
-import { useTranslations } from 'next-intl'
 
 type CardProps = React.ComponentProps<typeof Card>
 

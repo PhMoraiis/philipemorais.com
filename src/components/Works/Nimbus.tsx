@@ -1,10 +1,10 @@
 'use client'
 import { cn } from '@/lib/utils'
+import { Coffee, Database, Flower, Rocket } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { useState } from 'react'
 import { Badge } from '../ui/badge'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
-import { useState } from 'react'
-import { Rocket, Coffee, Database, Flower } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 
 type CardProps = React.ComponentProps<typeof Card>
 
@@ -62,7 +62,7 @@ const Works = ({ className, ...props }: CardProps) => {
         'h-[550px]',
         'flex sm:hidden' // Mostrar apenas em dispositivos móveis
       )}
-      style={mobileImageBG} 
+      style={mobileImageBG}
       {...props}
       onClick={handleGoNimbus}
     >
