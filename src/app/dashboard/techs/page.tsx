@@ -29,7 +29,6 @@ const TechsDashboard = () => {
         const response = await fetch('/api/techs')
         const data = await response.json()
         setTechs(data)
-        console.log(data)
       } catch (error) {
         setTechError('Failed to get techs')
       } finally {
@@ -198,7 +197,6 @@ const TechsDashboard = () => {
       setTechs(data)
     } catch (error) {
       setTechError('Failed to refresh techs')
-      console.error('Fetch error:', error)
     } finally {
       setRefreshLoading(false)
     }

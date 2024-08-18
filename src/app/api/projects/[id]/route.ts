@@ -25,7 +25,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   const { id } = params
 
   try {
-    const { name, image, shortDescription, longDescription, href, status, techIds } = await request.json()
+    const { name, image, shortDescription, longDescription, href, status, techIds = [] } = await request.json()
 
     const updatedProject = await prisma.project.update({
       where: { id },
@@ -36,9 +36,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
         longDescription,
         href,
         status,
-        techs: {
-          set: techIds.map((id: string) => ({ id })),
-        },
+        techs: techIds.length ? { connect: techIds.map((id: string) => ({ id })) } : undefined,
       },
     })
 

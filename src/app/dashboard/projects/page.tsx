@@ -126,7 +126,6 @@ const ProjectsDashboard = () => {
   }
 
   const handleCreateProject = async (data: ProjectFormData) => {
-    console.log('Creating project with data:', data)
     try {
       const response = await fetch('/api/projects', {
         method: 'POST',
@@ -134,15 +133,12 @@ const ProjectsDashboard = () => {
         body: JSON.stringify(data),
       })
 
-      console.log('response', response)
-
       if (!response.ok) {
         throw new Error('Failed to create project')
       }
 
       const newProject = await response.json()
       setProjects([...projects, newProject])
-      console.log('newProject', newProject)
       toast.success('Projeto criado com sucesso!', {
         icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
         duration: 2000,
@@ -155,12 +151,25 @@ const ProjectsDashboard = () => {
     }
   }
 
-  const handleEditProject = async (id: string, data: ProjectFormData) => {
+  const handleUpdateProject = async (id: string, data: ProjectFormData) => {
+    const currentProject = projects.find(project => project.id === id)
+    if (!currentProject) return
+
+    const updatedFields: Partial<ProjectFormData> = {}
+
+    if (data.name && data.name !== currentProject.name) updatedFields.name = data.name
+    if (data.image && data.image !== currentProject.image) updatedFields.image = data.image
+    if (data.shortDescription && data.shortDescription !== currentProject.shortDescription) updatedFields.shortDescription = data.shortDescription
+    if (data.longDescription && data.longDescription !== currentProject.longDescription) updatedFields.longDescription = data.longDescription
+    if (data.href && data.href !== currentProject.href) updatedFields.href = data.href
+    if (data.status && data.status !== currentProject.status) updatedFields.status = data.status
+    if (data.techs && JSON.stringify(data.techs) !== JSON.stringify(currentProject.techs)) updatedFields.techs = data.techs
+
     try {
       const response = await fetch(`/api/projects/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(updatedFields),
       })
 
       if (!response.ok) {
@@ -168,9 +177,10 @@ const ProjectsDashboard = () => {
       }
 
       const updatedProject = await response.json()
-      setProjects(projects.map((project) => (project.id === id ? updatedProject : project)))
+      setProjects(projects.map(project => project.id === id ? updatedProject : project))
       toast.success('Projeto editado com sucesso!', {
         icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
+        description: `${updatedProject.name} foi atualizado com sucesso`,
         duration: 2000,
       })
     } catch (error) {
@@ -180,7 +190,6 @@ const ProjectsDashboard = () => {
       })
     }
   }
-
 
   const handleDeleteProject = async (id: string) => {
     try {
@@ -230,7 +239,6 @@ const ProjectsDashboard = () => {
       setProjects(data)
     } catch (error) {
       setProjectError('Failed to refresh Projects')
-      console.error('Fetch error:', error)
     } finally {
       setRefreshLoading(false)
     }
@@ -325,12 +333,12 @@ const ProjectsDashboard = () => {
                         </div>
                         <div className="space-y-2">
                           <Label>Status</Label>
-                          <Select {...register('status')}>
+                          <Select>
                             <SelectTrigger>
                               <SelectValue placeholder="Selecione o status do projeto" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectGroup>
+                              <SelectGroup aria-label="Status" {...register('status')}>
                                 <SelectLabel>Status</SelectLabel>
                                 <SelectItem value="ONLINE">Online</SelectItem>
                                 <SelectItem value="DEVELOPMENT">Em Desenvolvimento</SelectItem>
@@ -462,35 +470,35 @@ const ProjectsDashboard = () => {
                                             <DrawerTitle>Editar {project.name}</DrawerTitle>
                                             <DrawerDescription>Edite com sabedoria o projeto escolhido.</DrawerDescription>
                                           </DrawerHeader>
-                                          <form className='space-y-2 p-4 pb-0' onSubmit={handleSubmit((data) => handleEditProject(project.id, data))}>
+                                          <form className='space-y-2 p-4 pb-0' onSubmit={handleSubmit((data) => handleUpdateProject(project.id, data))}>
                                             <div className="space-y-2">
                                               <Label>Nome</Label>
-                                              <Input {...register('name')} id="name" name="name" placeholder="Nome do projeto" required />
+                                              <Input {...register('name')} id="name" name="name" placeholder={project.name} required />
                                             </div>
                                             <div className="space-y-2">
                                               <Label>Imagens</Label>
-                                              <Input {...register('image')} id="image" name="image" placeholder="URLs das imagens (separadas por vírgula)" required />
+                                              <Input {...register('image')} id="image" name="image" placeholder={project.image} required />
                                             </div>
                                             <div className="space-y-2">
                                               <Label>Descrição Curta</Label>
-                                              <Input {...register('shortDescription')} id="shortDescription" name="shortDescription" placeholder="Descrição curta do projeto" required />
+                                              <Input {...register('shortDescription')} id="shortDescription" name="shortDescription" placeholder={project.shortDescription} required />
                                             </div>
                                             <div className="space-y-2">
                                               <Label>Descrição Longa</Label>
-                                              <Input {...register('longDescription')} id="longDescription" name="longDescription" placeholder="Descrição longa do projeto" required />
+                                              <Input {...register('longDescription')} id="longDescription" name="longDescription" placeholder={project.longDescription} required />
                                             </div>
                                             <div className="space-y-2">
                                               <Label>Link</Label>
-                                              <Input {...register('href')} id="href" name="href" placeholder="Link para o projeto" required />
+                                              <Input {...register('href')} id="href" name="href" placeholder={project.href} required />
                                             </div>
                                             <div className="space-y-2">
                                               <Label>Status</Label>
-                                              <Select {...register('status')}>
+                                              <Select>
                                                 <SelectTrigger>
-                                                  <SelectValue placeholder="Selecione o status do projeto" />
+                                                  <SelectValue placeholder={project.status} />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                  <SelectGroup>
+                                                  <SelectGroup {...register('status')}>
                                                     <SelectLabel>Status</SelectLabel>
                                                     <SelectItem value="ONLINE">Online</SelectItem>
                                                     <SelectItem value="DEVELOPMENT">Em Desenvolvimento</SelectItem>
