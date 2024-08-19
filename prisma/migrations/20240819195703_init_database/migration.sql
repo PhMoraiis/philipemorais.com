@@ -16,6 +16,7 @@ CREATE TABLE "projects" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "image" TEXT NOT NULL,
+    "imageMobile" TEXT NOT NULL,
     "shortDescription" TEXT NOT NULL,
     "longDescription" TEXT NOT NULL,
     "href" TEXT NOT NULL,

@@ -27,6 +27,7 @@ model Project {
   id               String   @id @default(cuid())
   name             String
   image            String
+  imageMobile      String
   shortDescription String
   longDescription  String
   href             String
