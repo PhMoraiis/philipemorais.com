@@ -9,7 +9,7 @@ import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMe
 import { MultiStepLoader as Loader } from '@/components/ui/multi-step-loader'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { CheckCircle, ListFilter, Loader2, MoreHorizontal, Pen, PlusCircle, RefreshCcw, Trash2 } from 'lucide-react'
+import { CheckCircle, ListFilter, Loader2, MoreHorizontal, Pen, PlusCircle, RefreshCcw, Trash2, X } from 'lucide-react'
 
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer'
 import { Input } from '@/components/ui/input'
@@ -23,17 +23,18 @@ import { toast } from 'sonner'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 // Schema de validação para os forms de criação e edição
 const projectSchema = z.object({
   name: z.string().min(3, 'O nome é obrigatório'),
   image: z.string().min(1, 'A URL da imagem é obrigatória'),
+  imageMobile: z.string().min(1, 'A URL da imagem é obrigatória'),
   shortDescription: z.string().min(3, 'A descrição curta é obrigatória'),
   longDescription: z.string().min(3, 'A descrição longa é obrigatória'),
   href: z.string().url('Link inválido').min(1, 'O link é obrigatório'),
-  status: z.enum(['ONLINE', 'DESENVOLVIMENTO', 'INTERROMPIDO']),
+  status: z.enum(['ONLINE', 'INTERROMPIDO', 'DESENVOLVIMENTO']),
   techs: z.array(z.string()).min(1, 'Selecione pelo menos uma tecnologia')
 })
 
@@ -45,11 +46,12 @@ const ProjectsDashboard = () => {
   const { projects, loading: loadingProjects, setProjects, setLoading: setLoadingProjects, setError: setProjectError } = useProjectStore()
   const { techs, loading: loadingTechs, setTechs, setLoading: setLoadingTechs, setError: setTechError } = useTechStore()
 
-  const { handleSubmit, register, formState: { errors, isSubmitting, isDirty, isValid }, } = useForm<ProjectFormData>({
+  const { handleSubmit, register, control, formState: { errors, isSubmitting, isDirty, isValid }, } = useForm<ProjectFormData>({
     resolver: zodResolver(projectSchema),
     defaultValues: {
       name: '',
       image: '',
+      imageMobile: '',
       shortDescription: '',
       longDescription: '',
       href: '',
@@ -146,6 +148,7 @@ const ProjectsDashboard = () => {
     } catch (error) {
       toast.error('Erro ao criar projeto', {
         description: 'Ocorreu um erro ao tentar criar o projeto. Por favor, tente novamente.',
+        icon: <X className='mr-2 h-4 w-4 text-red-500' />,
         duration: 2000,
       })
     }
@@ -153,19 +156,30 @@ const ProjectsDashboard = () => {
 
   const handleUpdateProject = async (id: string, data: ProjectFormData) => {
     const currentProject = projects.find(project => project.id === id)
-    if (!currentProject) return
+    if (!currentProject) {
+      console.error('Projeto não encontrado')
+      return
+    }
 
     const updatedFields: Partial<ProjectFormData> = {}
 
+    // Compare fields and update only if necessary
     if (data.name && data.name !== currentProject.name) updatedFields.name = data.name
     if (data.image && data.image !== currentProject.image) updatedFields.image = data.image
     if (data.shortDescription && data.shortDescription !== currentProject.shortDescription) updatedFields.shortDescription = data.shortDescription
     if (data.longDescription && data.longDescription !== currentProject.longDescription) updatedFields.longDescription = data.longDescription
     if (data.href && data.href !== currentProject.href) updatedFields.href = data.href
     if (data.status && data.status !== currentProject.status) updatedFields.status = data.status
-    if (data.techs && JSON.stringify(data.techs) !== JSON.stringify(currentProject.techs)) updatedFields.techs = data.techs
+    if (data.techs && !arraysEqual(data.techs, currentProject.techs)) updatedFields.techs = data.techs
+
+    if (Object.keys(updatedFields).length === 0) {
+      console.log('Nenhum campo para atualizar')
+      return
+    }
 
     try {
+      console.log('Atualizando projeto:', id, updatedFields)
+
       const response = await fetch(`/api/projects/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -173,10 +187,11 @@ const ProjectsDashboard = () => {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to update project')
+        const errorText = await response.text()  // Ler o corpo da resposta como texto para erros
+        throw new Error(`Failed to update project: ${errorText}`)
       }
 
-      const updatedProject = await response.json()
+      const updatedProject = await response.json()  // Ler o corpo da resposta como JSON somente após a verificação do status
       setProjects(projects.map(project => project.id === id ? updatedProject : project))
       toast.success('Projeto editado com sucesso!', {
         icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
@@ -184,12 +199,22 @@ const ProjectsDashboard = () => {
         duration: 2000,
       })
     } catch (error) {
+      console.error('Erro ao atualizar projeto:', error)
       toast.error('Erro ao editar projeto', {
-        description: 'Ocorreu um erro ao tentar editar o projeto. Por favor, tente novamente.',
+        description: error instanceof Error ? error.message : 'Ocorreu um erro ao tentar editar o projeto. Por favor, tente novamente.',
+        icon: <X className='mr-2 h-4 w-4 text-red-500' />,
         duration: 2000,
       })
     }
   }
+
+
+  const arraysEqual = (arr1: any[] | undefined, arr2: any[] | undefined): boolean => {
+    if (!Array.isArray(arr1) || !Array.isArray(arr2)) return false
+    if (arr1.length !== arr2.length) return false
+    return arr1.every((item, index) => JSON.stringify(item) === JSON.stringify(arr2[index]))
+  }
+
 
   const handleDeleteProject = async (id: string) => {
     try {
@@ -200,12 +225,13 @@ const ProjectsDashboard = () => {
       toast.success('Projeto excluído com sucesso!', {
         icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
         description: `${projects.find(project => project.id === id)?.name} excluído com sucesso`,
-        duration: 2000
+        duration: 2000,
       })
     } catch (error) {
       toast.error('Erro ao excluir projeto', {
         description: 'Ocorreu um erro ao tentar excluir o projeto. Por favor, tente novamente.',
-        duration: 2000
+        icon: <X className='mr-2 h-4 w-4 text-red-500' />,
+        duration: 2000,
       })
     }
   }
@@ -320,6 +346,10 @@ const ProjectsDashboard = () => {
                           <Input {...register('image')} id="image" name="image" placeholder="URLs das imagens (separadas por vírgula)" required />
                         </div>
                         <div className="space-y-2">
+                          <Label>Imagem Mobile</Label>
+                          <Input {...register('imageMobile')} id="imageMobile" name="imageMobile" placeholder="URLs das imagens (separadas por vírgula)" required />
+                        </div>
+                        <div className="space-y-2">
                           <Label>Descrição Curta</Label>
                           <Input {...register('shortDescription')} id="shortDescription" name="shortDescription" placeholder="Descrição curta do projeto" required />
                         </div>
@@ -333,23 +363,30 @@ const ProjectsDashboard = () => {
                         </div>
                         <div className="space-y-2">
                           <Label>Status</Label>
-                          <Select>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Selecione o status do projeto" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectGroup aria-label="Status" {...register('status')}>
-                                <SelectLabel>Status</SelectLabel>
-                                <SelectItem value="ONLINE">Online</SelectItem>
-                                <SelectItem value="DEVELOPMENT">Em Desenvolvimento</SelectItem>
-                                <SelectItem value="INTERRUPTED">Interrompido</SelectItem>
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
+                          <Controller
+                            name="status"
+                            control={control}
+                            defaultValue="ONLINE" // Valor padrão
+                            render={({ field }) => (
+                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Selecione o status do projeto" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup aria-label="Status">
+                                    <SelectLabel>Status</SelectLabel>
+                                    <SelectItem value="ONLINE">Online</SelectItem>
+                                    <SelectItem value="DESENVOLVIMENTO">Em Desenvolvimento</SelectItem>
+                                    <SelectItem value="INTERROMPIDO">Interrompido</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            )}
+                          />
                         </div>
                         <div className="space-y-2">
                           <Label>Tecnologias</Label>
-                          <select {...register('techs')} id="techs" name="techs" multiple required>
+                          <select aria-label="Techs" className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" {...register('techs')} id="techs" name="techs" multiple required>
                             {techs.map((tech) => (
                               <option key={tech.id} value={tech.id}>
                                 {tech.name}
@@ -405,7 +442,7 @@ const ProjectsDashboard = () => {
                       <TableBody>
                         <TableRow>
                           <TableCell colSpan={4} className="h-24 text-center">
-                            Nenhuma tecnologia encontrada
+                            Nenhum projeto encontrado
                           </TableCell>
                         </TableRow>
                       </TableBody>
@@ -427,12 +464,12 @@ const ProjectsDashboard = () => {
                                 {project.name}
                               </TableCell>
                               <TableCell>
-                                <Badge variant="outline">{project.status}</Badge>
+                                <Badge variant={project.status}>{project.status}</Badge>
                               </TableCell>
                               <TableCell className="hidden md:table-cell">
                                 {project.shortDescription}
                               </TableCell>
-                              <TableCell className="hidden md:table-cell text-blue-500 underline">
+                              <TableCell className="hidden md:table-cell text-[#1d48e140]/50 underline hover:text-[#1d48e140]/65">
                                 <Link href={project.href}>
                                   {project.href}
                                 </Link>
@@ -476,8 +513,12 @@ const ProjectsDashboard = () => {
                                               <Input {...register('name')} id="name" name="name" placeholder={project.name} required />
                                             </div>
                                             <div className="space-y-2">
-                                              <Label>Imagens</Label>
+                                              <Label>Imagem</Label>
                                               <Input {...register('image')} id="image" name="image" placeholder={project.image} required />
+                                            </div>
+                                            <div className="space-y-2">
+                                              <Label>Imagem Mobile</Label>
+                                              <Input {...register('imageMobile')} id="imageMobile" name="imageMobile" placeholder={project.imageMobile} required />
                                             </div>
                                             <div className="space-y-2">
                                               <Label>Descrição Curta</Label>
@@ -493,23 +534,30 @@ const ProjectsDashboard = () => {
                                             </div>
                                             <div className="space-y-2">
                                               <Label>Status</Label>
-                                              <Select>
-                                                <SelectTrigger>
-                                                  <SelectValue placeholder={project.status} />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                  <SelectGroup {...register('status')}>
-                                                    <SelectLabel>Status</SelectLabel>
-                                                    <SelectItem value="ONLINE">Online</SelectItem>
-                                                    <SelectItem value="DEVELOPMENT">Em Desenvolvimento</SelectItem>
-                                                    <SelectItem value="INTERRUPTED">Interrompido</SelectItem>
-                                                  </SelectGroup>
-                                                </SelectContent>
-                                              </Select>
+                                              <Controller
+                                                name="status"
+                                                control={control}
+                                                defaultValue={project.status} // Valor padrão
+                                                render={({ field }) => (
+                                                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                    <SelectTrigger>
+                                                      <SelectValue placeholder="Selecione o status do projeto" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                      <SelectGroup aria-label="Status">
+                                                        <SelectLabel>Status</SelectLabel>
+                                                        <SelectItem value="ONLINE">Online</SelectItem>
+                                                        <SelectItem value="DESENVOLVIMENTO">Em Desenvolvimento</SelectItem>
+                                                        <SelectItem value="INTERROMPIDO">Interrompido</SelectItem>
+                                                      </SelectGroup>
+                                                    </SelectContent>
+                                                  </Select>
+                                                )}
+                                              />
                                             </div>
                                             <div className="space-y-2">
                                               <Label>Tecnologias</Label>
-                                              <select {...register('techs')} id="techs" name="techs" multiple required>
+                                              <select aria-label="Techs" className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" {...register('techs')} id="techs" name="techs" multiple required>
                                                 {techs.map((tech) => (
                                                   <option key={tech.id} value={tech.id}>
                                                     {tech.name}
@@ -529,7 +577,7 @@ const ProjectsDashboard = () => {
                                         </div>
                                       </DrawerContent>
                                     </Drawer>
-                                    <Button onClick={() => handleDeleteProject(project.id)} className='flex justify-between w-full hover:bg-red-500' size='sm' variant='outline'>Excluir <Trash2 className='h-4 w-4' /> </Button>
+                                    <Button onClick={() => handleDeleteProject(project.id)} className='flex justify-between w-full hover:bg-red-500 hover:text-secondary text-red-500 border-red-500' size='sm' variant='outline'>Excluir <Trash2 className='h-4 w-4' /> </Button>
                                   </DropdownMenuContent>
                                 </DropdownMenu>
                               </TableCell>

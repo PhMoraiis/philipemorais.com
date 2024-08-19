@@ -1,4 +1,5 @@
 import prisma from '@/lib/prisma'
+import { Status } from '@prisma/client'
 import { NextResponse } from 'next/server'
 
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
@@ -25,23 +26,27 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   const { id } = params
 
   try {
-    const { name, image, shortDescription, longDescription, href, status, techIds = [] } = await request.json()
+    const { name, image, imageMobile, shortDescription, longDescription, href, status = [], techIds = [] } = await request.json()
+
+    const validStatus = status && typeof status === 'string' ? (status as Status) : undefined
 
     const updatedProject = await prisma.project.update({
       where: { id },
       data: {
         name,
         image,
+        imageMobile,
         shortDescription,
         longDescription,
         href,
-        status,
+        status: validStatus,
         techs: techIds.length ? { connect: techIds.map((id: string) => ({ id })) } : undefined,
       },
     })
 
     return NextResponse.json(updatedProject)
   } catch (error: any) {
+    console.log(error)
     return NextResponse.json(
       {
         error: 'Failed to update project',
