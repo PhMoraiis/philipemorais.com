@@ -1,17 +1,24 @@
-import { CircleUser, Hexagon, Home, LogOut, Menu, Search, SquareTerminal, ToggleLeft } from 'lucide-react'
+import { CircleUser, Hexagon, Home, LogOut, Menu, SquareTerminal, ToggleLeft } from 'lucide-react'
 import { Button } from '../ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
-import { Input } from '../ui/input'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 
-import { usePathname } from 'next/navigation'
+import Cookies from 'js-cookie'
 import Link from 'next/link'
-import { Badge } from '../ui/badge'
-import SearchBar from '../SearchBar'
+import { usePathname, useRouter } from 'next/navigation'
 
+import SearchBar from '../SearchBar'
+import { Badge } from '../ui/badge'
 
 const Topbar = () => {
+  const router = useRouter()
   const pathname = usePathname()
+
+  const handleLogout = () => {
+    Cookies.remove('token', { path: '/dashboard' })
+    router.push('/')
+  }
+
 
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
@@ -72,7 +79,7 @@ const Topbar = () => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem className='hover:bg-red-500 hover:text-secondary flex justify-between'>Sair <LogOut className='ml-2 w-4 h-4' /> </DropdownMenuItem>
+          <Button onClick={handleLogout} variant='default' className='hover:bg-red-500 hover:text-secondary flex justify-between w-full'>Sair <LogOut className='ml-2 w-4 h-4' /> </Button>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>

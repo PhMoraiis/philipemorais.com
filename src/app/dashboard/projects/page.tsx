@@ -588,12 +588,6 @@ const ProjectsDashboard = () => {
                     )}
                   </Table>
                 </CardContent>
-                <CardFooter>
-                  <div className="text-xs text-muted-foreground">
-                    Mostrando <strong>1-10</strong> de <strong>32</strong>{' '}
-                    Projetos
-                  </div>
-                </CardFooter>
               </Card>
             </TabsContent>
           </Tabs>

@@ -230,7 +230,7 @@ const Dashboard = () => {
                                 {project.name}
                               </TableCell>
                               <TableCell>
-                                <Badge variant="outline">{project.status}</Badge>
+                                <Badge variant={project.status}>{project.status}</Badge>
                               </TableCell>
                               <TableCell className="hidden md:table-cell">
                                 {project.shortDescription}
