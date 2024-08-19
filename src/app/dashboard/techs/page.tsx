@@ -9,7 +9,7 @@ import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMe
 import { MultiStepLoader as Loader } from '@/components/ui/multi-step-loader'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { CheckCircle, ListFilter, Loader2, MoreHorizontal, Pen, PlusCircle, RefreshCcw, Trash2 } from 'lucide-react'
+import { CheckCircle, ListFilter, Loader2, MoreHorizontal, Pen, PlusCircle, RefreshCcw, Trash2, X } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { Input } from '@/components/ui/input'
@@ -100,6 +100,7 @@ const TechsDashboard = () => {
       setTechError('Failed to create tech')
       toast.error('Erro ao criar tecnologia.', {
         description: 'Ocorreu um erro ao tentar criar a tecnologia. Por favor, tente novamente.',
+        icon: <X className='mr-2 h-4 w-4 text-red-500' />,
         duration: 2000,
       })
     }
@@ -145,6 +146,7 @@ const TechsDashboard = () => {
     } catch (error) {
       toast.error('Erro ao editar tecnologia', {
         description: 'Ocorreu um erro ao tentar editar a tecnologia. Por favor, tente novamente.',
+        icon: <X className='mr-2 h-4 w-4 text-red-500' />,
         duration: 2000
       })
     }
@@ -163,6 +165,7 @@ const TechsDashboard = () => {
     } catch (error) {
       toast.error('Erro ao excluir tecnologia', {
         description: 'Ocorreu um erro ao tentar excluir a tecnologia. Por favor, tente novamente.',
+        icon: <X className='mr-2 h-4 w-4 text-red-500' />,
         duration: 2000
       })
     }

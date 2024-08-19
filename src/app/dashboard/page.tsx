@@ -208,7 +208,7 @@ const Dashboard = () => {
                       <TableBody>
                         <TableRow>
                           <TableCell colSpan={4} className="h-24 text-center">
-                            Nenhuma tecnologia encontrada
+                            Nenhum projeto encontrado
                           </TableCell>
                         </TableRow>
                       </TableBody>
