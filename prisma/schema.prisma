@@ -19,8 +19,6 @@ model User {
   name     String
   email    String @unique
   password String
-
-  @@map("users")
 }
 
 model Project {
@@ -35,8 +33,6 @@ model Project {
   techs            Tech[]
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
-
-  @@map("projects")
 }
 
 model Tech {
@@ -46,8 +42,6 @@ model Tech {
   projects  Project[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-
-  @@map("techs")
 }
 
 enum Status {
