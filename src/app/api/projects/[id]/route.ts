@@ -26,7 +26,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   const { id } = params
 
   try {
-    const { name, image, imageMobile, shortDescription, longDescription, href, status = [], techIds = [] } = await request.json()
+    const { name, image, imageMobile, shortDescription, translatedShortDescription, href, status = [], techIds = [] } = await request.json()
 
     const validStatus = status && typeof status === 'string' ? (status as Status) : undefined
 
@@ -37,7 +37,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
         image,
         imageMobile,
         shortDescription,
-        longDescription,
+        translatedShortDescription,
         href,
         status: validStatus,
         techs: techIds.length ? { connect: techIds.map((id: string) => ({ id })) } : undefined,

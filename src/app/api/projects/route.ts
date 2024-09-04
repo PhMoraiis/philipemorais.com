@@ -16,7 +16,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { name, image, imageMobile, shortDescription, longDescription, href, status = [], techIds = [] } = await request.json()
+    const { name, image, imageMobile, shortDescription, translatedShortDescription, href, status = [], techIds = [] } = await request.json()
 
     const newProject = await prisma.project.create({
       data: {
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
         image,
         imageMobile,
         shortDescription,
-        longDescription,
+        translatedShortDescription,
         href,
         status: status as Status,
         techs: techIds.length ? { connect: techIds.map((id: string) => ({ id })) } : undefined,

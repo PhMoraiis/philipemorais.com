@@ -22,17 +22,17 @@ model User {
 }
 
 model Project {
-  id               String   @id @default(cuid())
-  name             String
-  image            String
-  imageMobile      String
-  shortDescription String
-  longDescription  String
-  href             String
-  status           Status   @default(ONLINE)
-  techs            Tech[]
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id                         String   @id @default(cuid())
+  name                       String
+  image                      String
+  imageMobile                String
+  shortDescription           String
+  translatedShortDescription String
+  href                       String
+  status                     Status   @default(ONLINE)
+  techs                      Tech[]
+  createdAt                  DateTime @default(now())
+  updatedAt                  DateTime @updatedAt
 }
 
 model Tech {

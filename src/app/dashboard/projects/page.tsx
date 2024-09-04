@@ -32,7 +32,7 @@ const projectSchema = z.object({
   image: z.string().min(1, 'A URL da imagem é obrigatória'),
   imageMobile: z.string().min(1, 'A URL da imagem é obrigatória'),
   shortDescription: z.string().min(3, 'A descrição curta é obrigatória'),
-  longDescription: z.string().min(3, 'A descrição longa é obrigatória'),
+  translatedShortDescription: z.string().min(3, 'A descrição longa é obrigatória'),
   href: z.string().url('Link inválido').min(1, 'O link é obrigatório'),
   status: z.enum(['ONLINE', 'INTERROMPIDO', 'DESENVOLVIMENTO']),
   techs: z.array(z.string()).min(1, 'Selecione pelo menos uma tecnologia')
@@ -53,7 +53,7 @@ const ProjectsDashboard = () => {
       image: '',
       imageMobile: '',
       shortDescription: '',
-      longDescription: '',
+      translatedShortDescription: '',
       href: '',
       status: 'ONLINE',
       techs: []
@@ -167,7 +167,7 @@ const ProjectsDashboard = () => {
     if (data.name && data.name !== currentProject.name) updatedFields.name = data.name
     if (data.image && data.image !== currentProject.image) updatedFields.image = data.image
     if (data.shortDescription && data.shortDescription !== currentProject.shortDescription) updatedFields.shortDescription = data.shortDescription
-    if (data.longDescription && data.longDescription !== currentProject.longDescription) updatedFields.longDescription = data.longDescription
+    if (data.translatedShortDescription && data.translatedShortDescription !== currentProject.translatedShortDescription) updatedFields.translatedShortDescription = data.translatedShortDescription
     if (data.href && data.href !== currentProject.href) updatedFields.href = data.href
     if (data.status && data.status !== currentProject.status) updatedFields.status = data.status
     if (data.techs && !arraysEqual(data.techs, currentProject.techs)) updatedFields.techs = data.techs
@@ -354,8 +354,8 @@ const ProjectsDashboard = () => {
                           <Input {...register('shortDescription')} id="shortDescription" name="shortDescription" placeholder="Descrição curta do projeto" required />
                         </div>
                         <div className="space-y-2">
-                          <Label>Descrição Longa</Label>
-                          <Input {...register('longDescription')} id="longDescription" name="longDescription" placeholder="Descrição longa do projeto" required />
+                          <Label>Traduza a Descrição</Label>
+                          <Input {...register('translatedShortDescription')} id="translatedShortDescription" name="translatedShortDescription" placeholder="Tradução da descrição" required />
                         </div>
                         <div className="space-y-2">
                           <Label>Link</Label>
@@ -525,8 +525,8 @@ const ProjectsDashboard = () => {
                                               <Input {...register('shortDescription')} id="shortDescription" name="shortDescription" placeholder={project.shortDescription} required />
                                             </div>
                                             <div className="space-y-2">
-                                              <Label>Descrição Longa</Label>
-                                              <Input {...register('longDescription')} id="longDescription" name="longDescription" placeholder={project.longDescription} required />
+                                              <Label>Tradução da Descrição</Label>
+                                              <Input {...register('translatedShortDescription')} id="translatedShortDescription" name="translatedShortDescription" placeholder={project.translatedShortDescription} required />
                                             </div>
                                             <div className="space-y-2">
                                               <Label>Link</Label>
