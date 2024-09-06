@@ -31,6 +31,8 @@ const projectSchema = z.object({
   name: z.string().min(3, 'O nome é obrigatório'),
   image: z.string().min(1, 'A URL da imagem é obrigatória'),
   imageMobile: z.string().min(1, 'A URL da imagem é obrigatória'),
+  imageDark: z.string().optional(),
+  imageDarkMobile: z.string().optional(),
   shortDescription: z.string().min(3, 'A descrição curta é obrigatória'),
   translatedShortDescription: z.string().min(3, 'A descrição longa é obrigatória'),
   href: z.string().url('Link inválido').min(1, 'O link é obrigatório'),
@@ -52,6 +54,8 @@ const ProjectsDashboard = () => {
       name: '',
       image: '',
       imageMobile: '',
+      imageDark: '',
+      imageDarkMobile: '',
       shortDescription: '',
       translatedShortDescription: '',
       href: '',
@@ -132,7 +136,10 @@ const ProjectsDashboard = () => {
       const response = await fetch('/api/projects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          techs: data.techs.map((techId) => ({ id: techId })), // Mapeia techs para o formato esperado
+        }),
       })
 
       if (!response.ok) {
@@ -166,6 +173,9 @@ const ProjectsDashboard = () => {
     // Compare fields and update only if necessary
     if (data.name && data.name !== currentProject.name) updatedFields.name = data.name
     if (data.image && data.image !== currentProject.image) updatedFields.image = data.image
+    if (data.imageMobile && data.imageMobile !== currentProject.imageMobile) updatedFields.imageMobile = data.imageMobile
+    if (data.imageDark && data.imageDark !== currentProject.imageDark) updatedFields.imageDark = data.imageDark
+    if (data.imageDarkMobile && data.imageDarkMobile !== currentProject.imageDarkMobile) updatedFields.imageDarkMobile = data.imageDarkMobile
     if (data.shortDescription && data.shortDescription !== currentProject.shortDescription) updatedFields.shortDescription = data.shortDescription
     if (data.translatedShortDescription && data.translatedShortDescription !== currentProject.translatedShortDescription) updatedFields.translatedShortDescription = data.translatedShortDescription
     if (data.href && data.href !== currentProject.href) updatedFields.href = data.href
@@ -209,7 +219,7 @@ const ProjectsDashboard = () => {
   }
 
 
-  const arraysEqual = (arr1: any[] | undefined, arr2: any[] | undefined): boolean => {
+  const arraysEqual = (arr1: string[] | undefined, arr2: string[] | undefined): boolean => { // Alterado de any[] para string[]
     if (!Array.isArray(arr1) || !Array.isArray(arr2)) return false
     if (arr1.length !== arr2.length) return false
     return arr1.every((item, index) => JSON.stringify(item) === JSON.stringify(arr2[index]))
@@ -273,12 +283,12 @@ const ProjectsDashboard = () => {
   const verificarAtualizacao = (project: { updatedAt: string, createdAt: string }) => {
     if (project.updatedAt === project.createdAt) {
       return 'Nunca atualizada'
-    } else {
-      return new Intl.DateTimeFormat('pt-BR', {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-      }).format(new Date(project.updatedAt))
     }
+    // Removido o else
+    return new Intl.DateTimeFormat('pt-BR', {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    }).format(new Date(project.updatedAt))
   }
 
   return (
@@ -350,6 +360,14 @@ const ProjectsDashboard = () => {
                           <Input {...register('imageMobile')} id="imageMobile" name="imageMobile" placeholder="URLs das imagens (separadas por vírgula)" required />
                         </div>
                         <div className="space-y-2">
+                          <Label>Imagem Dark</Label>
+                          <Input {...register('imageDark')} id="imageDark" name="imageDark" placeholder="URLs das imagens (separadas por vírgula)" required />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Imagem Mobile Dark</Label>
+                          <Input {...register('imageDarkMobile')} id="imageDarkMobile" name="imageDarkMobile" placeholder="URLs das imagens (separadas por vírgula)" required />
+                        </div>
+                        <div className="space-y-2">
                           <Label>Descrição Curta</Label>
                           <Input {...register('shortDescription')} id="shortDescription" name="shortDescription" placeholder="Descrição curta do projeto" required />
                         </div>
@@ -386,13 +404,19 @@ const ProjectsDashboard = () => {
                         </div>
                         <div className="space-y-2">
                           <Label>Tecnologias</Label>
-                          <select aria-label="Techs" className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" {...register('techs')} id="techs" name="techs" multiple required>
+                          <div className="flex space-x-4 flex-wrap items-center justify-center">
                             {techs.map((tech) => (
-                              <option key={tech.id} value={tech.id}>
+                              <label key={tech.id} className="flex items-center">
+                                <input
+                                  type="checkbox"
+                                  value={tech.id}
+                                  {...register('techs')}
+                                  className="mr-2 rounded-lg"
+                                />
                                 {tech.name}
-                              </option>
+                              </label>
                             ))}
-                          </select>
+                          </div>
                         </div>
                         <DrawerFooter>
                           <DrawerClose asChild>
@@ -521,6 +545,14 @@ const ProjectsDashboard = () => {
                                               <Input {...register('imageMobile')} id="imageMobile" name="imageMobile" placeholder={project.imageMobile} required />
                                             </div>
                                             <div className="space-y-2">
+                                              <Label>Imagem Dark</Label>
+                                              <Input {...register('imageDark')} id="imageDark" name="imageDark" placeholder={project.imageDark} required />
+                                            </div>
+                                            <div className="space-y-2">
+                                              <Label>Imagem Mobile Dark</Label>
+                                              <Input {...register('imageDarkMobile')} id="imageDarkMobile" name="imageDarkMobile" placeholder={project.imageDarkMobile} required />
+                                            </div>
+                                            <div className="space-y-2">
                                               <Label>Descrição Curta</Label>
                                               <Input {...register('shortDescription')} id="shortDescription" name="shortDescription" placeholder={project.shortDescription} required />
                                             </div>
@@ -557,13 +589,19 @@ const ProjectsDashboard = () => {
                                             </div>
                                             <div className="space-y-2">
                                               <Label>Tecnologias</Label>
-                                              <select aria-label="Techs" className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" {...register('techs')} id="techs" name="techs" multiple required>
+                                              <div className="flex flex-col">
                                                 {techs.map((tech) => (
-                                                  <option key={tech.id} value={tech.id}>
+                                                  <label key={tech.id} className="flex items-center">
+                                                    <input
+                                                      type="checkbox"
+                                                      value={tech.id}
+                                                      {...register('techs')}
+                                                      className="mr-2"
+                                                    />
                                                     {tech.name}
-                                                  </option>
+                                                  </label>
                                                 ))}
-                                              </select>
+                                              </div>
                                             </div>
                                             <DrawerFooter>
                                               <DrawerClose asChild>

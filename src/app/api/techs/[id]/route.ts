@@ -10,11 +10,11 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
     })
 
     return NextResponse.json({ message: 'Technology deleted successfully' })
-  } catch (error: any) {
+  } catch (error) { // Removido 'any'
     return NextResponse.json(
       {
         error: 'Failed to delete technology',
-        details: error.message,
+        details: (error as Error).message, // Especificado o tipo de erro
       },
       { status: 500 }
     )
@@ -36,11 +36,11 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     })
 
     return NextResponse.json(updatedTech)
-  } catch (error: any) {
+  } catch (error) { // Removido 'any'
     return NextResponse.json(
       {
         error: 'Failed to update technology',
-        details: error.message,
+        details: (error as Error).message, // Especificado o tipo de erro
       },
       { status: 500 }
     )

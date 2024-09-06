@@ -1,11 +1,12 @@
 import { PrismaClient } from '@prisma/client'
 
 const prismaClientSingleton = () => {
-  return new PrismaClient()
+	return new PrismaClient()
 }
 
+// biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
 declare const globalThis: {
-  prismaGlobal: ReturnType<typeof prismaClientSingleton>;
+	prismaGlobal: ReturnType<typeof prismaClientSingleton>
 } & typeof global
 
 const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()

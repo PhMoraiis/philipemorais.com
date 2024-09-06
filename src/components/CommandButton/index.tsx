@@ -32,7 +32,7 @@ import {
   CommandList,
   CommandShortcut
 } from '@/components/ui/command'
-import { Locale } from '@/config'
+import type { Locale } from '@/config'
 import { setUserLocale } from '@/services/locale'
 import { useTranslations } from 'next-intl'
 import { GiBrazilFlag } from 'react-icons/gi'
@@ -106,6 +106,7 @@ const CommandButton = () => {
     }
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown)
     return () => {

@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import useTechStore from '@/stores/techStore'
 import Image from 'next/image'
-import { FormEvent, useEffect, useState } from 'react'
+import { type FormEvent, useEffect, useState } from 'react'
 
 const TechsDashboard = () => {
   const { techs, loading: loadingTechs, setTechs, setLoading: setLoadingTechs, setError: setTechError, addTech } = useTechStore()
@@ -208,12 +208,11 @@ const TechsDashboard = () => {
   const verificarAtualizacao = (tech: { updatedAt: string, createdAt: string }) => {
     if (tech.updatedAt === tech.createdAt) {
       return 'Nunca atualizada'
-    } else {
-      return new Intl.DateTimeFormat('pt-BR', {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-      }).format(new Date(tech.updatedAt))
     }
+    return new Intl.DateTimeFormat('pt-BR', {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    }).format(new Date(tech.updatedAt))
   }
 
   return (
@@ -331,9 +330,9 @@ const TechsDashboard = () => {
                                 <Image
                                   alt="Product image"
                                   className="aspect-square rounded-md object-cover"
-                                  height="64"
+                                  height="44"
                                   src={tech.icon}
-                                  width="64"
+                                  width="54"
                                 />
                               </TableCell>
                               <TableCell className="font-medium">

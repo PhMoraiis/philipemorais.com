@@ -26,6 +26,8 @@ model Project {
   name                       String
   image                      String
   imageMobile                String
+  imageDark                  String?
+  imageDarkMobile            String?
   shortDescription           String
   translatedShortDescription String
   href                       String
