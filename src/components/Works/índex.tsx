@@ -14,12 +14,9 @@ const Works = ({ className, ...props }: CardProps) => {
   const [projects, setProjects] = useState<{ id: number; name: string; status: string, image: string, href: string, imageMobile: string, imageDark: string, imageDarkMobile: string, shortDescription: string; translatedShortDescription: string; techs: { id: number; name: string, icon: string }[] }[]>([])
   const [tech, setTechs] = useState<{ id: number; name: string, icon: string }[]>([])
   const [isHover, setIsHover] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const { theme } = useTheme()
   const isDark = theme === 'dark'
-
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
-  if (!mounted) return null
 
   const handleMouseEnter = () => {
     setIsHover(true)
@@ -30,6 +27,7 @@ const Works = ({ className, ...props }: CardProps) => {
   }
 
   useEffect(() => {
+    setMounted(true)
     const fetchProjects = async () => {
       const response = await fetch('/api/projects')
       const data = await response.json()
@@ -47,6 +45,8 @@ const Works = ({ className, ...props }: CardProps) => {
     fetchProjects()
     fetchTechs()
   }, [])
+
+  if (!mounted) return null
 
   const getImage = (project: { image: string; imageDark: string }) => {
     // Verifica se project.imageDark contém apenas um ponto
@@ -111,8 +111,12 @@ const Works = ({ className, ...props }: CardProps) => {
         return (
           <Card key={project.id} onClick={() => handleHref(project.href)} className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG({ image: project.image, imageDark: project.imageDark })}>
             <CardHeader>
-              <CardTitle className='text-secondary dark:text-primary'>{project.name}</CardTitle>
-              <CardDescription className='text-secondary dark:text-primary'>{description}</CardDescription>
+              <CardTitle className={cn('text-secondary', { 'text-[#333333] dark:text-primary': (projects.indexOf(project) === 1 || projects.indexOf(project) === 2) && !isDark })}>
+                {project.name}
+              </CardTitle>
+              <CardDescription className={cn('text-secondary', { 'text-[#333333] dark:text-primary': (projects.indexOf(project) === 1 || projects.indexOf(project) === 2) && !isDark })}>
+                {description}
+              </CardDescription>
             </CardHeader>
             <CardFooter className='gap-3'>
               <button type='button' className={'inline-flex items-center rounded-full border px-3 py-1 gap-2 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80'} onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
