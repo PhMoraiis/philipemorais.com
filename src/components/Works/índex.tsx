@@ -18,9 +18,6 @@ const Works = ({ className, ...props }: CardProps) => {
   const { theme } = useTheme()
   const isDark = theme === 'dark'
 
-  useEffect(() => setMounted(true), [])
-  if (!mounted) return null
-
   const handleMouseEnter = () => {
     setIsHover(true)
   }
@@ -30,6 +27,7 @@ const Works = ({ className, ...props }: CardProps) => {
   }
 
   useEffect(() => {
+    setMounted(true)
     const fetchProjects = async () => {
       const response = await fetch('/api/projects')
       const data = await response.json()
@@ -47,6 +45,8 @@ const Works = ({ className, ...props }: CardProps) => {
     fetchProjects()
     fetchTechs()
   }, [])
+
+  if (!mounted) return null
 
   const getImage = (project: { image: string; imageDark: string }) => {
     // Verifica se project.imageDark contém apenas um ponto
