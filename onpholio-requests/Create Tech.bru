@@ -1,0 +1,18 @@
+meta {
+  name: Create Tech
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/api/techs/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Javascript",
+    "icon": "https://cdn.worldvectorlogo.com/logos/logo-javascript.svg"
+  }
+}

@@ -1,12 +1,8 @@
 import Link from 'next/link'
 import { Badge } from '../ui/badge'
 import { ArrowRight } from 'lucide-react'
-import Matcher from '../Works/Matcher'
-import Onpholio from '../Works/Onpholio'
-import Nimbus from '../Works/Nimbus'
-import Pathway from '../Works/Pathway'
-import Stellar from '../Works/Stellar'
 import { useTranslations } from 'next-intl'
+import Works from '../Works/índex'
 
 const SelectedWorks = () => {
   const t = useTranslations('Projects')
@@ -24,11 +20,7 @@ const SelectedWorks = () => {
         </div>
       </div>
       <div className='grid grid-cols-1 space-y-6 md:gap-6 md:items-center md:justify-center md:place-items-center md:space-y-0 lg:gap-y-10'>
-        <Stellar />
-        <Onpholio />
-        <Pathway />
-        <Nimbus />
-        <Matcher />
+        <Works />
       </div>
     </div>
   )
