@@ -17,6 +17,10 @@ const Works = ({ className, ...props }: CardProps) => {
   const { theme } = useTheme()
   const isDark = theme === 'dark'
 
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  if (!mounted) return null
+
   const handleMouseEnter = () => {
     setIsHover(true)
   }
