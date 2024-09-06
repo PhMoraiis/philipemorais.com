@@ -111,8 +111,12 @@ const Works = ({ className, ...props }: CardProps) => {
         return (
           <Card key={project.id} onClick={() => handleHref(project.href)} className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG({ image: project.image, imageDark: project.imageDark })}>
             <CardHeader>
-              <CardTitle className='text-secondary dark:text-primary'>{project.name}</CardTitle>
-              <CardDescription className='text-secondary dark:text-primary'>{description}</CardDescription>
+              <CardTitle className={cn('text-secondary', { 'dark:text-[#333333]': (projects.indexOf(project) === 1 || projects.indexOf(project) === 2) && !isDark })}>
+                {project.name}
+              </CardTitle>
+              <CardDescription className={cn('text-secondary', { 'dark:text-[#333333]': (projects.indexOf(project) === 1 || projects.indexOf(project) === 2) && !isDark })}>
+                {description}
+              </CardDescription>
             </CardHeader>
             <CardFooter className='gap-3'>
               <button type='button' className={'inline-flex items-center rounded-full border px-3 py-1 gap-2 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80'} onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
