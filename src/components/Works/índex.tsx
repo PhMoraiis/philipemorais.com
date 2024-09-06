@@ -111,10 +111,10 @@ const Works = ({ className, ...props }: CardProps) => {
         return (
           <Card key={project.id} onClick={() => handleHref(project.href)} className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG({ image: project.image, imageDark: project.imageDark })}>
             <CardHeader>
-              <CardTitle className={cn('text-secondary', { 'text-[#333333] dark:text-primary': (projects.indexOf(project) === 1 || projects.indexOf(project) === 2) && !isDark })}>
+              <CardTitle className={cn('text-secondary', { 'text-primary': (projects.indexOf(project) === 1 || projects.indexOf(project) === 2) && !isDark })}>
                 {project.name}
               </CardTitle>
-              <CardDescription className={cn('text-secondary', { 'text-[#333333] dark:text-primary': (projects.indexOf(project) === 1 || projects.indexOf(project) === 2) && !isDark })}>
+              <CardDescription className={cn('text-secondary', { 'text-primary': (projects.indexOf(project) === 1 || projects.indexOf(project) === 2) && !isDark })}>
                 {description}
               </CardDescription>
             </CardHeader>
