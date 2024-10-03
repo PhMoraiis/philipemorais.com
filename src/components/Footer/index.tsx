@@ -29,9 +29,9 @@ const Footer = () => {
 
 	const handleCopyEmail = () => {
 		navigator.clipboard.writeText('philipe_m@icloud.com')
-		toast('toast', {
+		toast('Email copiado para área de transferência.', {
 			icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
-			description: 'toastDescription',
+			description: 'Agora você pode falar comigo!',
 			duration: 2000,
 			style: {
 				backgroundColor: '#111',
@@ -128,12 +128,14 @@ const Footer = () => {
 					<div className='flex flex-col gap-4'>
 						<div className='max-w-xs lg:max-w-md'>
 							<h1 className='text-[2.8rem] leading-none font-Relative md:text-5xl lg:text-6xl'>
-								{'title'}
+								{'Fale Comigo!'}
 							</h1>
 						</div>
 						<div className='flex flex-col'>
 							<p className='max-w-md font-RelativeBk lg:max-w-xl lg:text-lg md:max-w-xs'>
-								{'paragraph'}
+								{
+									'Se você quiser conversar sobre um projeto, envie-me um e-mail e retornarei em breve.'
+								}
 							</p>
 							{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
 							<span
@@ -165,7 +167,7 @@ const Footer = () => {
 			<Separator className='my-10' />
 			<div className='flex flex-col gap-10 justify-start md:flex-row  md:justify-between md:items-center'>
 				<span className='font-RelativeBk text-gray-400 mb-1 lg:text-lg animate-shine bg-[linear-gradient(110deg,#939393,45%,#1e2631,55%,#939393)] bg-[length:200%_100%] text-transparent bg-clip-text'>
-					{'rights'}
+					{'Todos os direitos reservados'}
 				</span>
 				<span className='font-RelativeBk text-gray-400 mb-1 lg:text-lg animate-shine bg-[linear-gradient(110deg,#939393,45%,#1e2631,55%,#939393)] bg-[length:200%_100%] text-transparent bg-clip-text'>
 					&copy;2024

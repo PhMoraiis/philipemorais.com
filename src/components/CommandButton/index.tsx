@@ -97,9 +97,9 @@ const CommandButton = () => {
 			.writeText(`philipemorais.com${pathname}`)
 			.then(() => {
 				handleCloseCommandBar()
-				toast('toastCopy', {
+				toast('Link copiado para a área de transferência!', {
 					icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
-					description: 'toastCopyDescription',
+					description: 'Agora você pode compartilhar!',
 					duration: 2000,
 				})
 			})
@@ -153,7 +153,7 @@ const CommandButton = () => {
 
 	const handleLightTheme = () => {
 		if (localStorage.getItem('theme') === 'light') {
-			toast('toastThemeLightAlreadySelected', {
+			toast('Tema claro já selecionado!', {
 				icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
 				duration: 2000,
 			})
@@ -162,9 +162,9 @@ const CommandButton = () => {
 			setTheme('light')
 			localStorage.setItem('theme', 'light')
 			handleCloseCommandBar()
-			toast('toastThemeLightSelected', {
+			toast('Tema claro selecionado!', {
 				icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
-				description: 'toastThemeLightDescription',
+				description: 'Cuidado com os olhos...',
 				duration: 2000,
 			})
 		}
@@ -172,7 +172,7 @@ const CommandButton = () => {
 
 	const handleDarkTheme = () => {
 		if (localStorage.getItem('theme') === 'dark') {
-			toast('toastThemeDarkAlreadySelected', {
+			toast('Tema escuro já selecionado!', {
 				icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
 				duration: 2000,
 				style: {
@@ -186,9 +186,9 @@ const CommandButton = () => {
 			setTheme('dark')
 			localStorage.setItem('theme', 'dark')
 			handleCloseCommandBar()
-			toast('toastThemeDarkSelected', {
+			toast('Tema escuro selecionado!', {
 				icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
-				description: 'toastThemeDarkDescription',
+				description: 'A escuridão está chegando...',
 				duration: 2000,
 				style: {
 					backgroundColor: '#333',
@@ -227,7 +227,7 @@ const CommandButton = () => {
 			</Button>
 			<CommandDialog open={open} onOpenChange={setOpen}>
 				<CommandList className='overflow font-Relative'>
-					<CommandGroup heading={'CommandGroup1'}>
+					<CommandGroup heading={'GERAL'}>
 						<CommandItem>
 							<Button
 								variant='noHover'
@@ -239,7 +239,7 @@ const CommandButton = () => {
 									<Copy className='mr-2 h-4 w-4' />
 								</Magnetic>
 								<span className='text-md hover:animate-text-shake'>
-									{'buttonLink'}
+									{'Copiar Link'}
 								</span>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
@@ -257,7 +257,7 @@ const CommandButton = () => {
 									<MailOpen className='mr-2 h-4 w-4' />
 								</Magnetic>
 								<span className='text-md hover:animate-text-shake'>
-									{'buttonEmail'}
+									{'Enviar E-mail'}
 								</span>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
@@ -275,7 +275,7 @@ const CommandButton = () => {
 									<Code className='mr-2 h-4 w-4' />
 								</Magnetic>
 								<span className='text-md hover:animate-text-shake'>
-									{'buttonSource'}
+									{'Ver Código'}
 								</span>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
@@ -283,7 +283,7 @@ const CommandButton = () => {
 							</CommandShortcut>
 						</CommandItem>
 					</CommandGroup>
-					<CommandGroup heading={'CommandGroup2'}>
+					<CommandGroup heading={'REDES SOCIAIS'}>
 						<CommandItem className='flex justify-between'>
 							<Button
 								variant='noHover'
@@ -345,7 +345,7 @@ const CommandButton = () => {
 							</CommandShortcut>
 						</CommandItem>
 					</CommandGroup>
-					<CommandGroup heading={'CommandGroup3'}>
+					<CommandGroup heading={'VÁ PARA'}>
 						<CommandItem className='flex justify-between'>
 							<Button
 								variant='noHover'
@@ -376,7 +376,7 @@ const CommandButton = () => {
 										<CircleUser className='mr-2 h-4 w-4' />
 									</Magnetic>
 									<span className='text-md hover:animate-text-shake'>
-										{'buttonAbout'}
+										{'Sobre'}
 									</span>
 								</div>
 							</Button>
@@ -396,7 +396,7 @@ const CommandButton = () => {
 										<Lightbulb className='mr-2 h-4 w-4' />
 									</Magnetic>
 									<span className='text-md hover:animate-text-shake'>
-										{'buttonProjects'}
+										{'Projetos'}
 									</span>
 								</div>
 							</Button>
@@ -416,7 +416,7 @@ const CommandButton = () => {
 										<Laptop className='mr-2 h-4 w-4' />
 									</Magnetic>
 									<span className='text-md hover:animate-text-shake'>
-										{'buttonSetup'}
+										{'Setup'}
 									</span>
 								</div>
 							</Button>
@@ -425,7 +425,7 @@ const CommandButton = () => {
 							</CommandShortcut>
 						</CommandItem>
 					</CommandGroup>
-					<CommandGroup heading={'CommandGroup4'}>
+					<CommandGroup heading={'TEMAS'}>
 						<CommandItem className='flex justify-between'>
 							<Button
 								variant='noHover'
@@ -438,7 +438,7 @@ const CommandButton = () => {
 										<Sun className='mr-2 h-4 w-4' />
 									</Magnetic>
 									<span className='text-md hover:animate-text-shake'>
-										{'buttonLightTheme'}
+										{'Claro'}
 									</span>
 								</div>
 							</Button>
@@ -458,7 +458,7 @@ const CommandButton = () => {
 										<Moon className='mr-2 h-4 w-4' />
 									</Magnetic>
 									<span className='text-md hover:animate-text-shake'>
-										{'buttonDarkTheme'}
+										{'Escuro'}
 									</span>
 								</div>
 							</Button>
