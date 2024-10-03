@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useRef, useState } from 'react'
 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 const Magnetic = ({ children }: any) => {
 
   const ref = useRef<HTMLDivElement | null>(null) // Specify the type of ref

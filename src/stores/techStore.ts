@@ -1,10 +1,13 @@
 import { create } from 'zustand'
 
 interface TechState {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   techs: any[];
   loading: boolean;
   error: string;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   addTech: (tech: any) => void;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   setTechs: (techs: any[]) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string) => void;

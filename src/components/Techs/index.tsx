@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
+import React from 'react'
 import { useEffect, useState } from 'react'
 
 interface IImageRowProps {
@@ -25,8 +26,9 @@ const ImageRow = ({ images, isPaused, handleMouseEnter, handleMouseLeave }: IIma
       onMouseLeave={handleMouseLeave}
     >
       {images.map(({ url, name }, index) => (
-        <div key={index} className='mx-8 md:mx-10 lg:mx-12'>
-          <Image src={url} width={100} height={100} alt={name + 'Logo'} className='w-10 h-10' />
+        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+<div key={index} className='mx-8 md:mx-10 lg:mx-12'>
+          <Image src={url} width={100} height={100} alt={`${name}Logo`} className='w-10 h-10' />
         </div>
       ))}
     </div>

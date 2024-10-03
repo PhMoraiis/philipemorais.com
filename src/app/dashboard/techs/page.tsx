@@ -322,7 +322,7 @@ const TechsDashboard = () => {
                         </TableRow>
                       </TableBody>
                     ) : (
-                      <>
+                      <div>
                         <TableBody>
                           {techs.map((tech) => (
                             <TableRow key={tech.id}>
@@ -399,7 +399,7 @@ const TechsDashboard = () => {
                             </TableRow>
                           ))}
                         </TableBody>
-                      </>
+                      </div>
                     )}
                   </Table>
                 </CardContent>

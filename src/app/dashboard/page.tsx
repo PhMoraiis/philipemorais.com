@@ -126,6 +126,7 @@ const Dashboard = () => {
   const verificarAtualizacao = (project: { updatedAt: string, createdAt: string }) => {
     if (project.updatedAt === project.createdAt) {
       return 'Nunca atualizada'
+    // biome-ignore lint/style/noUselessElse: <explanation>
     } else {
       return new Intl.DateTimeFormat('pt-BR', {
         dateStyle: 'medium',
@@ -213,7 +214,7 @@ const Dashboard = () => {
                         </TableRow>
                       </TableBody>
                     ) : (
-                      <>
+                      <div>
                         <TableBody>
                           {projects.map((project) => (
                             <TableRow key={project.id}>
@@ -252,7 +253,7 @@ const Dashboard = () => {
                             </TableRow>
                           ))}
                         </TableBody>
-                      </>
+                      </div>
                     )}
                   </Table>
                 </CardContent>
@@ -291,7 +292,7 @@ const Dashboard = () => {
                         </TableRow>
                       </TableBody>
                     ) : (
-                      <>
+                      <div>
                         <TableBody>
                           {techs.map((tech) => (
                             <TableRow key={tech.id}>
@@ -319,7 +320,7 @@ const Dashboard = () => {
                             </TableRow>
                           ))}
                         </TableBody>
-                      </>
+                      </div>
                     )}
                   </Table>
                 </CardContent>

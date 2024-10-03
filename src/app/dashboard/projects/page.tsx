@@ -471,7 +471,7 @@ const ProjectsDashboard = () => {
                         </TableRow>
                       </TableBody>
                     ) : (
-                      <>
+                      <div>
                         <TableBody>
                           {projects.map((project) => (
                             <TableRow key={project.id}>
@@ -622,7 +622,7 @@ const ProjectsDashboard = () => {
                             </TableRow>
                           ))}
                         </TableBody>
-                      </>
+                      </div>
                     )}
                   </Table>
                 </CardContent>

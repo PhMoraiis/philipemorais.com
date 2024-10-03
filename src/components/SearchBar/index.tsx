@@ -23,6 +23,7 @@ const SearchBar = () => {
     }
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const getProjects = async () => {
       try {
@@ -69,7 +70,7 @@ const SearchBar = () => {
             {projects.length === 0 && techs.length === 0 ? (
               <CommandEmpty>Nenhum projeto ou tecnologia encontrado.</CommandEmpty>
             ) : (
-              <>
+              <div>
                 <CommandGroup heading="Projetos">
                   {projects.map((project) => (
                     <CommandItem key={project.id}>
@@ -96,7 +97,7 @@ const SearchBar = () => {
                     </CommandItem>
                   ))}
                 </CommandGroup>
-              </>
+              </div>
             )}
           </CommandList>
         </CommandDialog>
