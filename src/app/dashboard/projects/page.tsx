@@ -48,57 +48,30 @@ import {
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useServerActionQuery } from '@/hooks/server-actions-hooks'
-import { getAllProjectsAction } from '@/actions/Projects'
+
 import CreateProjectForm from './create-form'
 import UpdateProjectForm from './update-form'
 
-const ProjectsDashboard = () => {
-
+const ProjectsDashboard = () => {	
 	const loadingStates = [
-		{
-			text: 'Bem vindo ao OnPholio',
-		},
-		{
-			text: 'Explorando novos horizontes',
-		},
-		{
-			text: 'Preparando um café delicioso',
-		},
-		{
-			text: 'Decifrando os segredos do universo',
-		},
-		{
-			text: 'Fazendo algumas alterações no tempo',
-		},
-		{
-			text: 'Preparando o palco',
-		},
-		{
-			text: 'Coletando estrelas',
-		},
-		{
-			text: 'Deixando as engrenagens girarem',
-		},
+		{ text: 'Bem vindo ao OnPholio' },
+		{ text: 'Explorando novos horizontes' },
+		{ text: 'Preparando um café delicioso' },
+		{ text: 'Decifrando os segredos do universo' },
+		{ text: 'Fazendo algumas alterações no tempo' },
+		{ text: 'Preparando o palco' },
+		{ text: 'Coletando estrelas' },
+		{ text: 'Deixando as engrenagens girarem' },
 	]
 
 	if (isLoading) {
 		return (
-			<Loader loadingStates={loadingStates} loading={isLoading} duration={2000} />
+			<Loader
+				loadingStates={loadingStates}
+				loading={isLoading}
+				duration={2000}
+			/>
 		)
-	}
-
-	const verifyUpdate = (project: {
-		updatedAt: string
-		createdAt: string
-	}) => {
-		if (project.updatedAt === project.createdAt) {
-			return 'Projeto nunca atualizado'
-		}
-		return new Intl.DateTimeFormat('pt-BR', {
-			dateStyle: 'medium',
-			timeStyle: 'short',
-		}).format(new Date(project.updatedAt))
 	}
 
 	return (

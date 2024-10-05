@@ -7,7 +7,7 @@ import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 
-import SearchBar from '../SearchBar'
+// import SearchBar from '../SearchBar'
 import { Badge } from '../ui/badge'
 
 const Topbar = () => {
@@ -70,7 +70,7 @@ const Topbar = () => {
           </nav>
         </SheetContent>
       </Sheet>
-      <SearchBar />
+      {/* <SearchBar /> */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button size="icon" className="rounded-full">

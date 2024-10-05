@@ -2,62 +2,15 @@ import { Button } from '@/components/ui/button'
 import { DrawerClose, DrawerFooter } from '@/components/ui/drawer'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useQueryClient } from '@tanstack/react-query'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm, Controller } from 'react-hook-form'
-import { z } from 'zod'
-import { Stats } from '@prisma/client'
-import { createProjectAction } from '@/actions/Projects'
+import { Controller } from 'react-hook-form'
+
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { RadioGroupIndicator } from '@radix-ui/react-radio-group'
 
-const createProjectSchema = z.object({
-	title: z.string(),
-	description: z.string(),
-	href: z.string().url('Link inválido').min(1, 'O link é obrigatório'),
-	techs: z.array(z.string()).min(1, 'Selecione pelo menos uma tecnologia'),
-	status: z.nativeEnum(Stats),
-	order: z.number(),
-	imagesDesktop: z
-		.array(z.string())
-		.min(2, 'Selecione duas imagens')
-		.max(2, 'Selecione duas imagens'),
-	imagesMobile: z
-		.array(z.string())
-		.min(2, 'Selecione duas imagens')
-		.max(2, 'Selecione duas imagens'),
-})
 export default function CreateProjectForm() {
-	const queryClient = useQueryClient()
-
-	const { register, control, handleSubmit, formState, reset } =
-		useForm<CreateProjectForm>({
-			resolver: zodResolver(createProjectSchema),
-		})
-
-	type CreateProjectForm = z.infer<typeof createProjectSchema>
-
-	async function handleCreateProject(data: CreateProjectForm) {
-		await createProjectAction({
-			title: data.title,
-			description: data.description,
-			href: data.href,
-			techs: data.techs,
-			status: data.status,
-			order: data.order,
-			imagesDesktop: data.imagesDesktop,
-			imagesMobile: data.imagesMobile,
-		})
-
-		queryClient.invalidateQueries({ queryKey: ['projects'] })
-
-		reset()
-	}
-
 	return (
 		<form
 			className='space-y-2 p-4 pb-0'
-			onSubmit={handleSubmit(handleCreateProject)}
 		>
 			<div className='space-y-2'>
 				<Label>Nome</Label>
@@ -160,11 +113,11 @@ export default function CreateProjectForm() {
 								onValueChange={field.onChange}
 								value={String(field.value)}
 							>
-								{techs.map((tech) => (
-									<RadioGroupItem value='1'>
+								{data?.techs.map((tech) => (
+									<RadioGroupItem key={tech.id} value={tech.id}>
 										<RadioGroupIndicator />
 										<span className='text-zinc-300 text-sm font-medium leading-none'>
-											Online
+											{tech.name}
 										</span>
 									</RadioGroupItem>
 								))}

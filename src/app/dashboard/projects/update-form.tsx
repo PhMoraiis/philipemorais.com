@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Stats } from '@prisma/client'
 import { RadioGroupIndicator } from '@radix-ui/react-radio-group'
 import { useQueryClient } from '@tanstack/react-query'
 import { Controller, useForm } from 'react-hook-form'
@@ -18,6 +17,7 @@ const updateProjectSchema = z.object({
 	href: z.string().url('Link inválido').min(1, 'O link é obrigatório'),
 	techs: z.array(z.string()).min(1, 'Selecione pelo menos uma tecnologia'),
 	status: z.nativeEnum(Stats),
+	order: z.number(),
 	imagesDesktop: z
 		.array(z.string())
 		.min(2, 'Selecione duas imagens')
@@ -50,6 +50,7 @@ export default function UpdateProjectForm() {
 			newImagesMobile: data.imagesMobile,
 		})
 
+		queryClient.invalidateQueries({ queryKey: ['techs'] })
 		queryClient.invalidateQueries({ queryKey: ['projects'] })
 
 		reset()
