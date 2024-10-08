@@ -3,10 +3,22 @@ import { Badge } from '../ui/badge'
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { getProjects } from '@/http/projects'
+import { getTechs } from '@/http/techs'
 
 const Sidebar = () => {
   const pathname = usePathname()
+
+  const { data } = useQuery({
+    queryFn: getProjects,
+    queryKey: ['projects']
+  })
+
+  const { data: tech } = useQuery({
+			queryFn: getTechs,
+			queryKey: ['techs'],
+		})
 
   return (
     <div className="hidden border-r bg-muted/40 md:block">
@@ -33,7 +45,7 @@ const Sidebar = () => {
               <SquareTerminal className="h-4 w-4" />
               Projetos
               <Badge variant={pathname === '/dashboard/projects' ? 'default' : 'outline'} className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                {/* {projects.length} */}
+                {data?.projects.length}
               </Badge>
             </Link>
             <Link
@@ -43,7 +55,7 @@ const Sidebar = () => {
               <Hexagon className="h-4 w-4" />
               Techs
               <Badge variant={pathname === '/dashboard/techs' ? 'default' : 'outline'} className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                {/* {techs.length} */}
+                {tech?.techs.length}
               </Badge>
             </Link>
           </nav>
