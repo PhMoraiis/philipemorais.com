@@ -31,7 +31,7 @@ export default function CreateTechForm() {
 		register,
 		handleSubmit,
 		reset,
-		formState: { errors, isSubmitting, isDirty, isValid },
+		formState: { isSubmitting, isDirty, isValid },
 	} = useForm<CreateTechForm>({
 		resolver: zodResolver(CreateTechSchema),
 	})
