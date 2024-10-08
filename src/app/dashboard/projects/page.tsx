@@ -13,10 +13,8 @@ import {
 } from '@/components/ui/card'
 import {
 	DropdownMenu,
-	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
 	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { MultiStepLoader as Loader } from '@/components/ui/multi-step-loader'
@@ -28,31 +26,66 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsContent } from '@/components/ui/tabs'
 import {
-	Drawer,
-	DrawerContent,
-	DrawerDescription,
-	DrawerHeader,
-	DrawerTitle,
-	DrawerTrigger,
-} from '@/components/ui/drawer'
-
-import {
-	ListFilter,
+	ArrowDownIcon,
+	ArrowUpIcon,
+	Ban,
 	MoreHorizontal,
-	Pen,
-	PlusCircle,
 	Trash2,
 } from 'lucide-react'
 
-import Image from 'next/image'
 import Link from 'next/link'
 
 import CreateProjectForm from './create-form'
 import UpdateProjectForm from './update-form'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { deleteProject, getProjectById, getProjects, type Stats } from '@/http/projects'
+import { toast } from 'sonner'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
-const ProjectsDashboard = () => {	
+export type Project = {
+	id: string
+	title: string
+	description: string
+	href: string
+	lightImageDesktop: string
+	darkImageDesktop?: string
+	lightImageMobile: string
+	darkImageMobile?: string
+	techs: string[]
+	status: Stats
+	order: number
+	createdAt: Date
+	updatedAt: Date
+}
+
+const ProjectsDashboard = () => {
+	const queryClient = useQueryClient()
+
+	const { data, isLoading } = useQuery({
+		queryFn: getProjects,
+		queryKey: ['projects'],
+	})
+
+	async function handleDeleteProject(projectId: string) {
+		try {
+			await deleteProject(projectId)
+			toast('Projeto excluído com sucesso!', {
+				icon: <Trash2 className='mr-2 h-4 w-4 text-green-500' />,
+				duration: 2000,
+			})
+		} catch (error) {
+			toast('Ocorreu um erro, tente novamente!', {
+				icon: <Ban className='mr-2 h-4 w-4 text-red-500' />,
+				description: `${error}`,
+				duration: 2000,
+			})
+		}
+
+		queryClient.invalidateQueries({ queryKey: ['projects'] })
+	}
+
 	const loadingStates = [
 		{ text: 'Bem vindo ao OnPholio' },
 		{ text: 'Explorando novos horizontes' },
@@ -82,60 +115,8 @@ const ProjectsDashboard = () => {
 				<main className='grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 mt-2'>
 					<Tabs defaultValue='all'>
 						<div className='flex items-center'>
-							<TabsList>
-								<TabsTrigger value='all'>Todos</TabsTrigger>
-								<TabsTrigger value='active'>Online</TabsTrigger>
-								<TabsTrigger value='draft'>Em Desenvolvimento</TabsTrigger>
-								<TabsTrigger value='archived' className='hidden sm:flex'>
-									Interrompidos
-								</TabsTrigger>
-							</TabsList>
 							<div className='ml-auto flex items-center gap-2'>
-								<DropdownMenu>
-									<DropdownMenuTrigger asChild>
-										<Button variant='outline' size='sm' className='h-8 gap-1'>
-											<ListFilter className='h-3.5 w-3.5' />
-											<span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
-												Ordenar
-											</span>
-										</Button>
-									</DropdownMenuTrigger>
-									<DropdownMenuContent align='end'>
-										<DropdownMenuLabel>Ordenar por</DropdownMenuLabel>
-										<DropdownMenuSeparator />
-										<DropdownMenuCheckboxItem checked>
-											Nome
-										</DropdownMenuCheckboxItem>
-										<DropdownMenuCheckboxItem>Status</DropdownMenuCheckboxItem>
-										<DropdownMenuCheckboxItem>
-											Data de Criação
-										</DropdownMenuCheckboxItem>
-										<DropdownMenuCheckboxItem>
-											Data de Atualização
-										</DropdownMenuCheckboxItem>
-									</DropdownMenuContent>
-								</DropdownMenu>
-								<Drawer>
-									<DrawerTrigger asChild>
-										<Button size='sm' className='h-8 gap-1'>
-											<PlusCircle className='h-3.5 w-3.5' />
-											<span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
-												Adicionar Projeto
-											</span>
-										</Button>
-									</DrawerTrigger>
-									<DrawerContent>
-										<div className='mx-auto w-full max-w-sm'>
-											<DrawerHeader>
-												<DrawerTitle>Novo Projeto</DrawerTitle>
-												<DrawerDescription>
-													Crie um novo projeto.
-												</DrawerDescription>
-											</DrawerHeader>
-											<CreateProjectForm />
-										</div>
-									</DrawerContent>
-								</Drawer>
+								<CreateProjectForm />
 							</div>
 						</div>
 						<TabsContent value='all'>
@@ -164,6 +145,9 @@ const ProjectsDashboard = () => {
 												<TableHead className='hidden md:table-cell'>
 													Criado em
 												</TableHead>
+												<TableHead className='hidden md:table-cell'>
+													Atualizado em
+												</TableHead>
 												<TableHead>
 													<span className='sr-only'>Ações</span>
 												</TableHead>
@@ -178,97 +162,78 @@ const ProjectsDashboard = () => {
 												</TableRow>
 											</TableBody>
 										) : (
-											<div>
-												<TableBody>
-													{data?.projects.map((project) => (
-														<TableRow key={project.id}>
-															<TableCell className='hidden sm:table-cell'>
-																<Image
-																	alt='Product image'
-																	className='aspect-square rounded-md object-cover'
-																	height='64'
-																	src={project.imagesDesktop[0]}
-																	width='64'
+											<TableBody>
+												{data?.projects.map((project: Project) => (
+													<TableRow key={project.id}>
+														<TableCell className='hidden sm:table-cell'>
+															<Avatar>
+																<AvatarImage
+																	src={project.lightImageDesktop}
+																	alt={project.title}
 																/>
-															</TableCell>
-															<TableCell className='font-medium'>
-																{project.title}
-															</TableCell>
-															<TableCell>
-																<Badge variant={project.status}>
-																	{project.status}
-																</Badge>
-															</TableCell>
-															<TableCell className='hidden md:table-cell'>
-																{project.description}
-															</TableCell>
-															<TableCell className='hidden md:table-cell text-[#1d48e140]/50 underline hover:text-[#1d48e140]/65'>
-																<Link href={project.href}>{project.href}</Link>
-															</TableCell>
-															<TableCell className='hidden md:table-cell'>
-																{new Intl.DateTimeFormat('pt-BR', {
-																	dateStyle: 'medium',
-																	timeStyle: 'short',
-																}).format(new Date(project.createdAt))}
-															</TableCell>
-															<TableCell>
-																<DropdownMenu>
-																	<DropdownMenuTrigger asChild>
-																		<Button
-																			aria-haspopup='true'
-																			size='icon'
-																			variant='ghost'
-																		>
-																			<MoreHorizontal className='h-4 w-4' />
-																			<span className='sr-only'>
-																				Toggle menu
-																			</span>
-																		</Button>
-																	</DropdownMenuTrigger>
-																	<DropdownMenuContent
-																		align='end'
-																		className='space-y-1'
+																<AvatarFallback>{project.title}</AvatarFallback>
+															</Avatar>
+														</TableCell>
+														<TableCell className='font-medium'>
+															{project.title}
+														</TableCell>
+														<TableCell>
+															<Badge variant={project.status}>
+																{project.status}
+															</Badge>
+														</TableCell>
+														<TableCell className='hidden md:table-cell'>
+															{project.description}
+														</TableCell>
+														<TableCell className='hidden md:table-cell text-[#1d48e140]/50 underline hover:text-[#1d48e140]/65'>
+															<Link href={project.href}>{project.href}</Link>
+														</TableCell>
+														<TableCell className='hidden md:table-cell'>
+															{new Intl.DateTimeFormat('pt-BR', {
+																dateStyle: 'medium',
+																timeStyle: 'short',
+															}).format(new Date(project.createdAt))}
+														</TableCell>
+														<TableCell className='hidden md:table-cell'>
+															{new Intl.DateTimeFormat('pt-BR', {
+																dateStyle: 'medium',
+																timeStyle: 'short',
+															}).format(new Date(project.updatedAt))}
+														</TableCell>
+														<TableCell>
+															<DropdownMenu>
+																<DropdownMenuTrigger asChild>
+																	<Button
+																		aria-haspopup='true'
+																		size='icon'
+																		variant='outline'
 																	>
-																		<DropdownMenuLabel>Ações</DropdownMenuLabel>
-																		<Drawer>
-																			<DrawerTrigger asChild>
-																				<Button
-																					className='flex justify-between w-full'
-																					size='sm'
-																					variant='outline'
-																				>
-																					Editar <Pen className='h-4 w-4' />
-																				</Button>
-																			</DrawerTrigger>
-																			<DrawerContent>
-																				<div className='mx-auto w-full max-w-sm'>
-																					<DrawerHeader>
-																						<DrawerTitle>
-																							Editar {project.title}
-																						</DrawerTitle>
-																						<DrawerDescription>
-																							Edite com sabedoria o projeto
-																							escolhido.
-																						</DrawerDescription>
-																					</DrawerHeader>
-																					<UpdateProjectForm />
-																				</div>
-																			</DrawerContent>
-																		</Drawer>
-																		<Button
-																			className='flex justify-between w-full hover:bg-red-500 hover:text-secondary text-red-500 border-red-500'
-																			size='sm'
-																			variant='outline'
-																		>
-																			Excluir <Trash2 className='h-4 w-4' />{' '}
-																		</Button>
-																	</DropdownMenuContent>
-																</DropdownMenu>
-															</TableCell>
-														</TableRow>
-													))}
-												</TableBody>
-											</div>
+																		<MoreHorizontal className='h-4 w-4' />
+																		<span className='sr-only'>Toggle menu</span>
+																	</Button>
+																</DropdownMenuTrigger>
+																<DropdownMenuContent
+																	align='end'
+																	className='space-y-1'
+																>
+																	<DropdownMenuLabel>Ações</DropdownMenuLabel>
+																	<UpdateProjectForm projectId={project.id} />
+																	<Button
+																		className='flex justify-between w-full hover:bg-red-500 hover:text-secondary text-red-500 border-red-500'
+																		size='sm'
+																		variant='outline'
+																		onClick={() =>
+																			handleDeleteProject(project.id)
+																		}
+																	>
+																		Excluir <Trash2 className='h-4 w-4' />{' '}
+																	</Button>
+																</DropdownMenuContent>
+															</DropdownMenu>
+														</TableCell>
+													</TableRow>
+												))}
+											</TableBody>
 										)}
 									</Table>
 								</CardContent>
