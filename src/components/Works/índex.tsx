@@ -10,58 +10,60 @@ import {
 	CardTitle,
 } from '../ui/card'
 import { Badge } from '../ui/badge'
-import Cookies from 'js-cookie'
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
 import type React from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { getProjects } from '@/http/projects'
+import type { Project } from '@/app/dashboard/projects/page'
+import type { Tech } from '@/app/dashboard/techs/page'
+import { Rocket } from 'lucide-react'
+import { Skeleton } from '../ui/skeleton'
 
 type CardProps = React.ComponentProps<typeof Card>
 
 const Works = ({ className, ...props }: CardProps) => {
 	const [isHover, setIsHover] = useState(false)
-	const [mounted, setMounted] = useState(false)
 	const { theme } = useTheme()
 	const isDark = theme === 'dark'
+
+	const { data, isLoading } = useQuery({
+		queryFn: getProjects,
+		queryKey: ['projects'],
+	})
+
+	if (isLoading) {
+		return (
+			<Skeleton className='w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] rounded-xl' />
+		)
+	}
 
 	const handleMouseEnter = () => {
 		setIsHover(true)
 	}
-
 	const handleMouseLeave = () => {
 		setIsHover(false)
 	}
 
-	if (!mounted) return null
-
-	const getImage = (project: { image: string; imageDark: string }) => {
-		// Verifica se project.imageDark contém apenas um ponto
-		if (
-			project.imageDark === '.' ||
-			project.imageDark === '' ||
-			project.imageDark === null
-		) {
-			return project.image // Retorna apenas a imagem clara
-		}
-		return isDark ? project.imageDark : project.image // Retorna a imagem escura ou clara com base no tema
+	const getImage = (project: {
+		lightImageDesktop: string
+		darkImageDesktop: string | undefined
+	}) => {
+		return isDark ? project.darkImageDesktop : project.lightImageDesktop
 	}
 
 	const getImageMobile = (project: {
-		imageMobile: string
-		imageDarkMobile: string
+		lightImageMobile: string
+		darkImageMobile: string | undefined
 	}) => {
-		// Verifica se project.imageDark contém apenas um ponto
-		if (
-			project.imageDarkMobile === '.' ||
-			project.imageDarkMobile === '' ||
-			project.imageDarkMobile === null
-		) {
-			return project.imageMobile // Retorna apenas a imagem clara
-		}
-		return isDark ? project.imageDarkMobile : project.imageMobile // Retorna a imagem escura ou clara com base no tema
+		return isDark ? project.darkImageMobile : project.lightImageMobile
 	}
 
-	const imageBG = (project: { image: string; imageDark: string }) => ({
-		backgroundImage: `url(${getImage(project)})`, // Usa a função para obter a imagem correta
+	const imageBG = (project: {
+		lightImageDesktop: string
+		darkImageDesktop: string | undefined
+	}) => ({
+		backgroundImage: `url(${getImage(project)})`,
 		backgroundSize: 'cover',
 		backgroundPosition: 'center',
 		border: 'none',
@@ -69,10 +71,10 @@ const Works = ({ className, ...props }: CardProps) => {
 	})
 
 	const mobileImageBG = (project: {
-		imageMobile: string
-		imageDarkMobile: string
+		lightImageMobile: string
+		darkImageMobile: string | undefined
 	}) => ({
-		backgroundImage: `url(${getImageMobile(project)})`, // Corrigido para usar imageMobile
+		backgroundImage: `url(${getImageMobile(project)})`,
 		backgroundSize: 'cover',
 		backgroundPosition: 'center',
 		border: 'none',
@@ -81,24 +83,21 @@ const Works = ({ className, ...props }: CardProps) => {
 
 	const transformStatus = (status: string) => {
 		switch (status) {
-			case 'ONLINE':
+			case 'Online':
 				return {
 					label: 'Online',
-					labelEnglish: 'Online',
 					bgColor: 'bg-[#00eb4e]',
 					hoverClass: isHover ? 'neon2' : 'neon',
 				}
-			case 'DESENVOLVIMENTO':
+			case 'Desenvolvimento':
 				return {
 					label: 'Desenvolvimento',
-					labelEnglish: 'Development',
 					bgColor: 'bg-[#4D4DFF]',
 					hoverClass: isHover ? 'neonDev1' : 'neonDev2',
 				}
-			case 'INTERROMPIDO':
+			case 'Interrompido':
 				return {
 					label: 'Interrompido',
-					labelEnglish: 'Stopped',
 					bgColor: 'bg-[#DEFF1C]',
 					hoverClass: isHover ? 'neonStop1' : 'neonStop2',
 				}
@@ -115,23 +114,10 @@ const Works = ({ className, ...props }: CardProps) => {
 		window.open(`${href}`, '_blank')
 	}
 
-	const getLanguageFromCookie = () => {
-		const language = Cookies.get('NEXT_LOCALE')
-		return language
-	}
-
 	return (
 		<>
-			{projects.map((project) => {
+			{data?.projects.map((project: Project) => {
 				const statusInfo = transformStatus(project.status)
-				const description =
-					getLanguageFromCookie() === 'en'
-						? project.translatedShortDescription
-						: project.shortDescription
-				const statusLabel =
-					getLanguageFromCookie() === 'en'
-						? statusInfo.labelEnglish
-						: statusInfo.label
 				return (
 					<Card
 						key={project.id}
@@ -142,30 +128,20 @@ const Works = ({ className, ...props }: CardProps) => {
 						)}
 						{...props}
 						style={imageBG({
-							image: project.image,
-							imageDark: project.imageDark,
+							lightImageDesktop: project.lightImageDesktop,
+							darkImageDesktop: project.darkImageDesktop,
 						})}
 					>
 						<CardHeader>
 							<CardTitle
-								className={cn('text-secondary dark:text-primary', {
-									'text-primary':
-										(projects.indexOf(project) === 1 ||
-											projects.indexOf(project) === 2) &&
-										!isDark,
-								})}
+								className={cn('text-secondary dark:text-primary')}
 							>
-								{project.name}
+								{project.title}
 							</CardTitle>
 							<CardDescription
-								className={cn('text-secondary dark:text-primary', {
-									'text-primary':
-										(projects.indexOf(project) === 1 ||
-											projects.indexOf(project) === 2) &&
-										!isDark,
-								})}
+								className={cn('text-secondary dark:text-primary')}
 							>
-								{description}
+								{project.description}
 							</CardDescription>
 						</CardHeader>
 						<CardFooter className='gap-3'>
@@ -180,16 +156,11 @@ const Works = ({ className, ...props }: CardProps) => {
 								<div
 									className={`rounded-full w-3 h-3 ${statusInfo.bgColor} mr-2 ${isHover} duration-300 ease-in-out`}
 								/>
-								{statusLabel}
+								{statusInfo.label}
 							</button>
-							{project.techs.map((tech) => (
-								<Badge key={tech.id} size='icon'>
-									<Image
-										src={tech.icon}
-										alt={tech.name}
-										width={18}
-										height={18}
-									/>
+							{project.techs.map((tech: string) => (
+								<Badge key={tech} size='icon'>
+									<Rocket size={18} />
 									{tech.name}
 								</Badge>
 							))}
@@ -197,37 +168,29 @@ const Works = ({ className, ...props }: CardProps) => {
 					</Card>
 				)
 			})}
-			{projects.map((project) => {
+			{data?.projects.map((project: Project) => {
 				const statusInfo = transformStatus(project.status)
-				const description =
-					getLanguageFromCookie() === 'en'
-						? project.translatedShortDescription
-						: project.shortDescription
-				const statusLabel =
-					getLanguageFromCookie() === 'en'
-						? statusInfo.labelEnglish
-						: statusInfo.label
 				return (
 					<Card
 						key={project.id}
 						className={cn(
 							'w-full shadow-xl rounded-xl cursor-pointer',
 							'h-[550px]',
-							'flex sm:hidden', // Mostrar apenas em dispositivos móveis
+							'flex sm:hidden',
 						)}
 						style={mobileImageBG({
-							imageMobile: project.imageMobile,
-							imageDarkMobile: project.imageDarkMobile,
-						})} // Passando a propriedade correta
+							lightImageMobile: project.lightImageDesktop,
+							darkImageMobile: project.darkImageDesktop,
+						})}
 						{...props}
 						onClick={() => handleHref(project.href)}
 					>
 						<CardHeader>
 							<CardTitle className='text-secondary dark:text-primary'>
-								{project.name}
+								{project.title}
 							</CardTitle>
 							<CardDescription className='text-secondary dark:text-primary'>
-								{description}
+								{project.description}
 							</CardDescription>
 						</CardHeader>
 						<CardFooter className='gap-3 flex-wrap'>
@@ -240,16 +203,11 @@ const Works = ({ className, ...props }: CardProps) => {
 								<div
 									className={`rounded-full w-3 h-3 ${statusInfo.bgColor} mr-2 ${statusInfo.hoverClass} duration-300 ease-in-out`}
 								/>
-								{statusLabel}
+								{project.status}
 							</button>
 							{project.techs.map((tech) => (
-								<Badge key={tech.id} size='icon'>
-									<Image
-										src={tech.icon}
-										alt={tech.name}
-										width={18}
-										height={18}
-									/>
+								<Badge key={tech} size='icon'>
+									<Rocket />
 									{tech.name}
 								</Badge>
 							))}
