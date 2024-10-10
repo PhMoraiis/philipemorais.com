@@ -10,52 +10,44 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model User {
-  id                   String    @id @default(cuid())
-  name                 String
-  email                String    @unique
-  password             String
-  passwordResetToken   String?
-  passwordResetExpires DateTime?
-  role                 Role      @default(ADMIN)
-
-  @@map("users")
+  id       String @id @default(cuid())
+  name     String
+  email    String @unique
+  password String
 }
 
-model Projects {
-  id               String   @id @default(cuid())
-  name             String
-  images           String[]
-  shortDescription String
-  longDescription  String
-  href             String
-  status           Status   @default(ONLINE)
-  techs            Tech[]
-
-  @@map("projects")
+model Project {
+  id                         String   @id @default(cuid())
+  name                       String
+  image                      String
+  imageMobile                String
+  imageDark                  String?
+  imageDarkMobile            String?
+  shortDescription           String
+  translatedShortDescription String
+  href                       String
+  status                     Status   @default(ONLINE)
+  techs                      Tech[]
+  createdAt                  DateTime @default(now())
+  updatedAt                  DateTime @updatedAt
 }
 
 model Tech {
-  id         String    @id @default(cuid())
-  name       String
-  icon       String
-  Projects   Projects? @relation(fields: [projectsId], references: [id])
-  projectsId String?
-
-  @@map("techs")
-}
-
-enum Role {
-  USER
-  ADMIN
+  id        String    @id @default(cuid())
+  name      String    @unique
+  icon      String
+  projects  Project[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 enum Status {
   ONLINE
-  DEVELOPMENT
-  INTERRUPTED
+  DESENVOLVIMENTO
+  INTERROMPIDO
 }
