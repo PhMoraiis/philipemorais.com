@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import {
 	Card,
@@ -15,12 +15,33 @@ import { useTheme } from 'next-themes'
 import type React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getProjects } from '@/http/projects'
-import type { Project } from '@/app/dashboard/projects/page'
-import type { Tech } from '@/app/dashboard/techs/page'
-import { Rocket } from 'lucide-react'
 import { Skeleton } from '../ui/skeleton'
+import type { Tech } from '@/app/dashboard/techs/page'
 
 type CardProps = React.ComponentProps<typeof Card>
+
+interface Projects {
+	id: string
+	title: string
+	description: string
+	href: string
+	lightImageDesktop: string
+	darkImageDesktop?: string
+	lightImageMobile: string
+	darkImageMobile?: string
+	techs: Techs[]
+	status: string
+	createdAt: Date
+	updatedAt: Date
+}
+
+interface Techs {
+	id: string
+	name: string
+	image: string
+	createdAt: Date
+	updatedAt: Date
+}[]
 
 const Works = ({ className, ...props }: CardProps) => {
 	const [isHover, setIsHover] = useState(false)
@@ -28,8 +49,8 @@ const Works = ({ className, ...props }: CardProps) => {
 	const isDark = theme === 'dark'
 
 	const { data, isLoading } = useQuery({
-		queryFn: getProjects,
 		queryKey: ['projects'],
+		queryFn: getProjects,
 	})
 
 	if (isLoading) {
@@ -38,31 +59,15 @@ const Works = ({ className, ...props }: CardProps) => {
 		)
 	}
 
-	const handleMouseEnter = () => {
-		setIsHover(true)
-	}
-	const handleMouseLeave = () => {
-		setIsHover(false)
-	}
+	const handleMouseEnter = () => setIsHover(true)
+	const handleMouseLeave = () => setIsHover(false)
 
-	const getImage = (project: {
-		lightImageDesktop: string
-		darkImageDesktop: string | undefined
-	}) => {
-		return isDark ? project.darkImageDesktop : project.lightImageDesktop
-	}
+	const getImage = (project: Projects) =>
+		isDark ? project.darkImageDesktop : project.lightImageDesktop
+	const getImageMobile = (project: Projects) =>
+		isDark ? project.darkImageMobile : project.lightImageMobile
 
-	const getImageMobile = (project: {
-		lightImageMobile: string
-		darkImageMobile: string | undefined
-	}) => {
-		return isDark ? project.darkImageMobile : project.lightImageMobile
-	}
-
-	const imageBG = (project: {
-		lightImageDesktop: string
-		darkImageDesktop: string | undefined
-	}) => ({
+	const imageBG = (project: Projects) => ({
 		backgroundImage: `url(${getImage(project)})`,
 		backgroundSize: 'cover',
 		backgroundPosition: 'center',
@@ -70,10 +75,7 @@ const Works = ({ className, ...props }: CardProps) => {
 		borderRadius: '0.75rem',
 	})
 
-	const mobileImageBG = (project: {
-		lightImageMobile: string
-		darkImageMobile: string | undefined
-	}) => ({
+	const mobileImageBG = (project: Projects) => ({
 		backgroundImage: `url(${getImageMobile(project)})`,
 		backgroundSize: 'cover',
 		backgroundPosition: 'center',
@@ -82,42 +84,36 @@ const Works = ({ className, ...props }: CardProps) => {
 	})
 
 	const transformStatus = (status: string) => {
-		switch (status) {
-			case 'Online':
-				return {
-					label: 'Online',
-					bgColor: 'bg-[#00eb4e]',
-					hoverClass: isHover ? 'neon2' : 'neon',
-				}
-			case 'Desenvolvimento':
-				return {
-					label: 'Desenvolvimento',
-					bgColor: 'bg-[#4D4DFF]',
-					hoverClass: isHover ? 'neonDev1' : 'neonDev2',
-				}
-			case 'Interrompido':
-				return {
-					label: 'Interrompido',
-					bgColor: 'bg-[#DEFF1C]',
-					hoverClass: isHover ? 'neonStop1' : 'neonStop2',
-				}
-			default:
-				return {
-					label: 'Online',
-					bgColor: 'bg-[#00eb4e]',
-					hoverClass: isHover ? 'neon2' : 'neon',
-				}
+		const statusMap = {
+			Online: {
+				label: 'Online',
+				bgColor: 'bg-[#00eb4e]',
+				hoverClass: isHover ? 'neon2' : 'neon',
+			},
+			Desenvolvimento: {
+				label: 'Desenvolvimento',
+				bgColor: 'bg-[#4D4DFF]',
+				hoverClass: isHover ? 'neonDev1' : 'neonDev2',
+			},
+			Interrompido: {
+				label: 'Interrompido',
+				bgColor: 'bg-[#DEFF1C]',
+				hoverClass: isHover ? 'neonStop1' : 'neonStop2',
+			},
 		}
+		return statusMap[status as keyof typeof statusMap] || statusMap.Online
 	}
 
-	const handleHref = (href: string) => {
-		window.open(`${href}`, '_blank')
-	}
+	const handleHref = (href: string) => window.open(href, '_blank')
 
 	return (
 		<>
-			{data?.projects.map((project: Project) => {
+			{data?.projects.map((project: Projects, index: number) => {
 				const statusInfo = transformStatus(project.status)
+				const titleClass =
+					index === 1 || index === 2 || index === 5
+						? 'text-primary dark:text-primary'
+						: 'text-secondary dark:text-primary'
 				return (
 					<Card
 						key={project.id}
@@ -127,20 +123,11 @@ const Works = ({ className, ...props }: CardProps) => {
 							className,
 						)}
 						{...props}
-						style={imageBG({
-							lightImageDesktop: project.lightImageDesktop,
-							darkImageDesktop: project.darkImageDesktop,
-						})}
+						style={imageBG(project)}
 					>
 						<CardHeader>
-							<CardTitle
-								className={cn('text-secondary dark:text-primary')}
-							>
-								{project.title}
-							</CardTitle>
-							<CardDescription
-								className={cn('text-secondary dark:text-primary')}
-							>
+							<CardTitle className={cn(titleClass)}>{project.title}</CardTitle>
+							<CardDescription className={cn(titleClass)}>
 								{project.description}
 							</CardDescription>
 						</CardHeader>
@@ -158,9 +145,14 @@ const Works = ({ className, ...props }: CardProps) => {
 								/>
 								{statusInfo.label}
 							</button>
-							{project.techs.map((tech: string) => (
-								<Badge key={tech} size='icon'>
-									<Rocket size={18} />
+							{project.techs.map((tech: Tech) => (
+								<Badge key={tech.id} size='icon'>
+									<Image
+										src={tech.image}
+										alt={tech.name}
+										width={18}
+										height={18}
+									/>
 									{tech.name}
 								</Badge>
 							))}
@@ -168,8 +160,12 @@ const Works = ({ className, ...props }: CardProps) => {
 					</Card>
 				)
 			})}
-			{data?.projects.map((project: Project) => {
+			{data?.projects.map((project: Projects, index: number) => {
 				const statusInfo = transformStatus(project.status)
+				const titleClass =
+					index === 0 || index === 4
+						? 'text-primary dark:text-secondary'
+						: 'text-secondary dark:text-primary'
 				return (
 					<Card
 						key={project.id}
@@ -178,18 +174,13 @@ const Works = ({ className, ...props }: CardProps) => {
 							'h-[550px]',
 							'flex sm:hidden',
 						)}
-						style={mobileImageBG({
-							lightImageMobile: project.lightImageDesktop,
-							darkImageMobile: project.darkImageDesktop,
-						})}
+						style={mobileImageBG(project)}
 						{...props}
 						onClick={() => handleHref(project.href)}
 					>
 						<CardHeader>
-							<CardTitle className='text-secondary dark:text-primary'>
-								{project.title}
-							</CardTitle>
-							<CardDescription className='text-secondary dark:text-primary'>
+							<CardTitle className={cn(titleClass)}>{project.title}</CardTitle>
+							<CardDescription className={cn(titleClass)}>
 								{project.description}
 							</CardDescription>
 						</CardHeader>
@@ -205,9 +196,14 @@ const Works = ({ className, ...props }: CardProps) => {
 								/>
 								{project.status}
 							</button>
-							{project.techs.map((tech) => (
-								<Badge key={tech} size='icon'>
-									<Rocket />
+							{project.techs.map((tech: Tech) => ( 
+								<Badge key={tech.id} size='icon'>
+									<Image
+										src={tech.image}
+										alt={tech.name}
+										width={18}
+										height={18}
+									/>
 									{tech.name}
 								</Badge>
 							))}
