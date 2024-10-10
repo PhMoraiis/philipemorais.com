@@ -7,6 +7,7 @@ import { Badge } from '../ui/badge'
 import Cookies from 'js-cookie'
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
+import { Skeleton } from '../ui/skeleton'
 
 type CardProps = React.ComponentProps<typeof Card>
 
@@ -46,7 +47,11 @@ const Works = ({ className, ...props }: CardProps) => {
     fetchTechs()
   }, [])
 
-  if (!mounted) return null
+  if (!mounted) {
+    return (
+					<Skeleton className='w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl' />
+				)
+  }
 
   const getImage = (project: { image: string; imageDark: string }) => {
     // Verifica se project.imageDark contém apenas um ponto

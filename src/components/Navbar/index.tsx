@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import CommandButton from '../CommandButton'
 import { LogoBlack, LogoWhite } from '../Logos'
 import Magnetic from '../Magnetic'
+import { Skeleton } from '../ui/skeleton'
 
 
 const Navbar = () => {
@@ -18,7 +19,11 @@ const Navbar = () => {
 
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
-  if (!mounted) return null
+  if (!mounted) {
+    return (
+      <Skeleton className='w-full h-12 mt-10' />
+    )
+  }
 
   return (
     <header>

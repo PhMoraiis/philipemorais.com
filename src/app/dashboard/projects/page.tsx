@@ -48,7 +48,7 @@ const ProjectsDashboard = () => {
   const { projects, loading: loadingProjects, setProjects, setLoading: setLoadingProjects, setError: setProjectError } = useProjectStore()
   const { techs, loading: loadingTechs, setTechs, setLoading: setLoadingTechs, setError: setTechError } = useTechStore()
 
-  const { handleSubmit, register, control, formState: { errors, isSubmitting, isDirty, isValid }, } = useForm<ProjectFormData>({
+  const { handleSubmit, register, control, reset, formState: { errors, isSubmitting, isDirty, isValid }, } = useForm<ProjectFormData>({
     resolver: zodResolver(projectSchema),
     defaultValues: {
       name: '',
@@ -159,6 +159,8 @@ const ProjectsDashboard = () => {
         duration: 2000,
       })
     }
+
+    reset()
   }
 
   const handleUpdateProject = async (id: string, data: ProjectFormData) => {
@@ -216,6 +218,8 @@ const ProjectsDashboard = () => {
         duration: 2000,
       })
     }
+
+    reset()
   }
 
 

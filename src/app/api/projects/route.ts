@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server'
 export async function GET() {
 	try {
 		const projects = await prisma.project.findMany({
+			orderBy: { createdAt: 'asc' },
 			include: { techs: true }, // Incluir tecnologias
 		})
 		return NextResponse.json(projects)

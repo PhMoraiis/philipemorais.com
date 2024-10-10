@@ -7,6 +7,7 @@ import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
+import { Skeleton } from '../ui/skeleton'
 
 const Hero = () => {
   const [isHover, setIsHover] = useState(false)
@@ -35,7 +36,11 @@ const Hero = () => {
 
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
-  if (!mounted) return null
+  if (!mounted) {
+    return (
+      <Skeleton className="w-full h-96 mt-20" />
+    )
+  }
 
   return (
     <section className='bg-white dark:bg-[#111110] rounded-xl p-10 shadow-sm'>
@@ -51,7 +56,7 @@ const Hero = () => {
           <Dialog>
             <span className="font-RelativeBk text-gray-400 mb-1 lg:text-lg animate-shine bg-[linear-gradient(110deg,#939393,45%,#1e2631,55%,#939393)] bg-[length:200%_100%] text-transparent bg-clip-text">{t('cta')}</span>
             <DialogTrigger className="border border-input bg-background rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
-              <div className={`rounded-full w-3 h-3 bg-[#00eb4e] mr-2 ${isHover ? 'neon2' : 'neon'} duration-300 ease-in-out`}></div>
+              <div className={`rounded-full w-3 h-3 bg-[#00eb4e] mr-2 ${isHover ? 'neon2' : 'neon'} duration-300 ease-in-out`} />
               {t('buttonText')}
             </DialogTrigger>
             <DialogContent>
@@ -63,7 +68,8 @@ const Hero = () => {
               </DialogHeader>
               <ul className='flex items-center justify-center gap-4'>
                 {socialLinks.map((link, index) => (
-                  <li key={index}>
+                  // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+<li key={index}>
                     <Link href={link.href} target='_blank'>
                       <motion.button
                         className="border border-primary bg-transparent dark:border-gray-400 rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative"
