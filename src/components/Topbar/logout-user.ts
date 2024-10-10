@@ -4,7 +4,7 @@ interface UserLogoutRequest {
 }
 
 export async function logoutUser() {
-	const response = await fetch('http://localhost:3333/login', {
+	const response = await fetch('https://onpholio.onrender.com/login', {
 		method: 'DELETE',
 		credentials: 'include',
 	})

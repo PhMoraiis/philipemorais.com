@@ -1,5 +1,5 @@
 export async function getProjects() {
-	const response = await fetch('http://localhost:3333/projects', {
+	const response = await fetch('https://onpholio.onrender.com/projects', {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export async function createProject({
 	status,
 }: CreateProjectRequest) {
 	try {
-		await fetch('http://localhost:3333/projects', {
+		await fetch('https://onpholio.onrender.com/projects', {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -97,7 +97,7 @@ export async function updateProject(
 		techs,
 	}: UpdateProjectRequest,
 ) {
-	await fetch(`http://localhost:3333/projects/${projectId}`, {
+	await fetch(`https://onpholio.onrender.com/projects/${projectId}`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
@@ -118,14 +118,14 @@ export async function updateProject(
 }
 
 export async function deleteProject(projectId: string) {
-	await fetch(`http://localhost:3333/projects/${projectId}`, {
+	await fetch(`https://onpholio.onrender.com/projects/${projectId}`, {
 		method: 'DELETE',
 		credentials: 'include',
 	})
 }
 
 export async function getProjectById(projectId: string) {
-	await fetch(`http://localhost:3333/projects/${projectId}`, {
+	await fetch(`https://onpholio.onrender.com/projects/${projectId}`, {
 		method: 'GET',
 		credentials: 'include',
 	})
