@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar'
 import SoonComponent from '@/components/SoonComponent'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Philipe Morais | Meu setup',
