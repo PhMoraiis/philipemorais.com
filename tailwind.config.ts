@@ -27,12 +27,12 @@ const config = {
   		RelativeBk: [
   			'Relative Book'
   		],
-			Atelier: [
-				'Atelier'
-			],
-			Formatek: [
-				'Formatek'
-			],
+  		Atelier: [
+  			'Atelier'
+  		],
+  		Formatek: [
+  			'Formatek'
+  		]
   	},
   	extend: {
   		colors: {
@@ -152,6 +152,14 @@ const config = {
   				'80%': {
   					transform: 'translate(calc(100% * var(--tx-4, -1)), calc(100% * var(--ty-4, -1)))'
   				}
+  			},
+  			'shiny-text': {
+  				'0%, 90%, 100%': {
+  					'background-position': 'calc(-100% - var(--shiny-width)) 0'
+  				},
+  				'30%, 60%': {
+  					'background-position': 'calc(100% + var(--shiny-width)) 0'
+  				}
   			}
   		},
   		animation: {
@@ -162,7 +170,8 @@ const config = {
   			'text-shake': 'text-shake 1s ease 1',
   			flip: 'flip 6s infinite steps(2, end)',
   			rotate: 'rotate 3s linear infinite both',
-  			'background-gradient': 'background-gradient var(--background-gradient-speed, 15s) cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite'
+  			'background-gradient': 'background-gradient var(--background-gradient-speed, 15s) cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite',
+  			'shiny-text': 'shiny-text 8s infinite'
   		}
   	}
   },
