@@ -90,6 +90,16 @@
   src: url("/fonts/Relative/Relative-Book.ttf");
 }
 
+@font-face {
+  font-family: 'Atelier';
+  src: url("/fonts/Atelier/atelier.otf");
+}
+
+@font-face {
+  font-family: 'Formatek';
+  src: url("/fonts/Formatek/formatek.ttf");
+}
+
 .overflow::-webkit-scrollbar {
   display: none;
   width: 0;
