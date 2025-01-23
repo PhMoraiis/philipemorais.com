@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import { Badge } from '../ui/badge'
-import Cookies from 'js-cookie'
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
 import { Skeleton } from '../ui/skeleton'
+
 
 type CardProps = React.ComponentProps<typeof Card>
 
@@ -102,24 +102,24 @@ const Works = ({ className, ...props }: CardProps) => {
     window.open(`${href}`, '_blank')
   }
 
-  const getLanguageFromCookie = () => {
-    const language = Cookies.get('NEXT_LOCALE')
-    return language
-  }
+ // const getLanguageFromCookie = () => {
+  //  const language = cookies().get('NEXT_LOCALE')?.value
+  //  return language
+ // }
 
   return (
     <>
       {projects.map((project) => {
         const statusInfo = transformStatus(project.status);
-        const description = getLanguageFromCookie() === 'en' ? project.translatedShortDescription : project.shortDescription;
-        const statusLabel = getLanguageFromCookie() === 'en' ? statusInfo.labelEnglish : statusInfo.label;
+        //const description = getLanguageFromCookie() === 'en' ? project.translatedShortDescription : project.shortDescription;
+        //const statusLabel = getLanguageFromCookie() === 'en' ? statusInfo.labelEnglish : statusInfo.label;
         return (
           <Card key={project.id} onClick={() => handleHref(project.href)} className={cn('w-full md:w-full md:h-[330px] lg:w-full lg:h-[380px] h-[550px] shadow-xl rounded-xl cursor-pointer hidden sm:flex', className)} {...props} style={imageBG({ image: project.image, imageDark: project.imageDark })}>
             <CardHeader>
               <CardTitle className={cn('text-secondary dark:text-primary', { 'text-primary': (projects.indexOf(project) === 1 || projects.indexOf(project) === 2) && !isDark })}>
                 {project.name}
               </CardTitle>
-              <CardDescription className={cn('text-secondary dark:text-primary', { 'text-primary': (projects.indexOf(project) === 1 || projects.indexOf(project) === 2) && !isDark })}>
+             <CardDescription className={cn('text-secondary dark:text-primary', { 'text-primary': (projects.indexOf(project) === 1 || projects.indexOf(project) === 2) && !isDark })}>
                 {description}
               </CardDescription>
             </CardHeader>
@@ -140,8 +140,8 @@ const Works = ({ className, ...props }: CardProps) => {
       })}
       {projects.map((project) => {
         const statusInfo = transformStatus(project.status);
-        const description = getLanguageFromCookie() === 'en' ? project.translatedShortDescription : project.shortDescription;
-        const statusLabel = getLanguageFromCookie() === 'en' ? statusInfo.labelEnglish : statusInfo.label;
+       // const description = getLanguageFromCookie() === 'en' ? project.translatedShortDescription : project.shortDescription;
+        //const statusLabel = getLanguageFromCookie() === 'en' ? statusInfo.labelEnglish : statusInfo.label;
         return (
           <Card
             key={project.id}

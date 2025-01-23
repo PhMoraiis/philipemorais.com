@@ -1,43 +1,31 @@
-import { type RefObject, useEffect, useState } from "react"
+import { type RefObject, useEffect, useState } from 'react'
 
 interface Dimensions {
-  width: number
-  height: number
+	width: number
+	height: number
 }
 
 export function useDimensions(
-  ref: RefObject<HTMLElement | SVGElement>
+	ref: RefObject<HTMLElement | SVGElement>,
 ): Dimensions {
-  const [dimensions, setDimensions] = useState<Dimensions>({
-    width: 0,
-    height: 0,
-  })
+	const [dimensions, setDimensions] = useState<Dimensions>({
+		width: 0,
+		height: 0,
+	})
 
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout
+	useEffect(() => {
+		const updateDimensions = () => {
+			if (ref.current) {
+				const { width, height } = ref.current.getBoundingClientRect()
+				setDimensions({ width, height })
+			}
+		}
 
-    const updateDimensions = () => {
-      if (ref.current) {
-        const { width, height } = ref.current.getBoundingClientRect()
-        setDimensions({ width, height })
-      }
-    }
+		updateDimensions()
+		window.addEventListener('resize', updateDimensions)
 
-    const debouncedUpdateDimensions = () => {
-      clearTimeout(timeoutId)
-      timeoutId = setTimeout(updateDimensions, 250) // Wait 250ms after resize ends
-    }
+		return () => window.removeEventListener('resize', updateDimensions)
+	}, [ref])
 
-    // Initial measurement
-    updateDimensions()
-
-    window.addEventListener("resize", debouncedUpdateDimensions)
-
-    return () => {
-      window.removeEventListener("resize", debouncedUpdateDimensions)
-      clearTimeout(timeoutId)
-    }
-  }, [ref])
-
-  return dimensions
+	return dimensions
 }
