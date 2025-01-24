@@ -11,6 +11,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { handleLogin, type ILoginData } from '@/services/login'
+import { useMutation } from '@tanstack/react-query'
 
 const formSchema = z.object({
 	email: z.string().email(),
@@ -33,13 +34,18 @@ const Login = () => {
 		resolver: zodResolver(formSchema),
 	})
 
-	const handleSubmitForm = handleSubmit(async (data) => {
-		try {
-			await handleLogin(data)
+	const loginMutation = useMutation({
+		mutationFn: handleLogin,
+		onSuccess: () => {
 			router.push('/dashboard')
-		} catch (error) {
+		},
+		onError: (error) => {
 			console.error(error)
-		}
+		},
+	})
+
+	const handleSubmitForm = handleSubmit((data) => {
+		loginMutation.mutate(data)
 	})
 
 	return (

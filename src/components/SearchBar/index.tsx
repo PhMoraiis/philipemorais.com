@@ -1,7 +1,7 @@
 'use client'
 
-import useProjectStore from '@/stores/projectStore'
-import useTechStore from '@/stores/techStore'
+// import useProjectStore from '@/stores/projectStore'
+// import useTechStore from '@/stores/techStore'
 import { motion } from 'framer-motion'
 import { Hexagon, Search, SquareTerminal } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -13,45 +13,45 @@ import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, C
 const SearchBar = () => {
   const [open, setOpen] = useState(false)
 
-  const { projects, setProjects, setLoading: setLoadingProjects, setError: setProjectError } = useProjectStore()
-  const { techs, setTechs, setLoading: setLoadingTechs, setError: setTechError } = useTechStore()
+  // const { projects, setProjects, setLoading: setLoadingProjects, setError: setProjectError } = useProjectStore()
+  // const { techs, setTechs, setLoading: setLoadingTechs, setError: setTechError } = useTechStore()
 
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
-      event.preventDefault()
-      setOpen((open) => !open)
-    }
-  }
+  // const handleKeyDown = (event: KeyboardEvent) => {
+  //   if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
+  //     event.preventDefault()
+  //     setOpen((open) => !open)
+  //   }
+  // }
 
-  useEffect(() => {
-    const getProjects = async () => {
-      try {
-        const response = await fetch('/api/projects')
-        const data = await response.json()
-        setProjects(data)
-      } catch (error) {
-        setProjectError('Failed to get projects')
-      }
-    }
+  // useEffect(() => {
+  //   const getProjects = async () => {
+  //     try {
+  //       const response = await fetch('/api/projects')
+  //       const data = await response.json()
+  //       setProjects(data)
+  //     } catch (error) {
+  //       setProjectError('Failed to get projects')
+  //     }
+  //   }
 
-    const getTechs = async () => {
-      try {
-        const response = await fetch('/api/techs')
-        const data = await response.json()
-        setTechs(data)
-      } catch (error) {
-        setTechError('Failed to get techs')
-      }
-    }
+  //   const getTechs = async () => {
+  //     try {
+  //       const response = await fetch('/api/techs')
+  //       const data = await response.json()
+  //       setTechs(data)
+  //     } catch (error) {
+  //       setTechError('Failed to get techs')
+  //     }
+  //   }
 
-    getProjects()
-    getTechs()
+  //   getProjects()
+  //   getTechs()
 
-    document.addEventListener('keydown', handleKeyDown)
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [setProjects, setTechs, setLoadingProjects, setLoadingTechs, setProjectError, setTechError])
+  //   document.addEventListener('keydown', handleKeyDown)
+  //   return () => {
+  //     document.removeEventListener('keydown', handleKeyDown)
+  //   }
+  // }, [setProjects, setTechs, setLoadingProjects, setLoadingTechs, setProjectError, setTechError])
 
   return (
     <div className="w-full flex-1">
@@ -65,7 +65,7 @@ const SearchBar = () => {
         </Button>
         <CommandDialog open={open} onOpenChange={setOpen}>
           <CommandInput placeholder='Digite o nome do Projeto ou Tecnologia...' />
-          <CommandList className='overflow font-Relative'>
+          {/* <CommandList className='overflow font-Relative'>
             {projects.length === 0 && techs.length === 0 ? (
               <CommandEmpty>Nenhum projeto ou tecnologia encontrado.</CommandEmpty>
             ) : (
@@ -98,7 +98,7 @@ const SearchBar = () => {
                 </CommandGroup>
               </>
             )}
-          </CommandList>
+          </CommandList> */}
         </CommandDialog>
       </motion.div>
     </div>

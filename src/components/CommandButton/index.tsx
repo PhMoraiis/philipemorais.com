@@ -32,8 +32,8 @@ import {
   CommandList,
   CommandShortcut
 } from '@/components/ui/command'
-// import type { Locale } from '@/config'
-// import { setUserLocale } from '@/services/locale'
+import type { Locale } from '@/i18n/config'
+import { setUserLocale } from '@/i18n/locale'
 import { useTranslations } from 'next-intl'
 import { GiBrazilFlag } from 'react-icons/gi'
 import { LiaFlagUsaSolid } from 'react-icons/lia'
@@ -43,13 +43,13 @@ import { Button } from '../ui/button'
 
 const CommandButton = () => {
   const [isPending, startTransition] = useTransition()
-  // const [activeLocale, setActiveLocale] = useState<Locale>('en')
+  const [activeLocale, setActiveLocale] = useState<Locale>('en')
   const { setTheme } = useTheme()
   const pathname = usePathname()
   const router = useRouter()
   const [open, setOpen] = React.useState(false)
-  // const t = useTranslations('CommandBar')
-  // const tt = useTranslations('Toasts')
+  const t = useTranslations('CommandBar')
+  const tt = useTranslations('Toasts')
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
@@ -119,11 +119,11 @@ const CommandButton = () => {
     navigator.clipboard.writeText(`philipemorais.com${pathname}`)
       .then(() => {
         handleCloseCommandBar()
-        // toast(tt('toastCopy'), {
-        //   icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
-        //   description: tt('toastCopyDescription'),
-        //   duration: 2000
-        // })
+        toast(tt('toastCopy'), {
+          icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
+          description: tt('toastCopyDescription'),
+          duration: 2000
+        })
       })
       .catch((error) => console.error('Error copying Link: ', error))
   }
@@ -175,51 +175,51 @@ const CommandButton = () => {
 
   const handleLightTheme = () => {
     if (localStorage.getItem('theme') === 'light') {
-      // toast(tt('toastThemeLightAlreadySelected'), {
-      //   icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
-      //   duration: 2000
-      // })
+      toast(tt('toastThemeLightAlreadySelected'), {
+        icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
+        duration: 2000
+      })
       handleCloseCommandBar()
     }
     else {
       setTheme('light')
       localStorage.setItem('theme', 'light')
       handleCloseCommandBar()
-      // toast(tt('toastThemeLightSelected'), {
-      //   icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
-      //   description: tt('toastThemeLightDescription'),
-      //   duration: 2000
-      // })
+      toast(tt('toastThemeLightSelected'), {
+        icon: <Sun className='mr-2 h-4 w-4 text-yellow-400' />,
+        description: tt('toastThemeLightDescription'),
+        duration: 2000
+      })
     }
   }
 
   const handleDarkTheme = () => {
     if (localStorage.getItem('theme') === 'dark') {
-      // toast(tt('toastThemeDarkAlreadySelected'), {
-      //   icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
-      //   duration: 2000,
-      //   style: {
-      //     backgroundColor: '#333',
-      //     color: '#fff',
-      //     border: 'none'
-      //   }
-      // })
+      toast(tt('toastThemeDarkAlreadySelected'), {
+        icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
+        duration: 2000,
+        style: {
+          backgroundColor: '#333',
+          color: '#fff',
+          border: 'none'
+        }
+      })
       handleCloseCommandBar()
     }
     else {
       setTheme('dark')
       localStorage.setItem('theme', 'dark')
       handleCloseCommandBar()
-      // toast(tt('toastThemeDarkSelected'), {
-      //   icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
-      //   description: tt('toastThemeDarkDescription'),
-      //   duration: 2000,
-      //   style: {
-      //     backgroundColor: '#333',
-      //     color: '#fff',
-      //     border: 'none'
-      //   }
-      // })
+      toast(tt('toastThemeDarkSelected'), {
+        icon: <Moon className='mr-2 h-4 w-4 text-sky-700' />,
+        description: tt('toastThemeDarkDescription'),
+        duration: 2000,
+        style: {
+          backgroundColor: '#333',
+          color: '#fff',
+          border: 'none'
+        }
+      })
     }
   }
 
@@ -239,14 +239,14 @@ const CommandButton = () => {
 
   const handleLocaleChange = (locale: string) => {
     startTransition(() => {
-      // setUserLocale(locale as Locale)
-      // setActiveLocale(locale as Locale)
+      setUserLocale(locale as Locale)
+      setActiveLocale(locale as Locale)
       handleCloseCommandBar()
     })
-    // toast(tt('toastLanguage'), {
-    //   icon: <Languages className='mr-2 h-4 w-4' />,
-    //   duration: 2000
-    // })
+    toast(tt('toastLanguage'), {
+      icon: <Languages className='mr-2 h-4 w-4' />,
+      duration: 2000
+    })
   }
 
   return (
@@ -392,7 +392,7 @@ const CommandButton = () => {
               <CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>D</CommandShortcut>
             </CommandItem>
           </CommandGroup>
-          {/* <CommandGroup heading={t('CommandGroup5')}>
+          <CommandGroup heading={t('CommandGroup5')}>
             <CommandItem className={`flex justify-between ${activeLocale === 'en' ? 'bg-accent' : ''}`}>
               <Button variant="noHover" size="sm" className='m-0 p-0' onClick={() => handleLocaleChange('en')}>
                 <div className='flex'>
@@ -419,7 +419,7 @@ const CommandButton = () => {
                 activeLocale === 'pt-br' && <CommandShortcut className='text-lg p-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'><Check className="h-4 w-4" /></CommandShortcut>
               }
             </CommandItem>
-          </CommandGroup> */}
+          </CommandGroup>
         </CommandList>
       </CommandDialog>
     </motion.div>

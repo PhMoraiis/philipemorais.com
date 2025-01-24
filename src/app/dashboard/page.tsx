@@ -31,8 +31,8 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ListFilter, Loader2, RefreshCcw } from 'lucide-react'
 
-import useProjectStore from '@/stores/projectStore'
-import useTechStore from '@/stores/techStore'
+// import useProjectStore from '@/stores/projectStore'
+// import useTechStore from '@/stores/techStore'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
@@ -40,60 +40,60 @@ import Link from 'next/link'
 
 const Dashboard = () => {
 	const [refreshLoading, setRefreshLoading] = useState(false)
-	const {
-		projects,
-		loading: loadingProjects,
-		setProjects,
-		setLoading: setLoadingProjects,
-		setError: setProjectError,
-	} = useProjectStore()
-	const {
-		techs,
-		loading: loadingTechs,
-		setTechs,
-		setLoading: setLoadingTechs,
-		setError: setTechError,
-	} = useTechStore()
+	// const {
+	// 	projects,
+	// 	loading: loadingProjects,
+	// 	setProjects,
+	// 	setLoading: setLoadingProjects,
+	// 	setError: setProjectError,
+	// } = useProjectStore()
+	// const {
+	// 	techs,
+	// 	loading: loadingTechs,
+	// 	setTechs,
+	// 	setLoading: setLoadingTechs,
+	// 	setError: setTechError,
+	// } = useTechStore()
 
-	useEffect(() => {
-		const getProjects = async () => {
-			setLoadingProjects(true)
-			try {
-				const response = await fetch('/api/projects')
-				const data = await response.json()
-				setProjects(data)
-			} catch (error) {
-				setProjectError('Failed to get projects')
-			} finally {
-				setLoadingProjects(false)
-			}
-		}
+	// useEffect(() => {
+	// 	const getProjects = async () => {
+	// 		setLoadingProjects(true)
+	// 		try {
+	// 			const response = await fetch('/api/projects')
+	// 			const data = await response.json()
+	// 			setProjects(data)
+	// 		} catch (error) {
+	// 			setProjectError('Failed to get projects')
+	// 		} finally {
+	// 			setLoadingProjects(false)
+	// 		}
+	// 	}
 
-		const getTechs = async () => {
-			setLoadingTechs(true)
-			try {
-				const response = await fetch('/api/techs')
-				const data = await response.json()
-				setTechs(data)
-			} catch (error) {
-				setTechError('Failed to get techs')
-			} finally {
-				setLoadingTechs(false)
-			}
-		}
+	// 	const getTechs = async () => {
+	// 		setLoadingTechs(true)
+	// 		try {
+	// 			const response = await fetch('/api/techs')
+	// 			const data = await response.json()
+	// 			setTechs(data)
+	// 		} catch (error) {
+	// 			setTechError('Failed to get techs')
+	// 		} finally {
+	// 			setLoadingTechs(false)
+	// 		}
+	// 	}
 
-		getProjects()
-		getTechs()
-	}, [
-		setProjects,
-		setTechs,
-		setLoadingProjects,
-		setLoadingTechs,
-		setProjectError,
-		setTechError,
-	])
+	// 	getProjects()
+	// 	getTechs()
+	// }, [
+	// 	setProjects,
+	// 	setTechs,
+	// 	setLoadingProjects,
+	// 	setLoadingTechs,
+	// 	setProjectError,
+	// 	setTechError,
+	// ])
 
-	const loading = loadingProjects || loadingTechs
+	// const loading = loadingProjects || loadingTechs
 
 	const loadingStates = [
 		{
@@ -122,11 +122,11 @@ const Dashboard = () => {
 		},
 	]
 
-	if (loading) {
-		return (
-			<Loader loadingStates={loadingStates} loading={loading} duration={2000} />
-		)
-	}
+	// if (loading) {
+	// 	return (
+	// 		<Loader loadingStates={loadingStates} loading={loading} duration={2000} />
+	// 	)
+	// }
 
 	const handleRefresh = async () => {
 		setRefreshLoading(true)
@@ -161,9 +161,9 @@ const Dashboard = () => {
 			}
 
 			const data = await response.json()
-			setProjects(data)
+			// setProjects(data)
 		} catch (error) {
-			setProjectError('Failed to refresh Projects')
+			// setProjectError('Failed to refresh Projects')
 		} finally {
 			setRefreshLoading(false)
 		}
@@ -269,7 +269,7 @@ const Dashboard = () => {
 												</TableHead>
 											</TableRow>
 										</TableHeader>
-										{projects.length === 0 ? (
+										{/* {projects.length === 0 ? (
 											<TableBody>
 												<TableRow>
 													<TableCell colSpan={4} className='h-24 text-center'>
@@ -318,7 +318,7 @@ const Dashboard = () => {
 													))}
 												</TableBody>
 											</>
-										)}
+										)} */}
 									</Table>
 								</CardContent>
 							</Card>
@@ -348,7 +348,7 @@ const Dashboard = () => {
 												</TableHead>
 											</TableRow>
 										</TableHeader>
-										{techs.length === 0 ? (
+										{/* {techs.length === 0 ? (
 											<TableBody>
 												<TableRow>
 													<TableCell colSpan={4} className='h-24 text-center'>
@@ -386,7 +386,7 @@ const Dashboard = () => {
 													))}
 												</TableBody>
 											</>
-										)}
+										)} */}
 									</Table>
 								</CardContent>
 							</Card>
