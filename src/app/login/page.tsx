@@ -5,12 +5,14 @@ import { FaviconOnpholio, OnPholioLogo } from '@/components/Logos'
 import { AnimatedShinyText } from '@/components/ui/animated-shiny-text'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Check, CircleX } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { handleLogin, type ILoginData } from '@/services/login'
+import { useMutation } from '@tanstack/react-query'
+import { useToast } from '@/hooks/use-toast'
 
 const formSchema = z.object({
 	email: z.string().email(),
@@ -28,13 +30,34 @@ const formSchema = z.object({
 
 const Login = () => {
 	const router = useRouter()
+	const { toast } = useToast()
 
 	const { handleSubmit, register } = useForm<ILoginData>({
 		resolver: zodResolver(formSchema),
 	})
 
+	const loginMutation = useMutation({
+		mutationFn: handleLogin,
+		onSuccess: (result) => {
+			toast({
+				title: 'Login successful!',
+				description: `${result.message}`,
+				variant: 'success',
+				action: <Check />,
+			})
+			router.push('/dashboard')
+		},
+		onError: (error) => {
+			toast({
+				title: 'There was an error',
+				description: `${error instanceof Error ? error.message : 'Erro desconhecido'}`,
+				variant: 'destructive',
+				action: <CircleX />,
+			})
+		},
+	})
 	const handleSubmitForm = handleSubmit((data) => {
-		handleLogin(data)
+		loginMutation.mutate(data)
 	})
 
 	return (
