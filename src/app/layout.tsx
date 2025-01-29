@@ -1,9 +1,9 @@
-import Providers from '@/components/ThemeProvider/theme-provider'
+import Providers from '@/components/ThemeProvider'
 import { Toaster } from '@/components/ui/toaster'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import './globals.css'
-import { Provider } from './provider'
+import { Provider } from '@/app/provider'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 

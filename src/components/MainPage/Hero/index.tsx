@@ -1,20 +1,13 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Github, Instagram, Linkedin, Mail } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from '../ui/dialog'
-import { Skeleton } from '../ui/skeleton'
-import { useTranslations } from 'next-intl'
+import { Skeleton } from '@/components/ui/skeleton'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 
 const Hero = () => {
 	const [isHover, setIsHover] = useState(false)
@@ -71,11 +64,11 @@ const Hero = () => {
 					</p>
 				</div>
 				<div className='flex flex-col items-start my-12 md:m-0 lg:m-0'>
-					<Dialog>
+					<DropdownMenu>
 						<span className='font-RelativeBk text-gray-400 mb-1 lg:text-lg animate-shine bg-[linear-gradient(110deg,#939393,45%,#1e2631,55%,#939393)] bg-[length:200%_100%] text-transparent bg-clip-text'>
 							{t('cta')}
 						</span>
-						<DialogTrigger
+						<DropdownMenuTrigger
 							className='border border-input bg-background rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative'
 							onMouseLeave={handleMouseLeave}
 							onMouseEnter={handleMouseEnter}
@@ -84,19 +77,20 @@ const Hero = () => {
 								className={`rounded-full w-3 h-3 bg-[#00eb4e] mr-2 ${isHover ? 'neon2' : 'neon'} duration-300 ease-in-out`}
 							/>
 							{t('buttonText')}
-						</DialogTrigger>
-						<DialogContent>
-							<DialogHeader>
-								<DialogTitle>{t('dialogTitle')}</DialogTitle>
-								<DialogDescription>{t('dialogDescription')}</DialogDescription>
-							</DialogHeader>
-							<ul className='flex items-center justify-center gap-4'>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent>
+							<DropdownMenuLabel>
+								{t('dialogTitle')}
+								<br />
+								{t('dialogDescription')}
+							</DropdownMenuLabel>
+							<ul className='flex items-center justify-center gap-4 my-4'>
 								{socialLinks.map((link, index) => (
 									// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 									<li key={index}>
 										<Link href={link.href} target='_blank'>
 											<motion.button
-												className='border border-primary bg-transparent dark:border-gray-400 rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative'
+												className='border border-input bg-background dark:border-border rounded-sm h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative'
 												whileHover={{ scale: 1.2 }}
 												transition={{
 													type: 'spring',
@@ -112,8 +106,8 @@ const Hero = () => {
 									</li>
 								))}
 							</ul>
-						</DialogContent>
-					</Dialog>
+						</DropdownMenuContent>
+					</DropdownMenu>
 				</div>
 			</div>
 		</section>

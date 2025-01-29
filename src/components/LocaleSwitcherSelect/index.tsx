@@ -1,7 +1,7 @@
 'use client'
 
-import { Locale } from '@/config'
-import { setUserLocale } from '@/services/locale'
+import type { Locale } from '@/i18n/config'
+import { setUserLocale } from '@/i18n/locale'
 import clsx from 'clsx'
 import { Languages } from 'lucide-react'
 import { useTranslations } from 'next-intl'

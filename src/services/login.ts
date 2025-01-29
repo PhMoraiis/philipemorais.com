@@ -1,12 +1,12 @@
-import { env } from "@/lib/env"
+import { env } from '@/lib/env'
 
 export interface ILoginData {
-  email: string
-  password: string
+	email: string
+	password: string
 }
 
 export const handleLogin = async (data: ILoginData) => {
-	const response = await fetch('https://onpholio.philipemorais.com/login', {
+	const response = await fetch(`${env.API_URL}/login`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',

@@ -2,7 +2,7 @@
 
 // import useProjectStore from '@/stores/projectStore'
 // import useTechStore from '@/stores/techStore'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Hexagon, Search, SquareTerminal } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import Magnetic from '../Magnetic'

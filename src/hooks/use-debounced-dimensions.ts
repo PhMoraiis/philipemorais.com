@@ -6,26 +6,26 @@ interface Dimensions {
 }
 
 export function useDimensions(
-	ref: RefObject<HTMLElement | SVGElement>,
-): Dimensions {
-	const [dimensions, setDimensions] = useState<Dimensions>({
-		width: 0,
-		height: 0,
-	})
+		ref: React.RefObject<HTMLElement | SVGElement | null>,
+	): Dimensions {
+		const [dimensions, setDimensions] = useState<Dimensions>({
+			width: 0,
+			height: 0,
+		})
 
-	useEffect(() => {
-		const updateDimensions = () => {
-			if (ref.current) {
-				const { width, height } = ref.current.getBoundingClientRect()
-				setDimensions({ width, height })
+		useEffect(() => {
+			const updateDimensions = () => {
+				if (ref.current) {
+					const { width, height } = ref.current.getBoundingClientRect()
+					setDimensions({ width, height })
+				}
 			}
-		}
 
-		updateDimensions()
-		window.addEventListener('resize', updateDimensions)
+			updateDimensions()
+			window.addEventListener('resize', updateDimensions)
 
-		return () => window.removeEventListener('resize', updateDimensions)
-	}, [ref])
+			return () => window.removeEventListener('resize', updateDimensions)
+		}, [ref])
 
-	return dimensions
-}
+		return dimensions
+	}

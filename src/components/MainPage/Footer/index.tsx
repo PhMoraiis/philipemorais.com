@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import {
 	ArrowUp,
 	CheckCircle,
@@ -12,12 +12,12 @@ import {
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { toast } from 'sonner'
-import { LogoBlack, LogoWhite } from '../Logos'
-import Magnetic from '../Magnetic'
-import { Separator } from '../ui/separator'
+import { LogoBlack, LogoWhite } from '@/components/Logos'
+import Magnetic from "@/components/Magnetic";
+import { Separator } from '@/components/ui/separator'
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { Skeleton } from '../ui/skeleton'
+import { Skeleton } from '@/components/ui/skeleton'
 
 const Footer = () => {
 	const { theme, resolvedTheme } = useTheme()
@@ -75,7 +75,7 @@ const Footer = () => {
 									target='_blank'
 								>
 									<motion.button
-										className='border border-input bg-background dark:border-border rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative'
+										className='border border-input bg-background dark:border-border rounded-sm h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative'
 										whileHover={{ scale: 1.2 }}
 										transition={{
 											type: 'spring',
@@ -92,7 +92,7 @@ const Footer = () => {
 							<li>
 								<Link href='https://www.github.com/PhMoraiis' target='_blank'>
 									<motion.button
-										className='border border-input bg-background dark:border-border rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative'
+										className='border border-input bg-background dark:border-border rounded-sm h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative'
 										whileHover={{ scale: 1.2 }}
 										transition={{
 											type: 'spring',
@@ -112,7 +112,7 @@ const Footer = () => {
 									target='_blank'
 								>
 									<motion.button
-										className='border border-input bg-background dark:border-border rounded-2xl h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative'
+										className='border border-input bg-background dark:border-border rounded-sm h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative'
 										whileHover={{ scale: 1.2 }}
 										transition={{
 											type: 'spring',

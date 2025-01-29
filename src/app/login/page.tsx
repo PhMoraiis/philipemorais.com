@@ -34,30 +34,40 @@ const Login = () => {
 		resolver: zodResolver(formSchema),
 	})
 
-	const loginMutation = useMutation({
-		mutationFn: handleLogin,
-		onSuccess: () => {
-			router.push('/dashboard')
-		},
-		onError: (error) => {
-			console.error(error)
-		},
+	const handleSubmitForm = handleSubmit((data) => {
+		handleLogin(data)
+			.then(() => {
+				router.push('/dashboard')
+			})
+			.catch((error) => {
+				console.error(error)
+			})
 	})
 
-	const handleSubmitForm = handleSubmit((data) => {
-		loginMutation.mutate(data)
-	})
+	// const loginMutation = useMutation({
+	// 	mutationFn: handleLogin,
+	// 	onSuccess: () => {
+	// 		router.push('/dashboard')
+	// 	},
+	// 	onError: (error) => {
+	// 		console.error(error)
+	// 	},
+	// })
+
+	// const handleSubmitForm = handleSubmit((data) => {
+	// 	loginMutation.mutate(data)
+	// })
 
 	return (
-		<main className='flex items-center justify-center overflow-hidden'>
+		<section className='flex items-center justify-center overflow-hidden'>
 			<div className='relative h-[98vh] bg-slate-300 w-1/2 flex items-start justify-between p-10 ml-2 my-2 rounded-xl'>
-				<AnimatedGradient
+				{/* <AnimatedGradient
 					colors={['#0F2027', '#203A43', '#2C5364']}
 					speed={0.05}
 					blur='heavy'
-				/>
+				/> */}
 				<div className='flex justify-center items-center relative'>
-					<Button onClick={() => router.back()} variant='link'>
+					<Button onClick={() => router.forward} variant='link'>
 						<ArrowLeft size={24} /> Back
 					</Button>
 				</div>
@@ -106,7 +116,7 @@ const Login = () => {
 					</form>
 				</div>
 			</section>
-		</main>
+		</section>
 	)
 }
 

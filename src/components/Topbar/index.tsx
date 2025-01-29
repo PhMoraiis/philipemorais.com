@@ -1,14 +1,18 @@
 import { CircleUser, Hexagon, Home, LogOut, Menu, SquareTerminal, ToggleLeft } from 'lucide-react'
-import { Button } from '../ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '../ui/dropdown-menu'
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
+import { Button } from '@/components/ui/button'
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 
-import SearchBar from '../SearchBar'
-import { Badge } from '../ui/badge'
+import SearchBar from '@/components/SearchBar'
+import { Badge } from '@/components/ui/badge'
 
 const Topbar = () => {
   const router = useRouter()

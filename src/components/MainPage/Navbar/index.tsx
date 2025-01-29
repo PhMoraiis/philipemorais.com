@@ -1,13 +1,13 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import CommandButton from '../CommandButton'
-import { LogoBlack, LogoWhite } from '../Logos'
-import Magnetic from '../Magnetic'
-import { Skeleton } from '../ui/skeleton'
+import CommandButton from '@/components/CommandButton'
+import { LogoBlack, LogoWhite } from '@/components/Logos'
+import Magnetic from '@/components/Magnetic'
+import { Skeleton } from "@/components/ui/skeleton";
 
 
 const Navbar = () => {

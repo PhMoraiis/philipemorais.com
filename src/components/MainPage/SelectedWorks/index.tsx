@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import { Badge } from '../ui/badge'
+import { Badge } from '@/components/ui/badge'
 import { ArrowRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import Works from '../Works/índex'
+import Works from '../../Works/índex'
 
 const SelectedWorks = () => {
   const t = useTranslations('Projects')
