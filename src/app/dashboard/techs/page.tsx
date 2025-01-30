@@ -7,20 +7,9 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import {
-	Drawer,
-	DrawerClose,
-	DrawerContent,
-	DrawerDescription,
-	DrawerFooter,
-	DrawerHeader,
-	DrawerTitle,
-	DrawerTrigger,
-} from '@/components/ui/drawer'
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -38,221 +27,61 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import {
-	CheckCircle,
-	ListFilter,
-	Loader2,
-	MoreHorizontal,
-	Pen,
-	PlusCircle,
-	RefreshCcw,
-	Trash2,
-	X,
-} from 'lucide-react'
-import { toast } from 'sonner'
-
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Tabs, TabsContent } from '@/components/ui/tabs'
+import { ListFilter, Loader2, MoreHorizontal, RefreshCcw } from 'lucide-react'
 import Image from 'next/image'
-import { type FormEvent, useEffect, useState } from 'react'
+import { useState } from 'react'
+import CreateTech from '@/components/TechsPage/Create/createTech'
+import { useQuery } from '@tanstack/react-query'
+import { getTechs } from '@/services/Techs/getTech'
+import UpdateTech from '@/components/TechsPage/Update/updateTech'
+import DeleteTech from '@/components/TechsPage/Delete/deleteTech'
 
 const TechsDashboard = () => {
 	const [refreshLoading, setRefreshLoading] = useState(false)
+	
+	const { data, isLoading, isError } = useQuery({
+		queryKey: ['techs'],
+		queryFn: getTechs,
+		staleTime: 1000 * 60,
+	})
 
-	// const loadingStates = [
-	// 	{
-	// 		text: 'Bem vindo ao OnPholio',
-	// 	},
-	// 	{
-	// 		text: 'Explorando novos horizontes',
-	// 	},
-	// 	{
-	// 		text: 'Preparando um café delicioso',
-	// 	},
-	// 	{
-	// 		text: 'Decifrando os segredos do universo',
-	// 	},
-	// 	{
-	// 		text: 'Fazendo algumas alterações no tempo',
-	// 	},
-	// 	{
-	// 		text: 'Preparando o palco',
-	// 	},
-	// 	{
-	// 		text: 'Coletando estrelas',
-	// 	},
-	// 	{
-	// 		text: 'Deixando as engrenagens girarem',
-	// 	},
-	// ]
+	const loadingStates = [
+		{
+			text: 'Bem vindo ao OnPholio',
+		},
+		{
+			text: 'Explorando novos horizontes',
+		},
+		{
+			text: 'Preparando um café delicioso',
+		},
+		{
+			text: 'Decifrando os segredos do universo',
+		},
+		{
+			text: 'Fazendo algumas alterações no tempo',
+		},
+		{
+			text: 'Preparando o palco',
+		},
+		{
+			text: 'Coletando estrelas',
+		},
+		{
+			text: 'Deixando as engrenagens girarem',
+		},
+	]
 
-	// if (loadingTechs) {
-	// 	return (
-	// 		<Loader
-	// 			loadingStates={loadingStates}
-	// 			loading={loadingTechs}
-	// 			duration={2000}
-	// 		/>
-	// 	)
-	// }
-
-	// const handleCreateTech = async (event: React.FormEvent<HTMLFormElement>) => {
-	// 	event.preventDefault()
-
-	// 	const formData = new FormData(event.target as HTMLFormElement)
-	// 	const name = formData.get('name') as string
-	// 	const icon = formData.get('icon') as string
-
-	// 	try {
-	// 		const response = await fetch('/api/techs', {
-	// 			method: 'POST',
-	// 			body: JSON.stringify({ name, icon }),
-	// 			headers: {
-	// 				'Content-Type': 'application/json',
-	// 			},
-	// 		})
-
-	// 		const newTech = await response.json()
-	// 		addTech(newTech)
-	// 		toast.success('Tecnologia criada com sucesso!', {
-	// 			icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
-	// 			description: `${newTech.name} Criada com sucesso`,
-	// 			duration: 2000,
-	// 		})
-	// 	} catch (error) {
-	// 		setTechError('Failed to create tech')
-	// 		toast.error('Erro ao criar tecnologia.', {
-	// 			description:
-	// 				'Ocorreu um erro ao tentar criar a tecnologia. Por favor, tente novamente.',
-	// 			icon: <X className='mr-2 h-4 w-4 text-red-500' />,
-	// 			duration: 2000,
-	// 		})
-	// 	}
-	// }
-
-	// const handleUpdateTech = async (
-	// 	event: FormEvent<HTMLFormElement>,
-	// 	id: string,
-	// ) => {
-	// 	event.preventDefault()
-
-	// 	const formData = new FormData(event.currentTarget)
-	// 	const name = formData.get('name') as string
-	// 	const icon = formData.get('icon') as string
-
-	// 	// Obtenha a tecnologia atual para comparação
-	// 	const currentTech = techs.find((tech) => tech.id === id)
-	// 	if (!currentTech) return // Se a tecnologia não for encontrada, não faz nada
-
-	// 	// Prepare o objeto com apenas os campos alterados
-	// 	const updatedFields: { name?: string; icon?: string } = {}
-	// 	if (name && name !== currentTech.name) updatedFields.name = name
-	// 	if (icon && icon !== currentTech.icon) updatedFields.icon = icon
-
-	// 	try {
-	// 		const response = await fetch(`/api/techs/${id}`, {
-	// 			method: 'PUT',
-	// 			body: JSON.stringify(updatedFields),
-	// 			headers: {
-	// 				'Content-Type': 'application/json',
-	// 			},
-	// 		})
-
-	// 		if (!response.ok) {
-	// 			throw new Error('Falha ao editar tecnologia')
-	// 		}
-
-	// 		const updatedTech = await response.json()
-	// 		setTechs(techs.map((tech) => (tech.id === id ? updatedTech : tech))) // Atualiza o estado
-
-	// 		toast.success('Tecnologia editada com sucesso', {
-	// 			icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
-	// 			description: `${name || currentTech.name} foi atualizada com sucesso`,
-	// 			duration: 2000,
-	// 		})
-	// 	} catch (error) {
-	// 		toast.error('Erro ao editar tecnologia', {
-	// 			description:
-	// 				'Ocorreu um erro ao tentar editar a tecnologia. Por favor, tente novamente.',
-	// 			icon: <X className='mr-2 h-4 w-4 text-red-500' />,
-	// 			duration: 2000,
-	// 		})
-	// 	}
-	// }
-
-	// const handleDeleteTech = async (id: string) => {
-	// 	try {
-	// 		await fetch(`/api/techs/${id}`, { method: 'DELETE' })
-	// 		setTechs(techs.filter((tech) => tech.id !== id))
-	// 		toast.success('Tecnologia excluída com sucesso', {
-	// 			icon: <CheckCircle className='mr-2 h-4 w-4 text-green-500' />,
-	// 			description: `${techs.find((tech) => tech.id === id)?.name} excluída com sucesso`,
-	// 			duration: 2000,
-	// 		})
-	// 	} catch (error) {
-	// 		toast.error('Erro ao excluir tecnologia', {
-	// 			description:
-	// 				'Ocorreu um erro ao tentar excluir a tecnologia. Por favor, tente novamente.',
-	// 			icon: <X className='mr-2 h-4 w-4 text-red-500' />,
-	// 			duration: 2000,
-	// 		})
-	// 	}
-	// }
-
-	// const handleRefresh = async () => {
-	// 	setRefreshLoading(true)
-	// 	const fetchWithTimeout = (
-	// 		url: string,
-	// 		options: RequestInit,
-	// 		timeout: number,
-	// 	) => {
-	// 		return new Promise<Response>((resolve, reject) => {
-	// 			const timer = setTimeout(
-	// 				() => reject(new Error('Request timed out')),
-	// 				timeout,
-	// 			)
-	// 			fetch(url, options)
-	// 				.then((response) => {
-	// 					clearTimeout(timer)
-	// 					resolve(response)
-	// 				})
-	// 				.catch((error) => {
-	// 					clearTimeout(timer)
-	// 					reject(error)
-	// 				})
-	// 		})
-	// 	}
-
-	// 	try {
-	// 		const timeout = 300000 // 5 minutos
-	// 		const response = await fetchWithTimeout('/api/techs', {}, timeout)
-
-	// 		if (!response.ok) {
-	// 			throw new Error(`Failed to fetch: ${response.status}`)
-	// 		}
-
-	// 		const data = await response.json()
-	// 		setTechs(data)
-	// 	} catch (error) {
-	// 		setTechError('Failed to refresh techs')
-	// 	} finally {
-	// 		setRefreshLoading(false)
-	// 	}
-	// }
-
-	// const verificarAtualizacao = (tech: {
-	// 	updatedAt: string
-	// 	createdAt: string
-	// }) => {
-	// 	if (tech.updatedAt === tech.createdAt) {
-	// 		return 'Nunca atualizada'
-	// 	}
-	// 	return new Intl.DateTimeFormat('pt-BR', {
-	// 		dateStyle: 'medium',
-	// 		timeStyle: 'short',
-	// 	}).format(new Date(tech.updatedAt))
-	// }
+	if (isLoading) {
+		return (
+			<Loader
+				loadingStates={loadingStates}
+				loading={isLoading}
+				duration={2000}
+			/>
+		)
+	}
 
 	return (
 		<div className='grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]'>
@@ -298,57 +127,7 @@ const TechsDashboard = () => {
 										)}
 									</Button>
 								</DropdownMenu>
-								<Drawer>
-									<DrawerTrigger asChild>
-										<Button size='sm' className='h-8 gap-1'>
-											<PlusCircle className='h-3.5 w-3.5' />
-											<span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
-												Adicionar Tecnologia
-											</span>
-										</Button>
-									</DrawerTrigger>
-									<DrawerContent>
-										<div className='mx-auto w-full max-w-sm'>
-											<DrawerHeader>
-												<DrawerTitle>Nova Tecnologia</DrawerTitle>
-												<DrawerDescription>
-													Crie uma nova tecnologia.
-												</DrawerDescription>
-											</DrawerHeader>
-											<form
-												// onSubmit={handleCreateTech}
-												className='space-y-2 p-4 pb-0'
-											>
-												<div className='space-y-2'>
-													<Label htmlFor='name'>Nome</Label>
-													<Input
-														id='name'
-														name='name'
-														placeholder='Nome da tecnologia'
-														required
-													/>
-												</div>
-												<div className='space-y-2'>
-													<Label htmlFor='icon'>Ícone</Label>
-													<Input
-														id='icon'
-														name='icon'
-														placeholder='Icone da tecnologia'
-														required
-													/>
-												</div>
-												<DrawerFooter>
-													<DrawerClose asChild>
-														<Button type='submit'>Criar Tecnologia</Button>
-													</DrawerClose>
-													<DrawerClose asChild>
-														<Button variant='outline'>Cancelar</Button>
-													</DrawerClose>
-												</DrawerFooter>
-											</form>
-										</div>
-									</DrawerContent>
-								</Drawer>
+								<CreateTech />
 							</div>
 						</div>
 						<TabsContent value='all'>
@@ -356,7 +135,7 @@ const TechsDashboard = () => {
 								<CardHeader>
 									<CardTitle>Suas Tecnologias</CardTitle>
 									<CardDescription>
-										Gerencie as suas tecnologias usadas em seus Projetos.
+										Gerencie as tecnologias usadas nos projetos.
 									</CardDescription>
 								</CardHeader>
 								<CardContent>
@@ -378,7 +157,7 @@ const TechsDashboard = () => {
 												</TableHead>
 											</TableRow>
 										</TableHeader>
-										{/* {techs.length === 0 ? (
+										{data?.lenght === 0 ? (
 											<TableBody>
 												<TableRow>
 													<TableCell colSpan={4} className='h-24 text-center'>
@@ -389,14 +168,16 @@ const TechsDashboard = () => {
 										) : (
 											<>
 												<TableBody>
-													{techs.map((tech) => (
-														<TableRow key={tech.id}>
+													{/* biome-ignore lint/suspicious/noExplicitAny: <explanation> */}
+													{data?.map((tech: any, index: any) => (
+														// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+														<TableRow key={index}>
 															<TableCell className='hidden sm:table-cell'>
 																<Image
 																	alt='Product image'
 																	className='aspect-square rounded-md object-cover'
 																	height='44'
-																	src={tech.icon}
+																	src={tech.image}
 																	width='54'
 																/>
 															</TableCell>
@@ -410,7 +191,7 @@ const TechsDashboard = () => {
 																}).format(new Date(tech.createdAt))}
 															</TableCell>
 															<TableCell className='hidden md:table-cell'>
-																{verificarAtualizacao(tech)}
+																{/* {verificarAtualizacao(tech)} */}
 															</TableCell>
 															<TableCell>
 																<DropdownMenu>
@@ -431,75 +212,8 @@ const TechsDashboard = () => {
 																		className='space-y-1'
 																	>
 																		<DropdownMenuLabel>Ações</DropdownMenuLabel>
-																		<Drawer>
-																			<DrawerTrigger asChild>
-																				<Button
-																					className='flex justify-between w-full'
-																					size='sm'
-																					variant='outline'
-																				>
-																					Editar <Pen className='h-4 w-4' />
-																				</Button>
-																			</DrawerTrigger>
-																			<DrawerContent>
-																				<div className='mx-auto w-full max-w-sm'>
-																					<DrawerHeader>
-																						<DrawerTitle>
-																							Editar {tech.name}
-																						</DrawerTitle>
-																						<DrawerDescription>
-																							Edite com sabedoria a tecnologia
-																							escolhida.
-																						</DrawerDescription>
-																					</DrawerHeader>
-																					<form
-																						onSubmit={(event) =>
-																							handleUpdateTech(event, tech.id)
-																						}
-																						className='space-y-2 p-4 pb-0'
-																					>
-																						<div className='space-y-2'>
-																							<Label htmlFor='name'>Nome</Label>
-																							<Input
-																								id='name'
-																								name='name'
-																								placeholder={tech.name}
-																							/>
-																						</div>
-																						<div className='space-y-2'>
-																							<Label htmlFor='icon'>
-																								Ícone
-																							</Label>
-																							<Input
-																								id='icon'
-																								name='icon'
-																								placeholder={tech.icon}
-																							/>
-																						</div>
-																						<DrawerFooter>
-																							<DrawerClose asChild>
-																								<Button type='submit'>
-																									Editar Tecnologia
-																								</Button>
-																							</DrawerClose>
-																							<DrawerClose asChild>
-																								<Button variant='outline'>
-																									Cancelar
-																								</Button>
-																							</DrawerClose>
-																						</DrawerFooter>
-																					</form>
-																				</div>
-																			</DrawerContent>
-																		</Drawer>
-																		<Button
-																			onClick={() => handleDeleteTech(tech.id)}
-																			className='flex justify-between w-full hover:bg-red-500'
-																			size='sm'
-																			variant='outline'
-																		>
-																			Excluir <Trash2 className='h-4 w-4' />
-																		</Button>
+																		<UpdateTech />
+																		<DeleteTech />
 																	</DropdownMenuContent>
 																</DropdownMenu>
 															</TableCell>
@@ -507,7 +221,7 @@ const TechsDashboard = () => {
 													))}
 												</TableBody>
 											</>
-										)} */}
+										)}
 									</Table>
 								</CardContent>
 							</Card>

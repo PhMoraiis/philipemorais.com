@@ -1,5 +1,5 @@
 import {
-  Check,
+	Check,
 	CircleUser,
 	CircleX,
 	Hexagon,
@@ -7,7 +7,6 @@ import {
 	LogOut,
 	Menu,
 	SquareTerminal,
-	ToggleLeft,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
@@ -16,15 +15,15 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 
 import SearchBar from '@/components/SearchBar'
 import { Badge } from '@/components/ui/badge'
 import { useMutation } from '@tanstack/react-query'
-import { handleLogout } from '@/services/logout'
+import { handleLogout } from '@/services/Users/logout'
 import { useToast } from '@/hooks/use-toast'
+import { FaviconOnpholio } from '../Logos'
 
 const Topbar = () => {
 	const router = useRouter()
@@ -49,7 +48,7 @@ const Topbar = () => {
 				variant: 'destructive',
 				action: <CircleX />,
 			})
-      // router.refresh()
+			router.refresh()
 		},
 	})
 	const handleLogoutButton = () => {
@@ -70,8 +69,8 @@ const Topbar = () => {
 							href='/dashboard'
 							className='flex items-center gap-2 text-lg font-semibold'
 						>
-							<ToggleLeft className='h-6 w-6' />
-							<span className='sr-only'>OnPholio</span>
+							<FaviconOnpholio width={35} />
+							<span className=''>OnPholio</span>
 						</Link>
 						<Link
 							href='/dashboard'

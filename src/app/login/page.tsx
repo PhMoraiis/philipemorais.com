@@ -10,9 +10,10 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import { handleLogin, type ILoginData } from '@/services/login'
+import { handleLogin } from '@/services/Users/login'
 import { useMutation } from '@tanstack/react-query'
 import { useToast } from '@/hooks/use-toast'
+import type { ILoginData } from '@/services/Users/types'
 
 const formSchema = z.object({
 	email: z.string().email(),

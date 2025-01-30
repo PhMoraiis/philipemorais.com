@@ -2,30 +2,19 @@
 
 import { env } from '@/lib/env'
 import { cookies } from 'next/headers'
+import type { ILoginData, ILoginResponse } from './types'
 
-export interface ILoginData {
-	email: string
-	password: string
-}
-
-export interface ILoginResponse {
-	success: boolean
-	message: string
-	accessToken?: string
-	name: string
-}
-
-export const handleLogin = async (
-	data: ILoginData,
-): Promise<ILoginResponse> => {
-
+export const handleLogin = async ({
+	email,
+	password,
+}: ILoginData): Promise<ILoginResponse> => {
 	try {
 		const response = await fetch(`${env.API_URL}/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(data),
+			body: JSON.stringify({ email, password }),
 		})
 
 		const result: ILoginResponse = await response.json()
@@ -35,7 +24,7 @@ export const handleLogin = async (
 		}
 
 		if (result.accessToken) {
-			(await cookies()).set('access_token', result.accessToken)
+			;(await cookies()).set('access_token', result.accessToken)
 		}
 
 		return result
