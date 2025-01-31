@@ -8,7 +8,14 @@ interface ProviderProps {
 }
 
 export const Provider: React.FC<ProviderProps> = ({ children }) => {
-	const [client] = useState(new QueryClient())
+	const [client] = useState(new QueryClient({
+		defaultOptions: {
+			queries: {
+				refetchOnWindowFocus: false,
+				staleTime: 1000 * 60 * 30 // 30 seconds
+			}
+		}
+	}))
 
 	return <QueryClientProvider client={client}>{children}</QueryClientProvider>
 }

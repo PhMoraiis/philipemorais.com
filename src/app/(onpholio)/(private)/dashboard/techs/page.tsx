@@ -28,23 +28,52 @@ import {
 	TableRow,
 } from '@/components/ui/table'
 import { Tabs, TabsContent } from '@/components/ui/tabs'
-import { ListFilter, Loader2, MoreHorizontal, RefreshCcw } from 'lucide-react'
+import {
+	Check,
+	CircleX,
+	ListFilter,
+	Loader2,
+	MoreHorizontal,
+	RefreshCcw,
+} from 'lucide-react'
 import Image from 'next/image'
-import { useState } from 'react'
 import CreateTech from '@/components/TechsPage/Create/createTech'
 import { useQuery } from '@tanstack/react-query'
 import { getTechs } from '@/services/Techs/getTech'
 import UpdateTech from '@/components/TechsPage/Update/updateTech'
 import DeleteTech from '@/components/TechsPage/Delete/deleteTech'
+import type { ITechData } from '@/services/Techs/types'
+import { useToast } from '@/hooks/use-toast'
 
 const TechsDashboard = () => {
-	const [refreshLoading, setRefreshLoading] = useState(false)
-	
-	const { data, isLoading, isError } = useQuery({
+	const { toast } = useToast()
+
+	const { data, isLoading, isError, refetch, isFetching, isFetched } = useQuery({
 		queryKey: ['techs'],
 		queryFn: getTechs,
-		staleTime: 1000 * 60,
+		select: (data) => data?.techs ?? [],
 	})
+
+	const handleRefresh = async () => {
+		try {
+			await refetch()
+			if (isFetched) {
+				toast({
+					title: 'Data refreshed!',
+					description: 'Data has been refreshed successfully!',
+					variant: 'success',
+					action: <Check />,
+				})
+			}
+		} catch (error) {
+			toast({
+				title: 'There was an error',
+				description: 'Error while trying to refresh the data, try again later!',
+				variant: 'destructive',
+				action: <CircleX />,
+			})
+		}
+	}
 
 	const loadingStates = [
 		{
@@ -83,6 +112,15 @@ const TechsDashboard = () => {
 		)
 	}
 
+	if (isError) {
+		toast({
+			title: 'There was an error',
+			description: 'There was an error with the request, try again!',
+			variant: 'destructive',
+			action: <CircleX />,
+		})
+	}
+
 	return (
 		<div className='grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]'>
 			<Sidebar />
@@ -117,10 +155,10 @@ const TechsDashboard = () => {
 									<Button
 										size='sm'
 										className='h-8 gap-1'
-										// onClick={handleRefresh}
-										disabled={refreshLoading}
+										onClick={handleRefresh}
+										disabled={isFetching}
 									>
-										{refreshLoading ? (
+										{isFetching ? (
 											<Loader2 className='h-4 w-4 animate-spin' />
 										) : (
 											<RefreshCcw className='h-3.5 w-3.5' />
@@ -168,10 +206,8 @@ const TechsDashboard = () => {
 										) : (
 											<>
 												<TableBody>
-													{/* biome-ignore lint/suspicious/noExplicitAny: <explanation> */}
-													{data?.map((tech: any, index: any) => (
-														// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-														<TableRow key={index}>
+													{data.map((tech: ITechData) => (
+														<TableRow key={tech.id}>
 															<TableCell className='hidden sm:table-cell'>
 																<Image
 																	alt='Product image'
