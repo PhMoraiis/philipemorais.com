@@ -43,17 +43,27 @@ import { getTechs, type IGetTech } from '@/services/Techs/getTech'
 import UpdateTech from '@/components/TechsPage/Update/updateTech'
 import DeleteTech from '@/components/TechsPage/Delete/deleteTech'
 import { useToast } from '@/hooks/use-toast'
+import { useState } from 'react'
+import { verifyUpdate } from '@/lib/verifyUpdate'
 
 const TechsDashboard = () => {
 	const { toast } = useToast()
+	const [orderBy, setOrderBy] = useState<'name' | 'createdAt' | 'updatedAt'>(
+		'name',
+	) // Estado para controlar a ordenação
 
-	const { data: techs, isLoading, isError, refetch, isFetching, isFetched } = useQuery(
-		{
-			queryKey: ['techs'],
-			queryFn: getTechs,
-			select: (data) => data?.techs ?? [],
-		},
-	)
+	const {
+		data: techs,
+		isLoading,
+		isError,
+		refetch,
+		isFetching,
+		isFetched,
+	} = useQuery({
+		queryKey: ['techs', orderBy], // Adicione orderBy como dependência da query
+		queryFn: () => getTechs(orderBy, false), // Passa o critério de ordenação para a função getTechs
+		select: (data) => data?.techs ?? [],
+	})
 
 	const handleRefresh = async () => {
 		try {
@@ -74,6 +84,12 @@ const TechsDashboard = () => {
 				action: <CircleX />,
 			})
 		}
+	}
+
+	const handleOrderByChange = (
+		criteria: 'name' | 'createdAt' | 'updatedAt',
+	) => {
+		setOrderBy(criteria) // Atualiza o critério de ordenação
 	}
 
 	const loadingStates = [
@@ -143,29 +159,38 @@ const TechsDashboard = () => {
 									<DropdownMenuContent align='end'>
 										<DropdownMenuLabel>Ordenar por</DropdownMenuLabel>
 										<DropdownMenuSeparator />
-										<DropdownMenuCheckboxItem checked>
+										<DropdownMenuCheckboxItem
+											checked={orderBy === 'name'}
+											onSelect={() => handleOrderByChange('name')}
+										>
 											Nome
 										</DropdownMenuCheckboxItem>
-										<DropdownMenuCheckboxItem>
+										<DropdownMenuCheckboxItem
+											checked={orderBy === 'createdAt'}
+											onSelect={() => handleOrderByChange('createdAt')}
+										>
 											Data de Criação
 										</DropdownMenuCheckboxItem>
-										<DropdownMenuCheckboxItem>
+										<DropdownMenuCheckboxItem
+											checked={orderBy === 'updatedAt'}
+											onSelect={() => handleOrderByChange('updatedAt')}
+										>
 											Data de Atualização
 										</DropdownMenuCheckboxItem>
 									</DropdownMenuContent>
-									<Button
-										size='sm'
-										className='h-8 gap-1'
-										onClick={handleRefresh}
-										disabled={isFetching}
-									>
-										{isFetching ? (
-											<Loader2 className='h-4 w-4 animate-spin' />
-										) : (
-											<RefreshCcw className='h-3.5 w-3.5' />
-										)}
-									</Button>
 								</DropdownMenu>
+								<Button
+									size='sm'
+									className='h-8 gap-1'
+									onClick={handleRefresh}
+									disabled={isFetching}
+								>
+									{isFetching ? (
+										<Loader2 className='h-4 w-4 animate-spin' />
+									) : (
+										<RefreshCcw className='h-3.5 w-3.5' />
+									)}
+								</Button>
 								<CreateTech />
 							</div>
 						</div>
@@ -196,7 +221,7 @@ const TechsDashboard = () => {
 												</TableHead>
 											</TableRow>
 										</TableHeader>
-										{techs?.lenght === 0 ? (
+										{techs?.length === 0 ? (
 											<TableBody>
 												<TableRow>
 													<TableCell colSpan={4} className='h-24 text-center'>
@@ -228,7 +253,7 @@ const TechsDashboard = () => {
 																}).format(new Date(tech.createdAt))}
 															</TableCell>
 															<TableCell className='hidden md:table-cell'>
-																{/* {verificarAtualizacao(tech)} */}
+																{verifyUpdate({ tech })}
 															</TableCell>
 															<TableCell>
 																<DropdownMenu>

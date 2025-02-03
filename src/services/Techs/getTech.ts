@@ -8,16 +8,22 @@ export interface IGetTech {
 	updatedAt: string
 }
 
-export const getTechs = async () => {
+export const getTechs = async (orderBy = 'name', disableOrder = false) => {
 	try {
-		const response = await fetch(`${env.API_URL}/techs`, {
+		const url = new URL(`${env.API_URL}/techs`)
+
+		if (!disableOrder) {
+			url.searchParams.append('orderBy', orderBy)
+		}
+
+		const response = await fetch(url.toString(), {
 			method: 'GET',
 			credentials: 'include',
 		})
 
 		if (!response.ok) {
 			const errorData = await response.json().catch(() => null)
-			const errorMessage = errorData?.message || 'Erro ao criar tecnologia'
+			const errorMessage = errorData?.message || 'Erro ao obter tecnologias'
 			throw new Error(errorMessage)
 		}
 
@@ -28,6 +34,7 @@ export const getTechs = async () => {
 		)
 	}
 }
+
 
 export const getTechByID = async (id: string) => {
 	try {
