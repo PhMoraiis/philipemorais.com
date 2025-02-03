@@ -39,20 +39,21 @@ import {
 import Image from 'next/image'
 import CreateTech from '@/components/TechsPage/Create/createTech'
 import { useQuery } from '@tanstack/react-query'
-import { getTechs } from '@/services/Techs/getTech'
+import { getTechs, type IGetTech } from '@/services/Techs/getTech'
 import UpdateTech from '@/components/TechsPage/Update/updateTech'
 import DeleteTech from '@/components/TechsPage/Delete/deleteTech'
-import type { ITechData } from '@/services/Techs/types'
 import { useToast } from '@/hooks/use-toast'
 
 const TechsDashboard = () => {
 	const { toast } = useToast()
 
-	const { data, isLoading, isError, refetch, isFetching, isFetched } = useQuery({
-		queryKey: ['techs'],
-		queryFn: getTechs,
-		select: (data) => data?.techs ?? [],
-	})
+	const { data: techs, isLoading, isError, refetch, isFetching, isFetched } = useQuery(
+		{
+			queryKey: ['techs'],
+			queryFn: getTechs,
+			select: (data) => data?.techs ?? [],
+		},
+	)
 
 	const handleRefresh = async () => {
 		try {
@@ -195,7 +196,7 @@ const TechsDashboard = () => {
 												</TableHead>
 											</TableRow>
 										</TableHeader>
-										{data?.lenght === 0 ? (
+										{techs?.lenght === 0 ? (
 											<TableBody>
 												<TableRow>
 													<TableCell colSpan={4} className='h-24 text-center'>
@@ -206,7 +207,7 @@ const TechsDashboard = () => {
 										) : (
 											<>
 												<TableBody>
-													{data.map((tech: ITechData) => (
+													{techs.map((tech: IGetTech) => (
 														<TableRow key={tech.id}>
 															<TableCell className='hidden sm:table-cell'>
 																<Image
@@ -248,8 +249,8 @@ const TechsDashboard = () => {
 																		className='space-y-1'
 																	>
 																		<DropdownMenuLabel>Ações</DropdownMenuLabel>
-																		<UpdateTech />
-																		<DeleteTech />
+																		<UpdateTech techID={tech.id} />
+																		<DeleteTech techID={tech.id} />
 																	</DropdownMenuContent>
 																</DropdownMenu>
 															</TableCell>

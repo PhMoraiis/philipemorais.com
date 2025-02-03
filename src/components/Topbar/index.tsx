@@ -32,10 +32,9 @@ const Topbar = () => {
 
 	const logoutMutation = useMutation({
 		mutationFn: handleLogout,
-		onSuccess: (result) => {
+		onSuccess: () => {
 			toast({
 				title: 'Logout successful!',
-				description: `${result.message}`,
 				variant: 'success',
 				action: <Check />,
 			})

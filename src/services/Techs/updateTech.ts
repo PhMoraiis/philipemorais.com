@@ -1,20 +1,26 @@
 import { env } from '@/lib/env'
-import type { ITechData } from './types'
 
-export const updateTech = async (id: string, { name, image }: ITechData) => {
+export const updateTech = async ({
+	id,
+	...fields
+}: { id: string; name?: string; image?: string }) => {
 	try {
 		const response = await fetch(`${env.API_URL}/techs/${id}`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ name, image }),
+			credentials: 'include',
+			body: JSON.stringify(fields), // Apenas os campos modificados serão enviados
 		})
-		const result = await response.json()
+
 		if (!response.ok) {
-			throw new Error(result.message)
+			const errorData = await response.json().catch(() => null)
+			const errorMessage = errorData?.message || 'Erro ao atualizar tecnologia'
+			throw new Error(errorMessage)
 		}
-		return result
+
+		return response.json()
 	} catch (error) {
 		throw new Error(
 			error instanceof Error ? error.message : 'Erro desconhecido',

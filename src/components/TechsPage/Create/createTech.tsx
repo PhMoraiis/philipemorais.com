@@ -11,11 +11,11 @@ import {
 } from '@/components/ui/drawer'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useToast } from '@/hooks/use-toast'
 import { createTech } from '@/services/Techs/createTech'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useQueryClient } from '@tanstack/react-query'
-import { PlusCircle } from 'lucide-react'
-import React from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Check, CircleX, PlusCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -23,27 +23,45 @@ const createTechSchema = z.object({
 	name: z.string().min(1, { message: 'Enter the name of the technology' }),
 	image: z
 		.string()
-		.min(1, { message: 'Enter the image or icon of the technology' }),
+		.min(1, { message: 'Enter the image or icon of the technology' })
+		.url(),
 })
 
 type CreateTechForm = z.infer<typeof createTechSchema>
 
 export default function CreateTech() {
 	const queryClient = useQueryClient()
+	const { toast } = useToast()
+	const { register, handleSubmit, formState } = useForm<CreateTechForm>({
+		resolver: zodResolver(createTechSchema),
+	})
 
-	const { register, handleSubmit, formState, reset } =
-		useForm<CreateTechForm>({
-			resolver: zodResolver(createTechSchema),
-		})
+	const createTechMutation = useMutation({
+		mutationFn: createTech,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['techs'] })
 
-	const handleCreateTech = async (data: CreateTechForm) => {
-		await createTech({
-			name: data.name,
-			image: data.image,
-		})
+			toast({
+				title: 'Tech created successfully!',
+				variant: 'success',
+				action: <Check />,
+			})
+		},
+		onError: (error) => {
+			console.error('Erro na criação da tecnologia:', error)
+			toast({
+				title: 'There was an error',
+				description: `${error instanceof Error ? error.message : 'Erro desconhecido'}`,
+				variant: 'destructive',
+				action: <CircleX />,
+			})
+		},
+	})
 
-		reset()
-	}
+	const handleCreateTech = handleSubmit(({ name, image }) => {
+		console.log('Enviando dados para criar tecnologia:', { name, image })
+		createTechMutation.mutate({ name, image })
+	})
 
 	return (
 		<Drawer>
@@ -61,10 +79,7 @@ export default function CreateTech() {
 						<DrawerTitle>Nova Tecnologia</DrawerTitle>
 						<DrawerDescription>Adicione uma nova tecnologia.</DrawerDescription>
 					</DrawerHeader>
-					<form
-						onSubmit={handleSubmit(handleCreateTech)}
-						className='space-y-2 p-4 pb-0'
-					>
+					<form onSubmit={handleCreateTech} className='space-y-2 p-4 pb-0'>
 						<div className='space-y-2'>
 							<Label htmlFor='name'>Nome</Label>
 							<Input

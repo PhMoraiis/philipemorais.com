@@ -1,28 +1,28 @@
-'use server'
-
 import { env } from '@/lib/env'
-import type { ITechData } from './types'
 
-export const createTech = async ({
-	name,
-	image,
-}: Partial<ITechData>) => {
+interface ITech {
+	name: string
+	image: string
+}
+
+export async function createTech({ name, image }: ITech) {
 	try {
 		const response = await fetch(`${env.API_URL}/techs`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
+			credentials: 'include',
 			body: JSON.stringify({ name, image }),
 		})
 
-		const result = await response.json()
-
 		if (!response.ok) {
-			throw new Error(result.message || 'Erro ao criar tecnologia')
+			const errorData = await response.json().catch(() => null)
+			const errorMessage = errorData?.message || 'Erro ao criar tecnologia'
+			throw new Error(errorMessage)
 		}
 
-		return result
+		return response.json()
 	} catch (error) {
 		throw new Error(
 			error instanceof Error ? error.message : 'Erro desconhecido',
