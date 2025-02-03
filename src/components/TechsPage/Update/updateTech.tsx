@@ -16,13 +16,12 @@ import { updateTech } from '@/services/Techs/updateTech'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Check, CircleX, Pen } from 'lucide-react'
-import type React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const updateTechSchema = z.object({
-	name: z.string().optional(),
-	image: z.string().url().optional(),
+	name: z.string(),
+	image: z.string().url(),
 })
 
 type UpdateTechForm = z.infer<typeof updateTechSchema>
@@ -30,12 +29,12 @@ type UpdateTechForm = z.infer<typeof updateTechSchema>
 export default function UpdateTech({ techID }: { techID: string }) {
 	const queryClient = useQueryClient()
 	const { toast } = useToast()
-	const { register, handleSubmit, formState } = useForm<UpdateTechForm>({
+	const { register, handleSubmit, formState, reset } = useForm<UpdateTechForm>({
 		resolver: zodResolver(updateTechSchema),
 	})
 
 	const updateTechMutation = useMutation({
-		mutationFn: updateTech,
+		mutationFn: (data: UpdateTechForm) => updateTech(techID, data),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['techs'] })
 			toast({
@@ -43,20 +42,21 @@ export default function UpdateTech({ techID }: { techID: string }) {
 				variant: 'success',
 				action: <Check />,
 			})
+			reset()
 		},
 		onError: (error) => {
 			console.error('Error updating technology:', error)
 			toast({
 				title: 'There was an error',
-				description: `${error instanceof Error ? error.message : 'Unknown error'}`,
+				description: error instanceof Error ? error.message : 'Unknown error',
 				variant: 'destructive',
 				action: <CircleX />,
 			})
 		},
 	})
 
-	const handleUpdateTech = handleSubmit(({ name, image }) => {
-		updateTechMutation.mutate({ id: techID, name: name ?? '', image: image ?? '' })
+	const onSubmit = handleSubmit((data) => {
+		updateTechMutation.mutate(data)
 	})
 
 	return (
@@ -78,12 +78,12 @@ export default function UpdateTech({ techID }: { techID: string }) {
 							Edite com sabedoria a tecnologia escolhida.
 						</DrawerDescription>
 					</DrawerHeader>
-					<form onSubmit={handleUpdateTech} className='space-y-2 p-4 pb-0'>
+					<form onSubmit={onSubmit} className='space-y-2 p-4 pb-0'>
 						<div className='space-y-2'>
 							<Label htmlFor='name'>Nome</Label>
 							<Input
 								id='name'
-								// placeholder={tech.name}
+								placeholder='Novo Nome'
 								{...register('name')}
 							/>
 							{formState.errors.name && (
@@ -96,7 +96,7 @@ export default function UpdateTech({ techID }: { techID: string }) {
 							<Label htmlFor='icon'>Ícone</Label>
 							<Input
 								id='icon'
-								// placeholder={tech.image}
+								placeholder='Novo Ícone'
 								{...register('image')}
 							/>
 							{formState.errors.image && (

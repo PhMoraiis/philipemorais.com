@@ -1,17 +1,25 @@
 import { env } from '@/lib/env'
 
-export const updateTech = async ({
-	id,
-	...fields
-}: { id: string; name?: string; image?: string }) => {
+interface UpdateTechRequest {
+	name: string
+	image: string
+}
+
+export const updateTech = async (
+	id: string,
+	{ name, image }: UpdateTechRequest,
+) => {
 	try {
 		const response = await fetch(`${env.API_URL}/techs/${id}`, {
-			method: 'PATCH',
+			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			credentials: 'include',
-			body: JSON.stringify(fields), // Apenas os campos modificados serão enviados
+			body: JSON.stringify({
+				name,
+				image,
+			}),
 		})
 
 		if (!response.ok) {
