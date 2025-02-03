@@ -43,17 +43,26 @@ import { getTechs, type IGetTech } from '@/services/Techs/getTech'
 import UpdateTech from '@/components/TechsPage/Update/updateTech'
 import DeleteTech from '@/components/TechsPage/Delete/deleteTech'
 import { useToast } from '@/hooks/use-toast'
+import { useState } from 'react'
 
 const TechsDashboard = () => {
 	const { toast } = useToast()
-
-	const { data: techs, isLoading, isError, refetch, isFetching, isFetched } = useQuery(
-		{
-			queryKey: ['techs'],
-			queryFn: getTechs,
-			select: (data) => data?.techs ?? [],
-		},
+	const [sortBy, setSortBy] = useState<'name' | 'createdAt' | 'updatedAt'>(
+		'name',
 	)
+
+	const {
+		data: techs,
+		isLoading,
+		isError,
+		refetch,
+		isFetching,
+		isFetched,
+	} = useQuery({
+		queryKey: ['techs'],
+		queryFn: getTechs,
+		select: (data) => data?.techs ?? [],
+	})
 
 	const handleRefresh = async () => {
 		try {
@@ -122,6 +131,20 @@ const TechsDashboard = () => {
 		})
 	}
 
+	const verifyUpdate = (tech: {
+		updatedAt: string
+		createdAt: string
+	}) => {
+		if (tech.updatedAt === tech.createdAt) {
+			return 'Nunca atualizada'
+		}
+		return new Intl.DateTimeFormat('pt-BR', {
+			dateStyle: 'medium',
+			timeStyle: 'short',
+		}).format(new Date(tech.updatedAt))
+	}
+
+
 	return (
 		<div className='grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]'>
 			<Sidebar />
@@ -143,13 +166,22 @@ const TechsDashboard = () => {
 									<DropdownMenuContent align='end'>
 										<DropdownMenuLabel>Ordenar por</DropdownMenuLabel>
 										<DropdownMenuSeparator />
-										<DropdownMenuCheckboxItem checked>
+										<DropdownMenuCheckboxItem
+											checked={sortBy === 'name'}
+											onClick={() => setSortBy('name')}
+										>
 											Nome
 										</DropdownMenuCheckboxItem>
-										<DropdownMenuCheckboxItem>
+										<DropdownMenuCheckboxItem
+											checked={sortBy === 'createdAt'}
+											onClick={() => setSortBy('createdAt')}
+										>
 											Data de Criação
 										</DropdownMenuCheckboxItem>
-										<DropdownMenuCheckboxItem>
+										<DropdownMenuCheckboxItem
+											checked={sortBy === 'updatedAt'}
+											onClick={() => setSortBy('updatedAt')}
+										>
 											Data de Atualização
 										</DropdownMenuCheckboxItem>
 									</DropdownMenuContent>
@@ -228,7 +260,7 @@ const TechsDashboard = () => {
 																}).format(new Date(tech.createdAt))}
 															</TableCell>
 															<TableCell className='hidden md:table-cell'>
-																{/* {verificarAtualizacao(tech)} */}
+																{verifyUpdate(tech)}
 															</TableCell>
 															<TableCell>
 																<DropdownMenu>

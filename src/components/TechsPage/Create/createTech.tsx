@@ -15,7 +15,7 @@ import { useToast } from '@/hooks/use-toast'
 import { createTech } from '@/services/Techs/createTech'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Check, CircleX, PlusCircle } from 'lucide-react'
+import { Check, CircleX, Loader2, PlusCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -32,7 +32,7 @@ type CreateTechForm = z.infer<typeof createTechSchema>
 export default function CreateTech() {
 	const queryClient = useQueryClient()
 	const { toast } = useToast()
-	const { register, handleSubmit, formState } = useForm<CreateTechForm>({
+	const { register, handleSubmit, formState, reset } = useForm<CreateTechForm>({
 		resolver: zodResolver(createTechSchema),
 	})
 
@@ -40,12 +40,12 @@ export default function CreateTech() {
 		mutationFn: createTech,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['techs'] })
-
 			toast({
 				title: 'Tech created successfully!',
 				variant: 'success',
 				action: <Check />,
 			})
+			reset()
 		},
 		onError: (error) => {
 			console.error('Erro na criação da tecnologia:', error)
@@ -66,8 +66,16 @@ export default function CreateTech() {
 	return (
 		<Drawer>
 			<DrawerTrigger asChild>
-				<Button size='sm' className='h-8 gap-1'>
-					<PlusCircle className='h-3.5 w-3.5' />
+				<Button
+					size='sm'
+					className='h-8 gap-1'
+					disabled={createTechMutation.isPending}
+				>
+					{createTechMutation.isPending ? (
+						<Loader2 className='h-4 w-4 animate-spin' />
+					) : (
+						<PlusCircle className='h-3.5 w-3.5' />
+					)}
 					<span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
 						Adicionar Tecnologia
 					</span>
