@@ -29,106 +29,97 @@ import {
 	TableRow,
 } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { ListFilter, Loader2, RefreshCcw } from 'lucide-react'
-
+import { Check, CircleX, ListFilter, Loader2, RefreshCcw } from 'lucide-react'
+import { useQuery } from '@tanstack/react-query'
+import { getTechs, type IGetTech } from '@/services/Techs/getTech'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
-
-import Link from 'next/link'
+import { useToast } from '@/hooks/use-toast'
+import { verifyUpdate } from '@/lib/verifyUpdate'
+import { useState } from 'react'
 
 const Dashboard = () => {
-	const [refreshLoading, setRefreshLoading] = useState(false)
+	const [activeTab, setActiveTab] = useState('projects')
+	const { toast } = useToast()
 
-	// const loading = loadingProjects || loadingTechs
+	const {
+		data: techs,
+		isFetching,
+		refetch,
+		isFetched,
+		isLoading,
+		isError,
+	} = useQuery({
+		queryKey: ['techs'],
+		queryFn: () => getTechs(undefined, true),
+		select: (data) => data?.techs ?? [],
+	})
 
-	// const loadingStates = [
-	// 	{
-	// 		text: 'Bem vindo ao OnPholio',
-	// 	},
-	// 	{
-	// 		text: 'Explorando novos horizontes',
-	// 	},
-	// 	{
-	// 		text: 'Preparando um café delicioso',
-	// 	},
-	// 	{
-	// 		text: 'Decifrando os segredos do universo',
-	// 	},
-	// 	{
-	// 		text: 'Fazendo algumas alterações no tempo',
-	// 	},
-	// 	{
-	// 		text: 'Preparando o palco',
-	// 	},
-	// 	{
-	// 		text: 'Coletando estrelas',
-	// 	},
-	// 	{
-	// 		text: 'Deixando as engrenagens girarem',
-	// 	},
-	// ]
+	const handleRefresh = async () => {
+		try {
+			await refetch()
+			if (isFetched) {
+				toast({
+					title: 'Data refreshed!',
+					description: 'Data has been refreshed successfully!',
+					variant: 'success',
+					action: <Check />,
+				})
+			}
+		} catch (error) {
+			toast({
+				title: 'There was an error',
+				description: 'Error while trying to refresh the data, try again later!',
+				variant: 'destructive',
+				action: <CircleX />,
+			})
+		}
+	}
 
-	// if (loading) {
-	// 	return (
-	// 		<Loader loadingStates={loadingStates} loading={loading} duration={2000} />
-	// 	)
-	// }
+	const loadingStates = [
+		{
+			text: 'Bem vindo ao OnPholio',
+		},
+		{
+			text: 'Explorando novos horizontes',
+		},
+		{
+			text: 'Preparando um café delicioso',
+		},
+		{
+			text: 'Decifrando os segredos do universo',
+		},
+		{
+			text: 'Fazendo algumas alterações no tempo',
+		},
+		{
+			text: 'Preparando o palco',
+		},
+		{
+			text: 'Coletando estrelas',
+		},
+		{
+			text: 'Deixando as engrenagens girarem',
+		},
+	]
 
-	// const handleRefresh = async () => {
-	// 	setRefreshLoading(true)
-	// 	const fetchWithTimeout = (
-	// 		url: string,
-	// 		options: RequestInit,
-	// 		timeout: number,
-	// 	) => {
-	// 		return new Promise<Response>((resolve, reject) => {
-	// 			const timer = setTimeout(
-	// 				() => reject(new Error('Request timed out')),
-	// 				timeout,
-	// 			)
-	// 			fetch(url, options)
-	// 				.then((response) => {
-	// 					clearTimeout(timer)
-	// 					resolve(response)
-	// 				})
-	// 				.catch((error) => {
-	// 					clearTimeout(timer)
-	// 					reject(error)
-	// 				})
-	// 		})
-	// 	}
+	if (isLoading) {
+		return (
+			<Loader
+				loadingStates={loadingStates}
+				loading={isLoading}
+				duration={2000}
+			/>
+		)
+	}
 
-	// 	try {
-	// 		const timeout = 300000 // 5 minutos
-	// 		const response = await fetchWithTimeout('/api/projects', {}, timeout)
-
-	// 		if (!response.ok) {
-	// 			throw new Error(`Failed to fetch: ${response.status}`)
-	// 		}
-
-	// 		const data = await response.json()
-	// 		setProjects(data)
-	// 	} catch (error) {
-	// 		setProjectError('Failed to refresh Projects')
-	// 	} finally {
-	// 		setRefreshLoading(false)
-	// 	}
-	// }
-
-	// const verificarAtualizacao = (project: {
-	// 	updatedAt: string
-	// 	createdAt: string
-	// }) => {
-	// 	if (project.updatedAt === project.createdAt) {
-	// 		return 'Nunca atualizada'
-	// 		// biome-ignore lint/style/noUselessElse: <explanation>
-	// 	} else {
-	// 		return new Intl.DateTimeFormat('pt-BR', {
-	// 			dateStyle: 'medium',
-	// 			timeStyle: 'short',
-	// 		}).format(new Date(project.updatedAt))
-	// 	}
-	// }
+	if (isError) {
+		toast({
+			title: 'There was an error',
+			description: 'There was an error with the request, try again!',
+			variant: 'destructive',
+			action: <CircleX />,
+		})
+	}
 
 	return (
 		<div className='grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]'>
@@ -136,7 +127,11 @@ const Dashboard = () => {
 			<div className='flex flex-col'>
 				<Topbar />
 				<main className='grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 mt-2'>
-					<Tabs defaultValue='projects'>
+					<Tabs
+						defaultValue='projects'
+						value={activeTab}
+						onValueChange={setActiveTab}
+					>
 						<div className='flex items-center'>
 							<TabsList>
 								<TabsTrigger value='projects'>Projetos</TabsTrigger>
@@ -158,7 +153,9 @@ const Dashboard = () => {
 										<DropdownMenuCheckboxItem checked>
 											Nome
 										</DropdownMenuCheckboxItem>
-										<DropdownMenuCheckboxItem>Status</DropdownMenuCheckboxItem>
+										<DropdownMenuCheckboxItem className={`${activeTab === 'techs' ? 'hidden' : ''}`}>
+											Status
+										</DropdownMenuCheckboxItem>
 										<DropdownMenuCheckboxItem>
 											Data de Criação
 										</DropdownMenuCheckboxItem>
@@ -169,10 +166,10 @@ const Dashboard = () => {
 									<Button
 										size='sm'
 										className='h-8 gap-1'
-										// onClick={handleRefresh}
-										disabled={refreshLoading}
+										onClick={handleRefresh}
+										disabled={isFetching}
 									>
-										{refreshLoading ? (
+										{isFetching ? (
 											<Loader2 className='h-4 w-4 animate-spin' />
 										) : (
 											<RefreshCcw className='h-3.5 w-3.5' />
@@ -258,7 +255,7 @@ const Dashboard = () => {
 																}).format(new Date(project.createdAt))}
 															</TableCell>
 															<TableCell className='hidden md:table-cell'>
-																{verificarAtualizacao(project)}
+																{verifyUpdate(project)}
 															</TableCell>
 														</TableRow>
 													))}
@@ -294,7 +291,7 @@ const Dashboard = () => {
 												</TableHead>
 											</TableRow>
 										</TableHeader>
-										{/* {techs.length === 0 ? (
+										{techs?.length === 0 ? (
 											<TableBody>
 												<TableRow>
 													<TableCell colSpan={4} className='h-24 text-center'>
@@ -305,14 +302,14 @@ const Dashboard = () => {
 										) : (
 											<>
 												<TableBody>
-													{techs.map((tech) => (
+													{techs.map((tech: IGetTech) => (
 														<TableRow key={tech.id}>
 															<TableCell className='hidden sm:table-cell'>
 																<Image
 																	alt='Product image'
 																	className='aspect-square rounded-md object-cover'
 																	height='64'
-																	src={tech.icon}
+																	src={tech.image}
 																	width='64'
 																/>
 															</TableCell>
@@ -326,13 +323,13 @@ const Dashboard = () => {
 																}).format(new Date(tech.createdAt))}
 															</TableCell>
 															<TableCell className='hidden md:table-cell'>
-																{verificarAtualizacao(tech)}
+																{verifyUpdate({ tech })}
 															</TableCell>
 														</TableRow>
 													))}
 												</TableBody>
 											</>
-										)} */}
+										)}
 									</Table>
 								</CardContent>
 							</Card>

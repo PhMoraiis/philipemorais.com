@@ -12,7 +12,7 @@ const Sidebar = () => {
   const { data: techs } = useQuery(
     {
       queryKey: ['techs'],
-      queryFn: getTechs,
+      queryFn: () => getTechs(undefined, true),
       select: (data) => data?.techs ?? [],
     },
   )
