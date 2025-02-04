@@ -47,9 +47,9 @@ const Hero = () => {
 	}
 
 	return (
-		<section className='bg-white dark:bg-[#111110] rounded-xl p-10 shadow-sm'>
-			<div className='mt-20 md:flex md:items-end md:justify-between lg:flex lg:items-end lg:justify-between'>
-				<div className='flex flex-col items-start gap-4 md:gap-6 md:max-w-sm lg:gap-6 lg:max-w-lg'>
+		<section className='flex gap-6 justify-center'>
+			<div className='md:flex md:items-end md:justify-between lg:flex-col lg:items-start lg:justify-between p-10 shadow-sm rounded-xl bg-white dark:bg-[#111110] w-full h-[40rem]'>
+				<div className='flex flex-col items-start gap-4 md:gap-6 md:max-w-sm lg:gap-6 lg:max-w-md'>
 					<div className='max-w-xs lg:max-w-md'>
 						<h1 className='text-[2.8rem] leading-none font-Relative md:text-5xl lg:text-6xl'>
 							{t('title')}
@@ -109,6 +109,9 @@ const Hero = () => {
 						</DropdownMenuContent>
 					</DropdownMenu>
 				</div>
+			</div>
+			<div className='md:flex md:items-end md:justify-between lg:flex lg:items-end lg:justify-between p-10 shadow-sm rounded-xl bg-white dark:bg-[#111110] w-1/2'>
+				<h2>teste</h2>
 			</div>
 		</section>
 	)

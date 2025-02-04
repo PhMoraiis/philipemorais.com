@@ -18,24 +18,6 @@ import Cookies from 'js-cookie'
 type CardProps = React.ComponentProps<typeof Card>
 
 const Works = ({ className, ...props }: CardProps) => {
-	const [projects, setProjects] = useState<
-		{
-			id: number
-			name: string
-			status: string
-			image: string
-			href: string
-			imageMobile: string
-			imageDark: string
-			imageDarkMobile: string
-			shortDescription: string
-			translatedShortDescription: string
-			techs: { id: number; name: string; icon: string }[]
-		}[]
-	>([])
-	const [tech, setTechs] = useState<
-		{ id: number; name: string; icon: string }[]
-	>([])
 	const [isHover, setIsHover] = useState(false)
 	const [mounted, setMounted] = useState(false)
 	const { theme } = useTheme()
@@ -44,30 +26,9 @@ const Works = ({ className, ...props }: CardProps) => {
 	const handleMouseEnter = () => {
 		setIsHover(true)
 	}
-
 	const handleMouseLeave = () => {
 		setIsHover(false)
 	}
-
-	useEffect(() => {
-		setMounted(true)
-		const fetchProjects = async () => {
-			const response = await fetch('/api/projects')
-			const data = await response.json()
-			console.log(data)
-			setProjects(data)
-		}
-
-		const fetchTechs = async () => {
-			const response = await fetch('/api/techs')
-			const data = await response.json()
-			console.log(data)
-			setTechs(data)
-		}
-
-		fetchProjects()
-		fetchTechs()
-	}, [])
 
 	if (!mounted) {
 		return (
