@@ -5,10 +5,9 @@ import {
 	ArrowUp,
 	CheckCircle,
 	Copy,
-	Github,
-	Instagram,
-	Linkedin,
 } from 'lucide-react'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import { RiInstagramFill } from 'react-icons/ri'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { toast } from 'sonner'
@@ -75,34 +74,32 @@ const Footer = () => {
 									target='_blank'
 								>
 									<motion.button
-										className='border border-input bg-background dark:border-border rounded-sm h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative'
-										whileHover={{ scale: 1.2 }}
+										className='h-10 px-4 py-6 bg-primary text-primary-foreground hover:bg-primary/90 rounded-[100%] flex items-center justify-center'
+										whileHover={{ scale: 1.1 }}
 										transition={{
 											type: 'spring',
 											stiffness: 150,
 											damping: 17,
 											bounce: 1,
 										}}
-										animate={logoRotation}
 									>
-										<Linkedin size={24} />
+										<FaLinkedin size={22} />
 									</motion.button>
 								</Link>
 							</li>
 							<li>
 								<Link href='https://www.github.com/PhMoraiis' target='_blank'>
 									<motion.button
-										className='border border-input bg-background dark:border-border rounded-sm h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative'
-										whileHover={{ scale: 1.2 }}
+										className='h-10 px-4 py-6 bg-primary text-primary-foreground hover:bg-primary/90 rounded-[100%] flex items-center justify-center'
+										whileHover={{ scale: 1.1 }}
 										transition={{
 											type: 'spring',
 											stiffness: 150,
 											damping: 17,
 											bounce: 1,
 										}}
-										animate={logoRotation}
 									>
-										<Github size={24} />
+										<FaGithub size={22} />
 									</motion.button>
 								</Link>
 							</li>
@@ -112,17 +109,16 @@ const Footer = () => {
 									target='_blank'
 								>
 									<motion.button
-										className='border border-input bg-background dark:border-border rounded-sm h-9 px-3 py-2 inline-flex items-center cursor-pointer font-Relative'
-										whileHover={{ scale: 1.2 }}
+										className='h-10 px-4 py-6 bg-primary text-primary-foreground hover:bg-primary/90 rounded-[100%] flex items-center justify-center'
+										whileHover={{ scale: 1.1 }}
 										transition={{
 											type: 'spring',
 											stiffness: 150,
 											damping: 17,
 											bounce: 1,
 										}}
-										animate={logoRotation}
 									>
-										<Instagram size={24} />
+										<RiInstagramFill size={22} />
 									</motion.button>
 								</Link>
 							</li>

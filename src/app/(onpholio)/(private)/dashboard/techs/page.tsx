@@ -50,7 +50,7 @@ const TechsDashboard = () => {
 	const { toast } = useToast()
 	const [orderBy, setOrderBy] = useState<'name' | 'createdAt' | 'updatedAt'>(
 		'name',
-	) // Estado para controlar a ordenação
+	)
 
 	const {
 		data: techs,
@@ -60,21 +60,8 @@ const TechsDashboard = () => {
 		isFetching,
 		isFetched,
 	} = useQuery({
-		queryKey: ['techs', orderBy], // Adicione orderBy como dependência da query
-		queryFn: () => getTechs(orderBy, false), // Passa o critério de ordenação para a função getTechs
-		select: (data) => data?.techs ?? [],
-	})
-
-	const {
-		data: techs,
-		isLoading,
-		isError,
-		refetch,
-		isFetching,
-		isFetched,
-	} = useQuery({
-		queryKey: ['techs'],
-		queryFn: getTechs,
+		queryKey: ['techs', orderBy],
+		queryFn: () => getTechs(orderBy, false),
 		select: (data) => data?.techs ?? [],
 	})
 
@@ -102,7 +89,7 @@ const TechsDashboard = () => {
 	const handleOrderByChange = (
 		criteria: 'name' | 'createdAt' | 'updatedAt',
 	) => {
-		setOrderBy(criteria) // Atualiza o critério de ordenação
+		setOrderBy(criteria)
 	}
 
 	const loadingStates = [
@@ -150,20 +137,6 @@ const TechsDashboard = () => {
 			action: <CircleX />,
 		})
 	}
-
-	const verifyUpdate = (tech: {
-		updatedAt: string
-		createdAt: string
-	}) => {
-		if (tech.updatedAt === tech.createdAt) {
-			return 'Nunca atualizada'
-		}
-		return new Intl.DateTimeFormat('pt-BR', {
-			dateStyle: 'medium',
-			timeStyle: 'short',
-		}).format(new Date(tech.updatedAt))
-	}
-
 
 	return (
 		<div className='grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]'>
