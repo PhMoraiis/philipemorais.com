@@ -6,6 +6,7 @@ import React, { useEffect, useState, useTransition } from 'react'
 
 import { motion } from 'motion/react'
 import {
+	ArrowRight,
 	Check,
 	CheckCircle,
 	CircleUser,
@@ -242,10 +243,18 @@ const CommandButton = () => {
 			<Button
 				onClick={handleOpenCommandBar}
 				variant='default'
-				size='sm'
-				className='gap-2'
+				className='gap-[6px] rounded-full h-9 px-5'
 			>
-				Press CTRL+K to start <Command size={22} />
+				Press
+				<span className='border border-border bg-border text-primary rounded-md p-[2px]'>
+					{' '}
+					<Command size={22} />
+				</span>
+				<span className='border border-border bg-border text-primary rounded-md px-1 '>
+					K
+				</span>
+				to start
+				<ArrowRight size={22} />
 			</Button>
 			<CommandDialog open={open} onOpenChange={setOpen}>
 				<CommandList className='overflow font-Relative'>

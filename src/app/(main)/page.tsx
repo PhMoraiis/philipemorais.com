@@ -7,7 +7,7 @@ import Navbar from '@/components/MainPage/Navbar'
 
 export default function Home() {
 	return (
-		<main className='container mx-auto max-w-lg md:max-w-2xl lg:max-w-6xl'>
+		<main className='container mx-auto max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl'>
 			<Navbar />
 			<Hero />
 			<Techs />
