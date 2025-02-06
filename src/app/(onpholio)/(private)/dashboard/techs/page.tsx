@@ -65,6 +65,19 @@ const TechsDashboard = () => {
 		select: (data) => data?.techs ?? [],
 	})
 
+	const {
+		data: techs,
+		isLoading,
+		isError,
+		refetch,
+		isFetching,
+		isFetched,
+	} = useQuery({
+		queryKey: ['techs'],
+		queryFn: getTechs,
+		select: (data) => data?.techs ?? [],
+	})
+
 	const handleRefresh = async () => {
 		try {
 			await refetch()
@@ -137,6 +150,20 @@ const TechsDashboard = () => {
 			action: <CircleX />,
 		})
 	}
+
+	const verifyUpdate = (tech: {
+		updatedAt: string
+		createdAt: string
+	}) => {
+		if (tech.updatedAt === tech.createdAt) {
+			return 'Nunca atualizada'
+		}
+		return new Intl.DateTimeFormat('pt-BR', {
+			dateStyle: 'medium',
+			timeStyle: 'short',
+		}).format(new Date(tech.updatedAt))
+	}
+
 
 	return (
 		<div className='grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]'>
