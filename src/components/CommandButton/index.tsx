@@ -39,6 +39,7 @@ import { GiBrazilFlag } from 'react-icons/gi'
 import { LiaFlagUsaSolid } from 'react-icons/lia'
 import { toast } from 'sonner'
 import { Button } from '../ui/button'
+import { SheetTitle } from '../ui/sheet'
 
 const CommandButton = () => {
 	const [isPending, startTransition] = useTransition()
@@ -256,6 +257,7 @@ const CommandButton = () => {
 				<ArrowRight size={22} />
 			</Button>
 			<CommandDialog open={open} onOpenChange={setOpen}>
+				<SheetTitle className='sr-only'>Menu</SheetTitle>
 				<CommandList className='overflow font-Relative'>
 					<CommandGroup heading={t('CommandGroup1')}>
 						<CommandItem>
@@ -266,9 +268,7 @@ const CommandButton = () => {
 								onClick={handleCopyLink}
 							>
 								<Copy className='mr-2 h-4 w-4' />
-								<span className='text-md'>
-									{t('buttonLink')}
-								</span>
+								<span className='text-md'>{t('buttonLink')}</span>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
 								C
@@ -282,9 +282,7 @@ const CommandButton = () => {
 								onClick={handleSendEmail}
 							>
 								<MailOpen className='mr-2 h-4 w-4' />
-								<span className='text-md'>
-									{t('buttonEmail')}
-								</span>
+								<span className='text-md'>{t('buttonEmail')}</span>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
 								E
@@ -298,9 +296,7 @@ const CommandButton = () => {
 								onClick={handleViewSource}
 							>
 								<Code className='mr-2 h-4 w-4' />
-								<span className='text-md'>
-									{t('buttonSource')}
-								</span>
+								<span className='text-md'>{t('buttonSource')}</span>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
 								V
@@ -317,9 +313,7 @@ const CommandButton = () => {
 							>
 								<div className='flex'>
 									<Linkedin className='mr-2 h-4 w-4' />
-									<span className='text-md'>
-										LinkedIn
-									</span>
+									<span className='text-md'>LinkedIn</span>
 								</div>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
@@ -335,9 +329,7 @@ const CommandButton = () => {
 							>
 								<div className='flex'>
 									<Github className='mr-2 h-4 w-4' />
-									<span className='text-md'>
-										GitHub
-									</span>
+									<span className='text-md'>GitHub</span>
 								</div>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
@@ -353,9 +345,7 @@ const CommandButton = () => {
 							>
 								<div className='flex'>
 									<Instagram className='mr-2 h-4 w-4' />
-									<span className='text-md'>
-										Instagram
-									</span>
+									<span className='text-md'>Instagram</span>
 								</div>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
@@ -389,9 +379,7 @@ const CommandButton = () => {
 							>
 								<div className='flex'>
 									<CircleUser className='mr-2 h-4 w-4' />
-									<span className='text-md'>
-										{t('buttonAbout')}
-									</span>
+									<span className='text-md'>{t('buttonAbout')}</span>
 								</div>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
@@ -407,9 +395,7 @@ const CommandButton = () => {
 							>
 								<div className='flex'>
 									<Lightbulb className='mr-2 h-4 w-4' />
-									<span className='text-md'>
-										{t('buttonProjects')}
-									</span>
+									<span className='text-md'>{t('buttonProjects')}</span>
 								</div>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
@@ -425,9 +411,7 @@ const CommandButton = () => {
 							>
 								<div className='flex'>
 									<Laptop className='mr-2 h-4 w-4' />
-									<span className='text-md'>
-										{t('buttonSetup')}
-									</span>
+									<span className='text-md'>{t('buttonSetup')}</span>
 								</div>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
@@ -445,9 +429,7 @@ const CommandButton = () => {
 							>
 								<div className='flex'>
 									<Sun className='mr-2 h-4 w-4' />
-									<span className='text-md'>
-										{t('buttonLightTheme')}
-									</span>
+									<span className='text-md'>{t('buttonLightTheme')}</span>
 								</div>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
@@ -463,9 +445,7 @@ const CommandButton = () => {
 							>
 								<div className='flex'>
 									<Moon className='mr-2 h-4 w-4' />
-									<span className='text-md'>
-										{t('buttonDarkTheme')}
-									</span>
+									<span className='text-md'>{t('buttonDarkTheme')}</span>
 								</div>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
@@ -485,9 +465,7 @@ const CommandButton = () => {
 							>
 								<div className='flex'>
 									<LiaFlagUsaSolid className='mr-2 h-4 w-4' />
-									<span className='text-md'>
-										{t('buttonUSA')}
-									</span>
+									<span className='text-md'>{t('buttonUSA')}</span>
 								</div>
 							</Button>
 							{activeLocale === 'en' && (
@@ -507,9 +485,7 @@ const CommandButton = () => {
 							>
 								<div className='flex'>
 									<GiBrazilFlag className='mr-2 h-4 w-4' />
-									<span className='text-md'>
-										{t('buttonBR')}
-									</span>
+									<span className='text-md'>{t('buttonBR')}</span>
 								</div>
 							</Button>
 							{activeLocale === 'pt-br' && (
