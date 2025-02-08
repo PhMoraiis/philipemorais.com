@@ -1,29 +1,29 @@
 import { env } from '@/lib/env'
+import type { ITech } from '../Techs/createTech'
 
-export interface IGetTech {
+export interface IGetProject {
 	id: string
-	name: string
+	title: string
+	description: string
+	href: string
+	initial_date: string
+	final_date: string
+	icon: string
 	image: string
+	techs: ITech[]
 	createdAt: string
 	updatedAt: string
 }
 
-export const getTechs = async (orderBy = 'name', disableOrder = false) => {
+export const getProjects = async () => {
 	try {
-		const url = new URL(`${env.API_URL}/techs`)
-
-		if (!disableOrder) {
-			url.searchParams.append('orderBy', orderBy)
-		}
-
-		const response = await fetch(url.toString(), {
-			method: 'GET',
+		const response = await fetch(`${env.API_URL}/projects`, {
 			credentials: 'include',
 		})
 
 		if (!response.ok) {
 			const errorData = await response.json().catch(() => null)
-			const errorMessage = errorData?.message || 'Erro ao obter tecnologias'
+			const errorMessage = errorData?.message || 'Erro ao obter projetos'
 			throw new Error(errorMessage)
 		}
 
@@ -35,17 +35,17 @@ export const getTechs = async (orderBy = 'name', disableOrder = false) => {
 	}
 }
 
-
-export const getTechByID = async (id: string) => {
+export const getProjectByID = async (id: string) => {
 	try {
-		const response = await fetch(`${env.API_URL}/techs/${id}`, {
+		const response = await fetch(`${env.API_URL}/projects/${id}`, {
 			method: 'GET',
 			credentials: 'include',
 		})
 
 		if (!response.ok) {
 			const errorData = await response.json().catch(() => null)
-			const errorMessage = errorData?.message || 'Erro ao criar tecnologia'
+			const errorMessage =
+				errorData?.message || 'Erro ao obter o projeto escolhido'
 			throw new Error(errorMessage)
 		}
 

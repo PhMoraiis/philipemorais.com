@@ -33,7 +33,7 @@ const Login = () => {
 	const router = useRouter()
 	const { toast } = useToast()
 
-	const { handleSubmit, register } = useForm<ILoginData>({
+	const { handleSubmit, register, formState: { isDirty, isValid } } = useForm<ILoginData>({
 		resolver: zodResolver(formSchema),
 	})
 
@@ -70,7 +70,7 @@ const Login = () => {
 					blur='heavy'
 				/> */}
 				<div className='flex justify-center items-center relative'>
-					<Button onClick={() => router.forward()} variant='link'>
+					<Button className='text-foreground' onClick={() => router.forward()} variant='link'>
 						<ArrowLeft size={24} /> Back
 					</Button>
 				</div>
@@ -113,8 +113,8 @@ const Login = () => {
 								{...register('password')}
 							/>
 						</div>
-						<Button type='submit' className='w-full px-4 py-2'>
-							Entrar
+						<Button type='submit' className='w-full px-4 py-2 bg-foreground text-background hover:bg-foreground/85' disabled={!isDirty || !isValid}>
+							Entrar	
 						</Button>
 					</form>
 				</div>

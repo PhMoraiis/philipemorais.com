@@ -29,7 +29,7 @@ type UpdateTechForm = z.infer<typeof updateTechSchema>
 export default function UpdateTech({ techID }: { techID: string }) {
 	const queryClient = useQueryClient()
 	const { toast } = useToast()
-	const { register, handleSubmit, formState, reset } = useForm<UpdateTechForm>({
+	const { register, handleSubmit, formState: { errors, isDirty, isValid }, reset } = useForm<UpdateTechForm>({
 		resolver: zodResolver(updateTechSchema),
 	})
 
@@ -63,7 +63,7 @@ export default function UpdateTech({ techID }: { techID: string }) {
 		<Drawer>
 			<DrawerTrigger asChild>
 				<Button
-					className='flex justify-between w-full'
+					className='flex justify-between w-full hover:bg-foreground hover:text-background hover:border-background'
 					size='sm'
 					variant='outline'
 				>
@@ -86,28 +86,15 @@ export default function UpdateTech({ techID }: { techID: string }) {
 								placeholder='Novo Nome'
 								{...register('name')}
 							/>
-							{formState.errors.name && (
+							{errors.name && (
 								<p className='title-red-400 text-sm'>
-									{formState.errors.name.message}
-								</p>
-							)}
-						</div>
-						<div className='space-y-2'>
-							<Label htmlFor='icon'>Ícone</Label>
-							<Input
-								id='icon'
-								placeholder='Novo Ícone'
-								{...register('image')}
-							/>
-							{formState.errors.image && (
-								<p className='title-red-400 text-sm'>
-									{formState.errors.image.message}
+									{errors.name.message}
 								</p>
 							)}
 						</div>
 						<DrawerFooter>
 							<DrawerClose asChild>
-								<Button type='submit'>Editar Tecnologia</Button>
+								<Button type='submit' disabled={!isDirty || !isValid}>Editar Tecnologia</Button>
 							</DrawerClose>
 							<DrawerClose asChild>
 								<Button variant='outline'>Cancelar</Button>

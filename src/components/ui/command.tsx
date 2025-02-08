@@ -89,7 +89,7 @@ const CommandGroup = React.forwardRef<
 	<CommandPrimitive.Group
 		ref={ref}
 		className={cn(
-			'overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:text-primary',
+			'overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:text-primary-foreground',
 			className,
 		)}
 		{...props}
@@ -132,7 +132,7 @@ const CommandShortcut = ({
 }: React.HTMLAttributes<HTMLSpanElement>) => {
 	return (
 		<span
-			className={cn('ml-auto text-xs tracking-widest text-primary', className)}
+			className={cn('ml-auto text-xs tracking-widest text-card', className)}
 			{...props}
 		/>
 	)

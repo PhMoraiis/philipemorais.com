@@ -1,19 +1,18 @@
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/hooks/use-toast'
-import { deleteTechByID } from '@/services/Techs/deleteTech'
+import { deleteProjectByID } from '@/services/Projects/deleteProject'
 import { useQueryClient } from '@tanstack/react-query'
 import { Check, CircleX, Trash2 } from 'lucide-react'
-import React from 'react'
 
-export default function DeleteTech({ techID }: { techID: string }) {
+export const DeleteProject = ({ projectID }: { projectID: string }) => {
 	const queryClient = useQueryClient()
 	const { toast } = useToast()
 
-	const handleDeleteTech = async (techID: string) => {
+	const handleDeleteProject = async (projectID: string) => {
 		try {
-			await deleteTechByID(techID)
+			await deleteProjectByID(projectID)
 			toast({
-				title: 'Tecnologia excluída com sucesso!',
+				title: 'Projeto excluído com sucesso!',
 				variant: 'success',
 				action: <Check />,
 			})
@@ -26,17 +25,17 @@ export default function DeleteTech({ techID }: { techID: string }) {
 			})
 		}
 
-		queryClient.invalidateQueries({ queryKey: ['techs'] })
+		queryClient.invalidateQueries({ queryKey: ['projects'] })
 	}
 
 	return (
 		<Button
-			onClick={() => handleDeleteTech(techID)}
-			className='flex justify-between w-full hover:bg-destructive hover:text-destructive-foreground hover:border-destructive'
+			onClick={() => handleDeleteProject(projectID)}
+			className='flex justify-between w-full hover:bg-red-500 hover:text-secondary text-red-500 border-red-500'
 			size='sm'
 			variant='outline'
 		>
-			Excluir <Trash2 className='h-4 w-4' />
+			Excluir <Trash2 className='h-4 w-4' />{' '}
 		</Button>
 	)
 }

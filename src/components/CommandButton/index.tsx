@@ -38,7 +38,6 @@ import { useTranslations } from 'next-intl'
 import { GiBrazilFlag } from 'react-icons/gi'
 import { LiaFlagUsaSolid } from 'react-icons/lia'
 import { toast } from 'sonner'
-import Magnetic from '../Magnetic'
 import { Button } from '../ui/button'
 
 const CommandButton = () => {
@@ -243,14 +242,14 @@ const CommandButton = () => {
 			<Button
 				onClick={handleOpenCommandBar}
 				variant='default'
-				className='gap-[6px] rounded-full h-9 px-5'
+				className='gap-[6px] rounded-full h-9 px-5 bg-foreground hover:bg-foreground/85 text-background'
 			>
 				Press
-				<span className='border border-border bg-border text-primary rounded-md p-[2px]'>
+				<span className='border border-border bg-border text-primary-foreground rounded-md p-[2px]'>
 					{' '}
 					<Command size={22} />
 				</span>
-				<span className='border border-border bg-border text-primary rounded-md px-1 '>
+				<span className='border border-border bg-border text-primary-foreground rounded-md px-1 '>
 					K
 				</span>
 				to start
@@ -266,10 +265,8 @@ const CommandButton = () => {
 								className='m-0 p-0'
 								onClick={handleCopyLink}
 							>
-								<Magnetic>
-									<Copy className='mr-2 h-4 w-4' />
-								</Magnetic>
-								<span className='text-md hover:animate-text-shake'>
+								<Copy className='mr-2 h-4 w-4' />
+								<span className='text-md'>
 									{t('buttonLink')}
 								</span>
 							</Button>
@@ -284,10 +281,8 @@ const CommandButton = () => {
 								className='m-0 p-0'
 								onClick={handleSendEmail}
 							>
-								<Magnetic>
-									<MailOpen className='mr-2 h-4 w-4' />
-								</Magnetic>
-								<span className='text-md hover:animate-text-shake'>
+								<MailOpen className='mr-2 h-4 w-4' />
+								<span className='text-md'>
 									{t('buttonEmail')}
 								</span>
 							</Button>
@@ -302,10 +297,8 @@ const CommandButton = () => {
 								className='m-0 p-0'
 								onClick={handleViewSource}
 							>
-								<Magnetic>
-									<Code className='mr-2 h-4 w-4' />
-								</Magnetic>
-								<span className='text-md hover:animate-text-shake'>
+								<Code className='mr-2 h-4 w-4' />
+								<span className='text-md'>
 									{t('buttonSource')}
 								</span>
 							</Button>
@@ -323,10 +316,8 @@ const CommandButton = () => {
 								onClick={handleGoLinkedin}
 							>
 								<div className='flex'>
-									<Magnetic>
-										<Linkedin className='mr-2 h-4 w-4' />
-									</Magnetic>
-									<span className='text-md hover:animate-text-shake'>
+									<Linkedin className='mr-2 h-4 w-4' />
+									<span className='text-md'>
 										LinkedIn
 									</span>
 								</div>
@@ -343,10 +334,8 @@ const CommandButton = () => {
 								onClick={handleGoGithub}
 							>
 								<div className='flex'>
-									<Magnetic>
-										<Github className='mr-2 h-4 w-4' />
-									</Magnetic>
-									<span className='text-md hover:animate-text-shake'>
+									<Github className='mr-2 h-4 w-4' />
+									<span className='text-md'>
 										GitHub
 									</span>
 								</div>
@@ -363,10 +352,8 @@ const CommandButton = () => {
 								onClick={handleGoInstagram}
 							>
 								<div className='flex'>
-									<Magnetic>
-										<Instagram className='mr-2 h-4 w-4' />
-									</Magnetic>
-									<span className='text-md hover:animate-text-shake'>
+									<Instagram className='mr-2 h-4 w-4' />
+									<span className='text-md'>
 										Instagram
 									</span>
 								</div>
@@ -385,10 +372,8 @@ const CommandButton = () => {
 								onClick={handleGoHome}
 							>
 								<div className='flex'>
-									<Magnetic>
-										<Home className='mr-2 h-4 w-4' />
-									</Magnetic>
-									<span className='text-md hover:animate-text-shake'>Home</span>
+									<Home className='mr-2 h-4 w-4' />
+									<span className='text-md'>Home</span>
 								</div>
 							</Button>
 							<CommandShortcut className='text-lg px-2 bg-secondary-foreground dark:bg-secondary-foreground rounded-lg'>
@@ -403,10 +388,8 @@ const CommandButton = () => {
 								onClick={handleGoAbout}
 							>
 								<div className='flex'>
-									<Magnetic>
-										<CircleUser className='mr-2 h-4 w-4' />
-									</Magnetic>
-									<span className='text-md hover:animate-text-shake'>
+									<CircleUser className='mr-2 h-4 w-4' />
+									<span className='text-md'>
 										{t('buttonAbout')}
 									</span>
 								</div>
@@ -423,10 +406,8 @@ const CommandButton = () => {
 								onClick={handleGoProjects}
 							>
 								<div className='flex'>
-									<Magnetic>
-										<Lightbulb className='mr-2 h-4 w-4' />
-									</Magnetic>
-									<span className='text-md hover:animate-text-shake'>
+									<Lightbulb className='mr-2 h-4 w-4' />
+									<span className='text-md'>
 										{t('buttonProjects')}
 									</span>
 								</div>
@@ -443,10 +424,8 @@ const CommandButton = () => {
 								onClick={handleGoUses}
 							>
 								<div className='flex'>
-									<Magnetic>
-										<Laptop className='mr-2 h-4 w-4' />
-									</Magnetic>
-									<span className='text-md hover:animate-text-shake'>
+									<Laptop className='mr-2 h-4 w-4' />
+									<span className='text-md'>
 										{t('buttonSetup')}
 									</span>
 								</div>
@@ -465,10 +444,8 @@ const CommandButton = () => {
 								onClick={handleLightTheme}
 							>
 								<div className='flex'>
-									<Magnetic>
-										<Sun className='mr-2 h-4 w-4' />
-									</Magnetic>
-									<span className='text-md hover:animate-text-shake'>
+									<Sun className='mr-2 h-4 w-4' />
+									<span className='text-md'>
 										{t('buttonLightTheme')}
 									</span>
 								</div>
@@ -485,10 +462,8 @@ const CommandButton = () => {
 								onClick={handleDarkTheme}
 							>
 								<div className='flex'>
-									<Magnetic>
-										<Moon className='mr-2 h-4 w-4' />
-									</Magnetic>
-									<span className='text-md hover:animate-text-shake'>
+									<Moon className='mr-2 h-4 w-4' />
+									<span className='text-md'>
 										{t('buttonDarkTheme')}
 									</span>
 								</div>
@@ -509,10 +484,8 @@ const CommandButton = () => {
 								onClick={() => handleLocaleChange('en')}
 							>
 								<div className='flex'>
-									<Magnetic>
-										<LiaFlagUsaSolid className='mr-2 h-4 w-4' />
-									</Magnetic>
-									<span className='text-md hover:animate-text-shake'>
+									<LiaFlagUsaSolid className='mr-2 h-4 w-4' />
+									<span className='text-md'>
 										{t('buttonUSA')}
 									</span>
 								</div>
@@ -533,10 +506,8 @@ const CommandButton = () => {
 								onClick={() => handleLocaleChange('pt-br')}
 							>
 								<div className='flex'>
-									<Magnetic>
-										<GiBrazilFlag className='mr-2 h-4 w-4' />
-									</Magnetic>
-									<span className='text-md hover:animate-text-shake'>
+									<GiBrazilFlag className='mr-2 h-4 w-4' />
+									<span className='text-md'>
 										{t('buttonBR')}
 									</span>
 								</div>

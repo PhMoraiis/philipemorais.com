@@ -1,18 +1,14 @@
 'use client'
 
 import { motion } from 'motion/react'
-import {
-	ArrowUp,
-	CheckCircle,
-	Copy,
-} from 'lucide-react'
-import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import { ArrowUp, CheckCircle, Copy } from 'lucide-react'
+import { FaDev, FaGithub, FaLinkedin } from 'react-icons/fa'
 import { RiInstagramFill } from 'react-icons/ri'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { toast } from 'sonner'
 import { LogoBlack, LogoWhite } from '@/components/Logos'
-import Magnetic from "@/components/Magnetic";
+import Magnetic from '@/components/Magnetic'
 import { Separator } from '@/components/ui/separator'
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
@@ -53,8 +49,31 @@ const Footer = () => {
 		return <Skeleton className='w-full h-96 mt-12 mb-6' />
 	}
 
+	const buttonsIcon = [
+		{
+			id: 1,
+			href: 'https://www.linkedin.com/in/ph-morais',
+			icon: <FaLinkedin size={22} />,
+		},
+		{
+			id: 2,
+			href: 'https://www.github.com/PhMoraiis',
+			icon: <FaGithub size={22} />,
+		},
+		{
+			id: 3,
+			href: 'https://www.instagram.com/philipemoraiis',
+			icon: <RiInstagramFill size={22} />,
+		},
+		{
+			id: 4,
+			href: 'https://www.behance.net/phmorais',
+			icon: <FaDev size={22} />,
+		}
+	]
+
 	return (
-		<section className='mt-12 bg-white dark:bg-[#111110] rounded-xl p-10 shadow-sm mb-6'>
+		<section className='mt-12 bg-card rounded-xl p-10 shadow-sm mb-6'>
 			<div className='flex flex-col'>
 				<div className='flex items-center justify-between mb-32'>
 					<motion.div whileHover={{ scale: 1.2 }} animate={logoRotation}>
@@ -68,60 +87,24 @@ const Footer = () => {
 					</motion.div>
 					<div className='max-w-xs lg:max-w-md'>
 						<ul className='flex items-center justify-center gap-4'>
-							<li>
-								<Link
-									href='https://www.linkedin.com/in/ph-morais'
-									target='_blank'
-								>
-									<motion.button
-										className='h-10 px-4 py-6 bg-primary text-primary-foreground hover:bg-primary/90 rounded-[100%] flex items-center justify-center'
-										whileHover={{ scale: 1.1 }}
-										transition={{
-											type: 'spring',
-											stiffness: 150,
-											damping: 17,
-											bounce: 1,
-										}}
-									>
-										<FaLinkedin size={22} />
-									</motion.button>
-								</Link>
-							</li>
-							<li>
-								<Link href='https://www.github.com/PhMoraiis' target='_blank'>
-									<motion.button
-										className='h-10 px-4 py-6 bg-primary text-primary-foreground hover:bg-primary/90 rounded-[100%] flex items-center justify-center'
-										whileHover={{ scale: 1.1 }}
-										transition={{
-											type: 'spring',
-											stiffness: 150,
-											damping: 17,
-											bounce: 1,
-										}}
-									>
-										<FaGithub size={22} />
-									</motion.button>
-								</Link>
-							</li>
-							<li>
-								<Link
-									href='https://www.instagram.com/philipemoraiis'
-									target='_blank'
-								>
-									<motion.button
-										className='h-10 px-4 py-6 bg-primary text-primary-foreground hover:bg-primary/90 rounded-[100%] flex items-center justify-center'
-										whileHover={{ scale: 1.1 }}
-										transition={{
-											type: 'spring',
-											stiffness: 150,
-											damping: 17,
-											bounce: 1,
-										}}
-									>
-										<RiInstagramFill size={22} />
-									</motion.button>
-								</Link>
-							</li>
+							{buttonsIcon.map((button) => (
+								<li key={button.id}>
+									<Link href={button.href} target='_blank'>
+										<motion.button
+											className='h-10 px-4 py-6 rounded-[100%] flex  bg-foreground text-background hover:bg-card-foreground/85 items-center justify-center'
+											whileHover={{ scale: 1.1 }}
+											transition={{
+												type: 'spring',
+												stiffness: 150,
+												damping: 17,
+												bounce: 1,
+											}}
+										>
+											{button.icon}
+										</motion.button>
+									</Link>
+								</li>
+							))}
 						</ul>
 					</div>
 				</div>
@@ -141,7 +124,7 @@ const Footer = () => {
 								className='underline hover:text-gray-400 cursor-pointer flex items-center gap-1'
 								onClick={handleCopyEmail}
 							>
-								philipe_m@icloud.com <Copy size={16} />
+								contato@philipemorais.com <Copy size={16} />
 							</span>
 						</div>
 					</div>
@@ -169,7 +152,7 @@ const Footer = () => {
 					{t('rights')}
 				</span>
 				<span className='font-RelativeBk text-gray-400 mb-1 lg:text-lg animate-shine bg-[linear-gradient(110deg,#939393,45%,#1e2631,55%,#939393)] bg-[length:200%_100%] text-transparent bg-clip-text'>
-					&copy;2024
+					&copy;2025
 				</span>
 			</div>
 		</section>

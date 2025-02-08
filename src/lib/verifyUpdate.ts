@@ -23,7 +23,7 @@ export const verifyUpdate = ({ project, tech }: IVerifyUpdate) => {
 	if (!dataAtualizacao) return 'Data desconhecida'
 
 	return new Intl.DateTimeFormat('pt-BR', {
-		dateStyle: 'medium',
+		dateStyle: 'short',
 		timeStyle: 'short',
 	}).format(new Date(dataAtualizacao))
 }

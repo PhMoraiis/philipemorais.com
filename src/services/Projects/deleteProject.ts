@@ -1,19 +1,10 @@
 import { env } from '@/lib/env'
 
-interface IProject {
-	name: string
-	image: string
-}
-
-export async function createProject({ name, image }: IProject) {
+export const deleteProjectByID = async (id: string) => {
 	try {
-		const response = await fetch(`${env.API_URL}/techs`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
+		const response = await fetch(`${env.API_URL}/projects/${id}`, {
+			method: 'DELETE',
 			credentials: 'include',
-			body: JSON.stringify({ name, image }),
 		})
 
 		if (!response.ok) {

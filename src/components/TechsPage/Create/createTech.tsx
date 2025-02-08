@@ -21,10 +21,6 @@ import { z } from 'zod'
 
 const createTechSchema = z.object({
 	name: z.string().min(1, { message: 'Enter the name of the technology' }),
-	image: z
-		.string()
-		.min(1, { message: 'Enter the image or icon of the technology' })
-		.url(),
 })
 
 type CreateTechForm = z.infer<typeof createTechSchema>
@@ -32,7 +28,12 @@ type CreateTechForm = z.infer<typeof createTechSchema>
 export default function CreateTech() {
 	const queryClient = useQueryClient()
 	const { toast } = useToast()
-	const { register, handleSubmit, formState, reset } = useForm<CreateTechForm>({
+	const {
+		register,
+		handleSubmit,
+		formState: { isDirty, isValid, errors },
+		reset,
+	} = useForm<CreateTechForm>({
 		resolver: zodResolver(createTechSchema),
 	})
 
@@ -58,9 +59,9 @@ export default function CreateTech() {
 		},
 	})
 
-	const handleCreateTech = handleSubmit(({ name, image }) => {
-		console.log('Enviando dados para criar tecnologia:', { name, image })
-		createTechMutation.mutate({ name, image })
+	const handleCreateTech = handleSubmit(({ name }) => {
+		console.log('Enviando dados para criar tecnologia:', { name })
+		createTechMutation.mutate({ name })
 	})
 
 	return (
@@ -68,7 +69,7 @@ export default function CreateTech() {
 			<DrawerTrigger asChild>
 				<Button
 					size='sm'
-					className='h-8 gap-1'
+					className='gap-2'
 					disabled={createTechMutation.isPending}
 				>
 					{createTechMutation.isPending ? (
@@ -97,30 +98,15 @@ export default function CreateTech() {
 								{...register('name')}
 							/>
 
-							{formState.errors.name && (
-								<p className='title-red-400 text-sm'>
-									{formState.errors.name.message}
-								</p>
-							)}
-						</div>
-						<div className='space-y-2'>
-							<Label htmlFor='icon'>Ícone</Label>
-							<Input
-								id='icon'
-								placeholder='Icone da tecnologia'
-								required
-								{...register('image')}
-							/>
-
-							{formState.errors.image && (
-								<p className='title-red-400 text-sm'>
-									{formState.errors.image.message}
-								</p>
+							{errors.name && (
+								<p className='title-red-400 text-sm'>{errors.name.message}</p>
 							)}
 						</div>
 						<DrawerFooter>
 							<DrawerClose asChild>
-								<Button type='submit'>Criar Tecnologia</Button>
+								<Button type='submit' disabled={!isDirty || !isValid}>
+									Criar Tecnologia
+								</Button>
 							</DrawerClose>
 							<DrawerClose asChild>
 								<Button variant='outline'>Cancelar</Button>

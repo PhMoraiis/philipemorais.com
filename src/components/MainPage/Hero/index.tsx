@@ -43,8 +43,8 @@ const Hero = () => {
 
 	return (
 		<section className='flex gap-6 justify-center'>
-			<div className='flex flex-col items-start justify-between p-12 shadow-sm rounded-xl bg-[radial-gradient(circle_at_120%_30%,#fef3c7_05%,transparent_50%),radial-gradient(circle_at_90%_70%,#d1fae5_05%,#f0f0f0_50%)] dark:bg-[radial-gradient(circle_at_90%_50%,#CD5D26_8%,transparent_50%),radial-gradient(circle_at_160%_50%,#EEBB93_8%,#111110_50%)] lg:w-full md:w-3/4 h-[40rem]'>
-				<div className='flex flex-col items-start gap-4 md:gap-6 md:max-w-sm lg:gap-8 lg:max-w-full'>
+			<div className='flex flex-col items-start justify-between p-12 shadow-sm rounded-xl bg-[radial-gradient(circle_at_120%_30%,#fef3c7_05%,transparent_50%),radial-gradient(circle_at_90%_70%,#d1fae5_05%,#f0f0f0_50%)] dark:bg-[radial-gradient(circle_at_90%_50%,#CD5D26_8%,transparent_50%),radial-gradient(circle_at_160%_50%,#EEBB93_8%,#151515_50%)] lg:w-full md:w-3/4 h-[40rem]'>
+				<div className='flex flex-col items-start gap-4 md:gap-6 md:max-w-sm lg:gap-8 lg:max-w-full text-card-foreground'>
 					<div className='max-w-sm lg:max-w-2xl'>
 						<h1 className='text-[2.8rem] leading-none font-Relative md:text-5xl lg:text-6xl'>
 							{t('title')}
@@ -58,14 +58,14 @@ const Hero = () => {
 						{t('paragraph')}
 					</p>
 				</div>
-				<div className='flex justify-center space-x-3'>
-					<Button className='rounded-full h-13 px-7 py-4'>
+				<div className='flex justify-center space-x-4'>
+					<Button className='bg-foreground hover:bg-foreground/85 dark:hover:bg-foreground/90 text-background text-sm rounded-full h-13 px-7 py-4'>
 						{t('buttonText')}
 					</Button>
 					{buttonList.map((button) => (
 						<Link key={button.id} href={button.href}>
 							<motion.button
-								className='h-10 px-4 py-6 bg-primary text-primary-foreground hover:bg-primary/90 rounded-[100%] flex items-center justify-center'
+								className='h-10 px-4 py-6 bg-background text-foreground hover:bg-card rounded-[100%] flex items-center justify-center'
 								whileHover={{ scale: 1.1 }}
 								transition={{
 									type: 'spring',
@@ -80,8 +80,8 @@ const Hero = () => {
 					))}
 				</div>
 			</div>
-			<div className='lg:flex md:flex items-start justify-center hidden p-10 shadow-sm rounded-xl bg-white dark:bg-[#111110] lg:w-1/2 md:w-2/4'>
-					test
+			<div className='lg:flex md:flex items-start justify-center hidden p-10 shadow-sm rounded-xl bg-card text-primary-foreground lg:w-1/2 md:w-2/4'>
+				test
 			</div>
 		</section>
 	)

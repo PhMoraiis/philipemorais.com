@@ -1,25 +1,16 @@
 import { env } from '@/lib/env'
+import type { IProject } from './type'
 
-interface UpdateTechRequest {
-	name: string
-	image: string
-}
 
-export const updateTech = async (
-	id: string,
-	{ name, image }: UpdateTechRequest,
-) => {
+export const updateProject = async (id: string, data: IProject) => {
 	try {
-		const response = await fetch(`${env.API_URL}/techs/${id}`, {
+		const response = await fetch(`${env.API_URL}/projects/${id}`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			credentials: 'include',
-			body: JSON.stringify({
-				name,
-				image,
-			}),
+			body: JSON.stringify(data),
 		})
 
 		if (!response.ok) {

@@ -36,7 +36,6 @@ import {
 	MoreHorizontal,
 	RefreshCcw,
 } from 'lucide-react'
-import Image from 'next/image'
 import CreateTech from '@/components/TechsPage/Create/createTech'
 import { useQuery } from '@tanstack/react-query'
 import { getTechs, type IGetTech } from '@/services/Techs/getTech'
@@ -181,7 +180,7 @@ const TechsDashboard = () => {
 								</DropdownMenu>
 								<Button
 									size='sm'
-									className='h-8 gap-1'
+									variant='outline'
 									onClick={handleRefresh}
 									disabled={isFetching}
 								>
@@ -195,7 +194,7 @@ const TechsDashboard = () => {
 							</div>
 						</div>
 						<TabsContent value='all'>
-							<Card x-chunk='dashboard-06-chunk-0'>
+							<Card className='bg-background' x-chunk='dashboard-06-chunk-0'>
 								<CardHeader>
 									<CardTitle>Suas Tecnologias</CardTitle>
 									<CardDescription>
@@ -206,9 +205,6 @@ const TechsDashboard = () => {
 									<Table>
 										<TableHeader>
 											<TableRow>
-												<TableHead className='hidden w-[100px] sm:table-cell'>
-													<span className='sr-only'>Icon</span>
-												</TableHead>
 												<TableHead>Nome</TableHead>
 												<TableHead className='hidden md:table-cell'>
 													Criado em
@@ -234,15 +230,6 @@ const TechsDashboard = () => {
 												<TableBody>
 													{techs.map((tech: IGetTech) => (
 														<TableRow key={tech.id}>
-															<TableCell className='hidden sm:table-cell'>
-																<Image
-																	alt='Product image'
-																	className='aspect-square rounded-md object-cover'
-																	height='44'
-																	src={tech.image}
-																	width='54'
-																/>
-															</TableCell>
 															<TableCell className='font-medium'>
 																{tech.name}
 															</TableCell>
@@ -270,7 +257,7 @@ const TechsDashboard = () => {
 																		</Button>
 																	</DropdownMenuTrigger>
 																	<DropdownMenuContent
-																		align='end'
+																		align='start'
 																		className='space-y-1'
 																	>
 																		<DropdownMenuLabel>Ações</DropdownMenuLabel>

@@ -2,7 +2,6 @@
 
 import Sidebar from '@/components/Sidebar'
 import Topbar from '@/components/Topbar'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
 	Card,
@@ -36,10 +35,17 @@ import Image from 'next/image'
 import { useToast } from '@/hooks/use-toast'
 import { verifyUpdate } from '@/lib/verifyUpdate'
 import { useState } from 'react'
+import { getProjects, type IGetProject } from '@/services/Projects/getProject'
+import Link from 'next/link'
 
 const Dashboard = () => {
 	const [activeTab, setActiveTab] = useState('projects')
 	const { toast } = useToast()
+
+	const { data: projects } = useQuery({
+		queryKey: ['projects'],
+		queryFn: getProjects,
+	})
 
 	const {
 		data: techs,
@@ -138,48 +144,25 @@ const Dashboard = () => {
 								<TabsTrigger value='techs'>Tecnologias</TabsTrigger>
 							</TabsList>
 							<div className='ml-auto flex items-center gap-2'>
-								<DropdownMenu>
-									<DropdownMenuTrigger asChild>
-										<Button variant='outline' size='sm' className='h-8 gap-1'>
-											<ListFilter className='h-3.5 w-3.5' />
-											<span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
-												Ordenar
-											</span>
-										</Button>
-									</DropdownMenuTrigger>
-									<DropdownMenuContent align='end'>
-										<DropdownMenuLabel>Ordenar por</DropdownMenuLabel>
-										<DropdownMenuSeparator />
-										<DropdownMenuCheckboxItem checked>
-											Nome
-										</DropdownMenuCheckboxItem>
-										<DropdownMenuCheckboxItem className={`${activeTab === 'techs' ? 'hidden' : ''}`}>
-											Status
-										</DropdownMenuCheckboxItem>
-										<DropdownMenuCheckboxItem>
-											Data de Criação
-										</DropdownMenuCheckboxItem>
-										<DropdownMenuCheckboxItem>
-											Data de Atualização
-										</DropdownMenuCheckboxItem>
-									</DropdownMenuContent>
-									<Button
-										size='sm'
-										className='h-8 gap-1'
-										onClick={handleRefresh}
-										disabled={isFetching}
-									>
-										{isFetching ? (
-											<Loader2 className='h-4 w-4 animate-spin' />
-										) : (
-											<RefreshCcw className='h-3.5 w-3.5' />
-										)}
-									</Button>
-								</DropdownMenu>
+								<Button
+									size='sm'
+									variant='outline'
+									onClick={handleRefresh}
+									disabled={isFetching}
+								>
+									{isFetching ? (
+										<Loader2 className='h-4 w-4 animate-spin' />
+									) : (
+										<RefreshCcw className='h-3.5 w-3.5' />
+									)}
+								</Button>
 							</div>
 						</div>
 						<TabsContent value='projects'>
-							<Card x-chunk='dashboard-06-chunk-0'>
+							<Card
+								className='bg-background text-foreground'
+								x-chunk='dashboard-06-chunk-0'
+							>
 								<CardHeader>
 									<CardTitle>Todos os Projetos</CardTitle>
 									<CardDescription>
@@ -194,12 +177,17 @@ const Dashboard = () => {
 													<span className='sr-only'>Image</span>
 												</TableHead>
 												<TableHead>Nome</TableHead>
-												<TableHead>Status</TableHead>
 												<TableHead className='hidden md:table-cell'>
 													Descrição
 												</TableHead>
 												<TableHead className='hidden md:table-cell'>
 													Link
+												</TableHead>
+												<TableHead className='hidden md:table-cell'>
+													Data Inicial
+												</TableHead>
+												<TableHead className='hidden md:table-cell'>
+													Data Final
 												</TableHead>
 												<TableHead className='hidden md:table-cell'>
 													Criado em
@@ -212,7 +200,7 @@ const Dashboard = () => {
 												</TableHead>
 											</TableRow>
 										</TableHeader>
-										{/* {projects.length === 0 ? (
+										{projects?.length === 0 ? (
 											<TableBody>
 												<TableRow>
 													<TableCell colSpan={4} className='h-24 text-center'>
@@ -223,51 +211,59 @@ const Dashboard = () => {
 										) : (
 											<>
 												<TableBody>
-													{projects.map((project) => (
+													{projects?.map((project: IGetProject) => (
 														<TableRow key={project.id}>
 															<TableCell className='hidden sm:table-cell'>
 																<Image
 																	alt='Product image'
 																	className='aspect-square rounded-md object-cover'
 																	height='64'
-																	src={project.image}
+																	src={project.icon}
 																	width='64'
 																/>
 															</TableCell>
 															<TableCell className='font-medium'>
-																{project.name}
-															</TableCell>
-															<TableCell>
-																<Badge variant={project.status}>
-																	{project.status}
-																</Badge>
+																{project.title}
 															</TableCell>
 															<TableCell className='hidden md:table-cell'>
-																{project.shortDescription}
+																{project.description}
 															</TableCell>
 															<TableCell className='hidden md:table-cell text-blue-500 underline'>
 																<Link href={project.href}>{project.href}</Link>
 															</TableCell>
 															<TableCell className='hidden md:table-cell'>
 																{new Intl.DateTimeFormat('pt-BR', {
-																	dateStyle: 'medium',
+																	dateStyle: 'short',
+																}).format(new Date(project.initial_date))}
+															</TableCell>
+															<TableCell className='hidden md:table-cell'>
+																{new Intl.DateTimeFormat('pt-BR', {
+																	dateStyle: 'short',
+																}).format(new Date(project.final_date))}
+															</TableCell>
+															<TableCell className='hidden md:table-cell'>
+																{new Intl.DateTimeFormat('pt-BR', {
+																	dateStyle: 'short',
 																	timeStyle: 'short',
 																}).format(new Date(project.createdAt))}
 															</TableCell>
 															<TableCell className='hidden md:table-cell'>
-																{verifyUpdate(project)}
+																{verifyUpdate({ project })}
 															</TableCell>
 														</TableRow>
 													))}
 												</TableBody>
 											</>
-										)} */}
+										)}
 									</Table>
 								</CardContent>
 							</Card>
 						</TabsContent>
 						<TabsContent value='techs'>
-							<Card x-chunk='dashboard-06-chunk-0'>
+							<Card
+								className='bg-background text-foreground'
+								x-chunk='dashboard-06-chunk-0'
+							>
 								<CardHeader>
 									<CardTitle>Todas as Tecnologias</CardTitle>
 									<CardDescription>
@@ -279,9 +275,6 @@ const Dashboard = () => {
 									<Table>
 										<TableHeader>
 											<TableRow>
-												<TableHead className='hidden w-[100px] sm:table-cell'>
-													<span className='sr-only'>Icon</span>
-												</TableHead>
 												<TableHead>Nome</TableHead>
 												<TableHead className='hidden md:table-cell'>
 													Criado em
@@ -304,15 +297,6 @@ const Dashboard = () => {
 												<TableBody>
 													{techs.map((tech: IGetTech) => (
 														<TableRow key={tech.id}>
-															<TableCell className='hidden sm:table-cell'>
-																<Image
-																	alt='Product image'
-																	className='aspect-square rounded-md object-cover'
-																	height='64'
-																	src={tech.image}
-																	width='64'
-																/>
-															</TableCell>
 															<TableCell className='font-medium'>
 																{tech.name}
 															</TableCell>

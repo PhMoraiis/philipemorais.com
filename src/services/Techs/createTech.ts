@@ -1,11 +1,10 @@
 import { env } from '@/lib/env'
 
-interface ITech {
+export interface ITech {
 	name: string
-	image: string
 }
 
-export async function createTech({ name, image }: ITech) {
+export async function createTech({ name }: ITech) {
 	try {
 		const response = await fetch(`${env.API_URL}/techs`, {
 			method: 'POST',
@@ -13,7 +12,7 @@ export async function createTech({ name, image }: ITech) {
 				'Content-Type': 'application/json',
 			},
 			credentials: 'include',
-			body: JSON.stringify({ name, image }),
+			body: JSON.stringify({ name }),
 		})
 
 		if (!response.ok) {

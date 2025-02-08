@@ -112,23 +112,15 @@ const Topbar = () => {
 				</SheetContent>
 			</Sheet>
 			<SearchBar />
-			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button size='icon' className='rounded-full'>
-						<CircleUser className='h-5 w-5' />
-						<span className='sr-only'>Toggle user menu</span>
-					</Button>
-				</DropdownMenuTrigger>
-				<DropdownMenuContent align='end'>
-					<Button
-						onClick={handleLogoutButton}
-						variant='default'
-						className='hover:bg-red-500 hover:text-secondary flex justify-between w-full'
-					>
-						Sair <LogOut className='ml-2 w-4 h-4' />{' '}
-					</Button>
-				</DropdownMenuContent>
-			</DropdownMenu>
+			<div>
+				<Button
+					onClick={handleLogoutButton}
+					variant='outline'
+					className='hover:border-destructive hover:bg-background hover:text-destructive flex justify-between w-full'
+				>
+					Logout <LogOut className='ml-2 w-4 h-4' />{' '}
+				</Button>
+			</div>
 		</header>
 	)
 }

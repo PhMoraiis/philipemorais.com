@@ -45,7 +45,7 @@ export const getTechByID = async (id: string) => {
 
 		if (!response.ok) {
 			const errorData = await response.json().catch(() => null)
-			const errorMessage = errorData?.message || 'Erro ao criar tecnologia'
+			const errorMessage = errorData?.message || 'Erro ao obter a tecnologia escolhida'
 			throw new Error(errorMessage)
 		}
 
