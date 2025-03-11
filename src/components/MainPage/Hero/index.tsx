@@ -8,6 +8,7 @@ import { FaLinkedin, FaGithub, FaDev } from 'react-icons/fa'
 import { RiInstagramFill } from 'react-icons/ri'
 import Link from 'next/link'
 import { motion } from 'motion/react'
+import { Ripple } from '@/components/magicui/ripple'
 
 const Hero = () => {
 	const t = useTranslations('Hero')
@@ -42,14 +43,14 @@ const Hero = () => {
 	]
 
 	return (
-		<section className='flex gap-6 justify-center'>
-			<div className='flex flex-col items-start justify-between p-12 shadow-sm rounded-xl bg-[radial-gradient(circle_at_120%_30%,#fef3c7_05%,transparent_50%),radial-gradient(circle_at_90%_70%,#d1fae5_05%,#f0f0f0_50%)] dark:bg-[radial-gradient(circle_at_90%_50%,#CD5D26_8%,transparent_50%),radial-gradient(circle_at_160%_50%,#EEBB93_8%,#151515_50%)] lg:w-full md:w-3/4 h-[40rem]'>
+		<section className='flex gap-6 justify-center flex-col lg:flex-row md:flex-row'>
+			<div className='flex flex-col items-start justify-between p-12 shadow-sm rounded-xl bg-[radial-gradient(circle_at_120%_30%,#fef3c7_05%,transparent_50%),radial-gradient(circle_at_90%_70%,#d1fae5_05%,#f0f0f0_50%)] dark:bg-[radial-gradient(circle_at_90%_50%,#CD5D26_8%,transparent_50%),radial-gradient(circle_at_160%_50%,#EEBB93_8%,#151515_50%)] lg:w-full md:w-3/4 min-h-[850px]'>
 				<div className='flex flex-col items-start gap-4 md:gap-6 md:max-w-sm lg:gap-8 lg:max-w-full text-card-foreground'>
-					<div className='max-w-sm lg:max-w-2xl'>
-						<h1 className='text-[2.8rem] leading-none font-Relative md:text-5xl lg:text-6xl'>
+					<div className='max-w-sm lg:max-w-3xl'>
+						<h1 className='text-[2.8rem] leading-none font-Relative md:text-5xl lg:text-7xl'>
 							{t('title')}
 						</h1>
-						<span className='text-[2.8rem] leading-none font-Relative md:text-5xl lg:text-6xl'>
+						<span className='text-[2.8rem] leading-none font-Relative md:text-5xl lg:text-7xl'>
 							{' '}
 							a front-end developer & ux/ui designer
 						</span>
@@ -80,8 +81,11 @@ const Hero = () => {
 					))}
 				</div>
 			</div>
-			<div className='lg:flex md:flex items-start justify-center hidden p-10 shadow-sm rounded-xl bg-card text-primary-foreground lg:w-1/2 md:w-2/4'>
-				test
+			<div className='relative lg:flex md:flex items-start justify-center min-h-[850px] p-10 shadow-sm rounded-xl bg-card text-primary-foreground lg:w-1/2 md:w-2/4 overflow-hidden'>
+				<p className='z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-white'>
+					Ripple
+				</p>
+				<Ripple />
 			</div>
 		</section>
 	)

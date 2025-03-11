@@ -106,7 +106,7 @@ const Techs = () => {
 	}
 
 	return (
-		<motion.section className='mt-10 bg-card rounded-xl p-10 shadow-sm'>
+		<motion.section className='mt-6 bg-card rounded-xl p-10 shadow-sm'>
 			<div className='w-full h-fit flex items-center justify-center'>
 				<div className='flex w-full overflow-hidden mask'>
 					{theme === 'dark' || resolvedTheme === 'dark' ? (

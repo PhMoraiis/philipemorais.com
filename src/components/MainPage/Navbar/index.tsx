@@ -8,6 +8,7 @@ import CommandButton from '@/components/CommandButton'
 import { LogoBlack, LogoWhite } from '@/components/Logos'
 import Magnetic from '@/components/Magnetic'
 import { Skeleton } from "@/components/ui/skeleton";
+import { AnimatedTabs } from '@/components/ui/animatedTabs'
 
 
 const Navbar = () => {
@@ -38,8 +39,9 @@ const Navbar = () => {
             </Link>
           </Magnetic>
         </motion.div>
-        <div>
-          <CommandButton />
+        <div className='flex'>
+          <AnimatedTabs />
+          {/* <CommandButton /> */}
         </div>
       </div>
     </header>

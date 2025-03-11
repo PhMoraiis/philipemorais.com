@@ -16,11 +16,12 @@ const badgeVariants = cva(
 					'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
 				outline: 'text-foreground',
 				defaultPointer:
-					'border-transparent bg-foreground text-background hover:bg-foreground/80 cursor-pointer',
+					'border-transparent bg-foreground text-background hover:bg-foreground/80 cursor-pointer text-sm gap-2',
 			},
 			size: {
 				default: 'px-2.5 py-0.5',
 				icon: 'px-3 py-1',
+				lg: 'px-6 py-2',
 			},
 		},
 		defaultVariants: {
