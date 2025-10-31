@@ -12,7 +12,6 @@ import {
 import { Skeleton } from '@/components/ui/skeleton'
 import { Badge } from '@/components/ui/badge'
 import { useQuery } from '@tanstack/react-query'
-import { getProjects } from '@/services/Projects/getProject'
 import { useRouter } from 'next/navigation'
 
 interface Project {
@@ -35,7 +34,6 @@ const Works = ({ className, ...props }: React.ComponentProps<typeof Card>) => {
 
 	const { data: projects } = useQuery({
 		queryKey: ['projects'],
-		queryFn: getProjects,
 	})
 
 	if (!mounted) {
@@ -46,10 +44,8 @@ const Works = ({ className, ...props }: React.ComponentProps<typeof Card>) => {
 
 	return (
 		<>
-			{projects?.map((project: Project) => (
 				<Card
-					key={project.id}
-					onClick={() => router.push(project.href)}
+					// onClick={() => router.push(project.href)}
 					className={cn(
 						'w-full shadow-xl rounded-xl cursor-pointer',
 						'h-[550px] md:h-[330px] lg:h-[550px]',
@@ -57,7 +53,7 @@ const Works = ({ className, ...props }: React.ComponentProps<typeof Card>) => {
 						className,
 					)}
 					style={{
-						backgroundImage: `url(${project.image})`,
+						// backgroundImage: `url(${project.image})`,
 						backgroundSize: 'cover',
 						backgroundPosition: 'center',
 					}}
@@ -65,18 +61,18 @@ const Works = ({ className, ...props }: React.ComponentProps<typeof Card>) => {
 				>
 					<CardHeader>
 						<CardTitle className='text-secondary dark:text-primary'>
-							{project.title}
+							{/* {project.title} */}
 						</CardTitle>
 						<CardDescription className='text-secondary dark:text-primary'>
-							{project.description}
+							{/* {project.description} */}
 						</CardDescription>
 					</CardHeader>
 					<CardFooter className='gap-3 flex-wrap'>
-						{project.techs.map((tech) => (
+						{/* {project.techs.map((tech) => (
 							<Badge key={tech.id} size='icon'>
 								{tech.name}
 							</Badge>
-						))}
+						))} */}
 					</CardFooter>
 				</Card>
 			))}
