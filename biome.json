@@ -1,39 +1,70 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
-	"organizeImports": {
-		"enabled": true
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"vcs": {
+		"enabled": false,
+		"clientKind": "git",
+		"useIgnoreFile": false
 	},
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true
-		}
+	"files": {
+		"ignoreUnknown": false,
+		"includes": [
+			"**",
+			"!**/.next",
+			"!**/dist",
+			"!**/.turbo",
+			"!**/dev-dist",
+			"!**/.zed",
+			"!**/.vscode"
+		]
 	},
 	"formatter": {
 		"enabled": true,
-		"formatWithErrors": false,
-		"ignore": [],
-		"attributePosition": "auto",
-		"indentStyle": "tab",
-		"indentWidth": 2,
-		"lineEnding": "lf",
-		"lineWidth": 80
+		"indentStyle": "tab"
+	},
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"correctness": {
+				"useExhaustiveDependencies": "info"
+			},
+			"nursery": {
+				"useSortedClasses": {
+					"level": "warn",
+					"fix": "safe",
+					"options": {
+						"functions": ["clsx", "cva", "cn"]
+					}
+				}
+			},
+			"style": {
+				"noParameterAssign": "error",
+				"useAsConstAssertion": "error",
+				"useDefaultParameterLast": "error",
+				"useEnumInitializers": "error",
+				"useSelfClosingElements": "error",
+				"useSingleVarDeclarator": "error",
+				"noUnusedTemplateLiteral": "error",
+				"useNumberNamespace": "error",
+				"noInferrableTypes": "error",
+				"noUselessElse": "error"
+			}
+		}
 	},
 	"javascript": {
 		"formatter": {
+			"quoteStyle": "double",
 			"arrowParentheses": "always",
-			"bracketSameLine": false,
 			"bracketSpacing": true,
-			"jsxQuoteStyle": "single",
-			"quoteProperties": "asNeeded",
-			"semicolons": "asNeeded",
-			"quoteStyle": "single",
+			"semicolons": "always",
 			"trailingCommas": "all"
 		}
 	},
-	"json": {
+	"css": {
 		"formatter": {
-			"trailingCommas": "all"
+			"indentStyle": "space",
+			"quoteStyle": "double"
 		}
 	}
 }
