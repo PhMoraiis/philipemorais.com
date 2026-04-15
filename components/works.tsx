@@ -263,7 +263,7 @@ export const Works = () => {
 
   return (
     <section className="mx-auto max-w-4xl pt-10 md:pt-12">
-      <h2 className="text-lg">Work</h2>
+      <h2 className="font-bethany text-2xl">Work</h2>
       <div className="-translate-x-1/2 relative left-1/2 isolate mt-6 w-screen overflow-hidden">
         <div
           ref={outerRef}

@@ -7,8 +7,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-dmsans: var(--font-dmsans), ui-sans-serif, system-ui, sans-serif;
+  --font-bethany: "Bethany", ui-serif, Georgia, serif;
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -127,4 +127,11 @@
   html {
     @apply font-sans;
   }
+}
+
+@font-face {
+  font-family: "Bethany";
+  src: url("/fonts/Bethany/BethanyElingston.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
 }

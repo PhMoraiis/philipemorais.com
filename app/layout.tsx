@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Rammetto_One } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const rammettoOne = Rammetto_One({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: "400",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["400", "500", "600", "700"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-dmsans",
 });
 
 export const metadata: Metadata = {
@@ -33,16 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={cn(
-        "h-full",
-        "antialiased",
-        "font-sans",
-        rammettoOne.className,
-        inter.variable,
-      )}
-    >
+    <html lang="en" className={cn("h-full", "antialiased", dmSans.className)}>
       <body suppressHydrationWarning className="flex min-h-full flex-col">
         {children}
       </body>

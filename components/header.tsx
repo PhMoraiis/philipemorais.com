@@ -8,12 +8,12 @@ export const Header = () => {
 
   return (
     <header className="mx-auto max-w-4xl md:pt-11">
-      <h1 className="mb-4 text-4xl text-gray-900 leading-tight dark:text-gray-100">
+      <h1 className="mb-4 font-bethany text-4xl text-zinc-900 leading-tight dark:text-gray-100">
         {texts.name}
         <br />
         {texts.lastName}
       </h1>
-      <p className="max-w-md font-medium font-sans text-gray-700 text-md dark:text-gray-300">
+      <p className="max-w-md font-dmsans text-md text-zinc-500 dark:text-gray-300">
         {texts.description}
       </p>
     </header>
