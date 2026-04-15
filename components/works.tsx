@@ -262,15 +262,14 @@ export const Works = () => {
   };
 
   return (
-    <section className="mx-auto max-w-4xl pt-10 md:pt-12">
-      <h2 className="font-bethany text-2xl">Work</h2>
+    <section className="mx-auto max-w-4xl pt-10 md:pt-12 md:pb-6">
+      <h2 className="font-bethany text-2xl">Works</h2>
       <div className="-translate-x-1/2 relative left-1/2 isolate mt-6 w-screen overflow-hidden">
         <div
           ref={outerRef}
-          className="mx-auto w-full max-w-4xl"
+          className="pointer-events-auto mx-auto w-full max-w-4xl"
           style={{
             cursor: isDragging ? "grabbing" : "grab",
-            pointerEvents: "all",
             touchAction: "pan-y",
           }}
           onPointerDown={handlePointerDown}
@@ -281,12 +280,9 @@ export const Works = () => {
         >
           <div
             ref={innerRef}
-            className="inline-flex select-none gap-8 whitespace-nowrap will-change-transform"
+            className="inline-flex select-none gap-8 whitespace-nowrap transition-none will-change-transform"
             style={{
               transform: `translate3d(${offsetX}px, 0px, 0px)`,
-              transition: "none",
-              userSelect: "none",
-              display: "inline-flex",
             }}
           >
             {cards.map((card, index) => (
