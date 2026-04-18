@@ -1,9 +1,30 @@
 "use client";
 
+import { motion } from "motion/react";
+import Image from "next/image";
 import type { MouseEvent, PointerEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import colorspaceName from "@/assets/colorspace/name.svg";
+import jumpieLogo from "@/assets/jumpie/logojumpie.svg";
+import jumpieName from "@/assets/jumpie/name.svg";
+import oncineName from "@/assets/oncine/name.svg";
+import oncineSwitch from "@/assets/oncine/switchlogo.svg";
+import stellarLogo from "@/assets/stellar/logoStellar.svg";
+import stellarName from "@/assets/stellar/name.svg";
+import ColourfulText from "./ui/colorful-text";
+import { Reveal } from "./ui/reveal";
 
-export const Works = () => {
+type WorksProps = {
+  titleRevealDelay?: number;
+  cardsRevealDelay?: number;
+  revealDuration?: number;
+};
+
+export const Works = ({
+  titleRevealDelay = 0,
+  cardsRevealDelay = 0.9,
+  revealDuration = 0.95,
+}: WorksProps) => {
   const LEFT_BLEED = 0;
   const SPRING = 0.018;
   const EDGE_DAMPING = 0.55;
@@ -11,11 +32,31 @@ export const Works = () => {
   const RUBBER_BAND = 0.55;
 
   const cards = [
-    { id: "0", className: "bg-[#F2F0E5] text-black" },
-    { id: "1", className: "bg-[#1F1F1F] text-white" },
-    { id: "2", className: "bg-[#7CCAA0] text-white" },
-    { id: "3", className: "bg-[#F4F592] text-[#333333]" },
-  ];
+    {
+      id: "stellar",
+      className: "text-black",
+      background: "linear-gradient(180deg, #FF6D1F 0%, #FF8949 100%)",
+      ariaLabel: "Work project Stellar",
+    },
+    {
+      id: "oncine",
+      className: "text-white",
+      background: "#1F1F1F",
+      ariaLabel: "Work project OnCine",
+    },
+    {
+      id: "colorspace",
+      className: "text-[#333333]",
+      background: "#F4F4F4",
+      ariaLabel: "Work project ColorSpace",
+    },
+    {
+      id: "jumpie",
+      className: "text-white",
+      background: "#6DACDF",
+      ariaLabel: "Work project Jumpie",
+    },
+  ] as const;
 
   const outerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
@@ -36,6 +77,17 @@ export const Works = () => {
 
   const [offsetX, setOffsetX] = useState(LEFT_BLEED);
   const [isDragging, setIsDragging] = useState(false);
+  const parallaxProgress = (offsetX - LEFT_BLEED) / 120;
+  const parallaxValue = (value: number) =>
+    Number((parallaxProgress * value).toFixed(3));
+
+  const parallaxStyle = (x: number, y = 0, rotate = 0) => ({
+    transform: `translate3d(${parallaxValue(x)}px, ${parallaxValue(y)}px, 0px) rotate(${parallaxValue(rotate)}deg)`,
+  });
+
+  const centeredParallaxStyle = (x: number, y = 0, rotate = 0) => ({
+    transform: `translate3d(calc(-50% + ${parallaxValue(x)}px), ${parallaxValue(y)}px, 0px) rotate(${parallaxValue(rotate)}deg)`,
+  });
 
   const cancelAnimation = useCallback(() => {
     if (animationFrameRef.current === null) {
@@ -263,8 +315,12 @@ export const Works = () => {
 
   return (
     <section className="mx-auto max-w-4xl pt-10 md:pt-12 md:pb-6">
-      <h2 className="font-bethany text-2xl">Works</h2>
-      <div className="-translate-x-1/2 relative left-1/2 isolate mt-6 w-screen overflow-hidden">
+      <Reveal delay={titleRevealDelay} duration={revealDuration}>
+        <h2 className="font-bethany text-2xl text-foreground dark:text-zinc-50">
+          Works
+        </h2>
+      </Reveal>
+      <div className="-translate-x-1/2 relative left-1/2 isolate mt-5 w-screen overflow-hidden pt-3">
         <div
           ref={outerRef}
           className="pointer-events-auto mx-auto w-full max-w-4xl"
@@ -286,13 +342,105 @@ export const Works = () => {
             }}
           >
             {cards.map((card, index) => (
-              <button
+              <Reveal
                 key={card.id}
-                id={card.id}
-                type="button"
-                aria-label={`Work project ${index + 1}`}
-                className={`card h-104 w-72 shrink-0 ${card.className}`}
-              />
+                className="shrink-0"
+                delay={cardsRevealDelay}
+                duration={revealDuration}
+                index={index}
+                stagger={0.2}
+                y={56 - index * 10}
+                blur={2}
+              >
+                <motion.button
+                  id={card.id}
+                  type="button"
+                  aria-label={card.ariaLabel}
+                  className={`card relative h-104 w-72 overflow-hidden ${card.className}`}
+                  whileHover={isDragging ? undefined : { y: -6 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 240,
+                    damping: 22,
+                    mass: 0.7,
+                  }}
+                  style={{
+                    cursor: isDragging ? "grabbing" : "pointer",
+                    willChange: "transform",
+                    background: card.background,
+                  }}
+                >
+                  {card.id === "stellar" && (
+                    <>
+                      <Image
+                        src={stellarName}
+                        alt="Stellar"
+                        className="absolute top-10 left-14 h-auto w-25"
+                        priority={false}
+                      />
+                      <Image
+                        src={stellarLogo}
+                        alt="Stellar symbol"
+                        className="absolute right-0 bottom-0 h-auto w-42"
+                        style={parallaxStyle(-12, 6, -1.6)}
+                        priority={false}
+                      />
+                    </>
+                  )}
+
+                  {card.id === "oncine" && (
+                    <>
+                      <Image
+                        src={oncineName}
+                        alt="OnCine"
+                        className="absolute top-10 left-16 h-auto w-24"
+                        priority={false}
+                      />
+                      <Image
+                        src={oncineSwitch}
+                        alt="OnCine switch"
+                        className="absolute bottom-9 left-1/2 h-auto w-28"
+                        style={centeredParallaxStyle(-10, 8, 1.2)}
+                        priority={false}
+                      />
+                    </>
+                  )}
+
+                  {card.id === "colorspace" && (
+                    <>
+                      <Image
+                        src={colorspaceName}
+                        alt="ColorSpace"
+                        className="absolute top-10 left-8 h-auto w-37"
+                        priority={false}
+                      />
+                      <div className="absolute bottom-12 left-5">
+                        <div className="mx-auto max-w-xs text-center font-bold font-whyte text-[23px] uppercase leading-tight md:text-5xl lg:text-2xl lg:leading-[1.1]">
+                          <ColourfulText text="Converta cores com precisão" />
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {card.id === "jumpie" && (
+                    <>
+                      <Image
+                        src={jumpieName}
+                        alt="Jumpie"
+                        className="absolute top-10 left-8 h-auto w-27"
+                        priority={false}
+                      />
+                      <Image
+                        src={jumpieLogo}
+                        alt="Jumpie logo"
+                        className="absolute right-1 bottom-0 h-auto w-24"
+                        style={parallaxStyle(-14, 10)}
+                        priority={false}
+                      />
+                    </>
+                  )}
+                </motion.button>
+              </Reveal>
             ))}
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { HBR, Place, Sarah, Stellar } from "./ui/logos";
+import { Reveal } from "./ui/reveal";
 
 export const Experiences = () => {
   const experiences = [
@@ -42,23 +43,33 @@ export const Experiences = () => {
 
   return (
     <section className="mx-auto max-w-4xl pt-10 md:pt-12 md:pb-6">
-      <h2 className="font-bethany text-2xl">Experiências</h2>
+      <Reveal>
+        <h2 className="font-bethany text-2xl text-foreground dark:text-zinc-50">
+          Experiências
+        </h2>
+      </Reveal>
       <div className="mt-10 flex flex-col items-start justify-center gap-12">
-        {experiences.map((exp) => (
-          <div key={exp.id} className="flex items-start gap-10">
-            <div className="flex items-center">{exp.icon}</div>
-            <div className="flex flex-col items-start justify-center">
-              <h3 className="font-bethany text-lg">{exp.company}</h3>
-              <h4 className="font-bethany text-sm">
-                {exp.position}
-                <span className="px-1 text-gray-200">•</span>
-                {exp.period}
-              </h4>
-              <p className="mt-2 max-w-md font-dmsans text-gray-200 text-sm md:text-md">
-                {exp.description}
-              </p>
+        {experiences.map((exp, index) => (
+          <Reveal key={exp.id} index={index + 1}>
+            <div className="flex items-start gap-10">
+              <div className="flex items-center">{exp.icon}</div>
+              <div className="flex flex-col items-start justify-center">
+                <h3 className="font-bethany text-foreground text-lg dark:text-zinc-50">
+                  {exp.company}
+                </h3>
+                <h4 className="font-bethany text-foreground text-sm dark:text-zinc-50">
+                  {exp.position}
+                  <span className="px-1 text-foreground dark:text-gray-50">
+                    •
+                  </span>
+                  {exp.period}
+                </h4>
+                <p className="mt-2 max-w-md font-dmsans text-sm text-zinc-600 md:text-md dark:text-zinc-200">
+                  {exp.description}
+                </p>
+              </div>
             </div>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>
