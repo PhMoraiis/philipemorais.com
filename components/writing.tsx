@@ -12,7 +12,7 @@ export const Writing = () => {
           Artigos Recentes
         </h2>
       </Reveal>
-      <div className="mt-6 flex flex-col items-start gap-6">
+      <div className="mt-6 flex max-w-xl flex-col items-start gap-6 border-zinc-200 border-b-2 pb-3 transition-colors duration-300 ease-in-out hover:underline hover:decoration-[#F9581C] hover:underline-offset-2 dark:border-zinc-600">
         {posts.map((post) => (
           <Reveal key={post.slug}>
             <Link href={`/blog/${post.slug}`}>

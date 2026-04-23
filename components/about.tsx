@@ -89,10 +89,11 @@ export const About = () => {
           <ImgStack images={imageUrls} />
         </div>
       </div>
-      <div className="max-w-xl">
+      <div className="max-w-148">
         <Reveal index={4}>
           <h3 className="font-bethany text-[#F9581C] text-[38px]">
-            Design não é apenas a aparência & a sensação. Design é como funciona
+            "Design não é apenas a aparência & a sensação. Design é como
+            funciona"
           </h3>
         </Reveal>
       </div>

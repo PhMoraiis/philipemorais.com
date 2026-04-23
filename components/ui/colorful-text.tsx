@@ -46,7 +46,7 @@ export default function ColourfulText({ text }: { text: string }) {
         duration: 0.5,
         delay: index * 0.05,
       }}
-      className="inline-block max-w-xs whitespace-pre font-whyte tracking-tight"
+      className="inline-block whitespace-pre font-whyte tracking-tight"
     >
       {char}
     </motion.span>

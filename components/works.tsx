@@ -2,13 +2,17 @@
 
 import { motion } from "motion/react";
 import Image from "next/image";
-import type { MouseEvent, PointerEvent } from "react";
+import type {
+  ClipboardEvent,
+  DragEvent,
+  MouseEvent,
+  PointerEvent,
+} from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import colorspaceName from "@/assets/colorspace/name.svg";
 import jumpieLogo from "@/assets/jumpie/logojumpie.svg";
 import jumpieName from "@/assets/jumpie/name.svg";
 import oncineName from "@/assets/oncine/name.svg";
-import oncineSwitch from "@/assets/oncine/switchlogo.svg";
 import stellarLogo from "@/assets/stellar/logoStellar.svg";
 import stellarName from "@/assets/stellar/name.svg";
 import ColourfulText from "./ui/colorful-text";
@@ -45,16 +49,16 @@ export const Works = ({
       ariaLabel: "Work project OnCine",
     },
     {
-      id: "colorspace",
-      className: "text-[#333333]",
-      background: "#F4F4F4",
-      ariaLabel: "Work project ColorSpace",
-    },
-    {
       id: "jumpie",
       className: "text-white",
       background: "#6DACDF",
       ariaLabel: "Work project Jumpie",
+    },
+    {
+      id: "colorspace",
+      className: "text-[#333333]",
+      background: "#282829",
+      ariaLabel: "Work project ColorSpace",
     },
   ] as const;
 
@@ -313,6 +317,18 @@ export const Works = ({
     dragState.hasMoved = false;
   };
 
+  const blockContextMenu = (event: MouseEvent<HTMLElement | SVGElement>) => {
+    event.preventDefault();
+  };
+
+  const blockNativeDrag = (event: DragEvent<HTMLElement | SVGElement>) => {
+    event.preventDefault();
+  };
+
+  const blockClipboard = (event: ClipboardEvent<HTMLElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <section className="mx-auto max-w-4xl pt-10 md:pt-12 md:pb-6">
       <Reveal delay={titleRevealDelay} duration={revealDuration}>
@@ -356,7 +372,12 @@ export const Works = ({
                   id={card.id}
                   type="button"
                   aria-label={card.ariaLabel}
-                  className={`card relative h-104 w-72 overflow-hidden ${card.className}`}
+                  draggable={false}
+                  className={`card relative h-104 w-72 overflow-hidden rounded-sm ${card.className}`}
+                  onContextMenu={blockContextMenu}
+                  onDragStartCapture={blockNativeDrag}
+                  onCopy={blockClipboard}
+                  onCut={blockClipboard}
                   whileHover={isDragging ? undefined : { y: -6 }}
                   transition={{
                     type: "spring",
@@ -368,6 +389,9 @@ export const Works = ({
                     cursor: isDragging ? "grabbing" : "pointer",
                     willChange: "transform",
                     background: card.background,
+                    userSelect: "none",
+                    WebkitUserSelect: "none",
+                    WebkitTouchCallout: "none",
                   }}
                 >
                   {card.id === "stellar" && (
@@ -376,13 +400,19 @@ export const Works = ({
                         src={stellarName}
                         alt="Stellar"
                         className="absolute top-10 left-14 h-auto w-25"
+                        draggable={false}
+                        onDragStart={blockNativeDrag}
+                        onContextMenu={blockContextMenu}
                         priority={false}
                       />
                       <Image
                         src={stellarLogo}
                         alt="Stellar symbol"
-                        className="absolute right-0 bottom-0 h-auto w-42"
+                        className="absolute right-6 bottom-0 h-auto w-42"
                         style={parallaxStyle(-12, 6, -1.6)}
+                        draggable={false}
+                        onDragStart={blockNativeDrag}
+                        onContextMenu={blockContextMenu}
                         priority={false}
                       />
                     </>
@@ -390,19 +420,307 @@ export const Works = ({
 
                   {card.id === "oncine" && (
                     <>
+                      {/* Animated gray gradient background */}
+                      <motion.div
+                        className="absolute inset-0"
+                        animate={{
+                          background: [
+                            "linear-gradient(135deg, #1F1F1F 0%, #3a3a3a 50%, #1F1F1F 100%)",
+                            "linear-gradient(135deg, #2e2e2e 0%, #4a4a4a 50%, #252525 100%)",
+                            "linear-gradient(135deg, #1a1a1a 0%, #383838 50%, #2a2a2a 100%)",
+                            "linear-gradient(135deg, #1F1F1F 0%, #3a3a3a 50%, #1F1F1F 100%)",
+                          ],
+                        }}
+                        transition={{
+                          duration: 6,
+                          repeat: Number.POSITIVE_INFINITY,
+                          ease: "easeInOut",
+                        }}
+                      />
                       <Image
                         src={oncineName}
                         alt="OnCine"
                         className="absolute top-10 left-16 h-auto w-24"
+                        draggable={false}
+                        onDragStart={blockNativeDrag}
+                        onContextMenu={blockContextMenu}
                         priority={false}
                       />
-                      <Image
-                        src={oncineSwitch}
-                        alt="OnCine switch"
-                        className="absolute bottom-9 left-1/2 h-auto w-28"
+                      {/* Inline SVG switch with animated circle */}
+                      <div
+                        className="absolute bottom-0 left-1/2 h-auto w-36"
                         style={centeredParallaxStyle(-10, 8, 1.2)}
-                        priority={false}
-                      />
+                      >
+                        {/** biome-ignore lint/a11y/noSvgWithoutTitle: <ignore> */}
+                        <svg
+                          width="123"
+                          height="208"
+                          viewBox="0 0 123 208"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          onDragStart={blockNativeDrag}
+                          onContextMenu={blockContextMenu}
+                        >
+                          <g filter="url(#filter0_d_oncine)">
+                            <g filter="url(#filter1_dii_oncine)">
+                              <rect
+                                x="18.3374"
+                                y="18.6906"
+                                width="64.8066"
+                                height="149.971"
+                                rx="32.4033"
+                                fill="#D8D8D8"
+                              />
+                            </g>
+                            <g filter="url(#filter2_dii_oncine)">
+                              <circle
+                                cx="50.3367"
+                                cy={(() => {
+                                  // cy min (top) ≈ 51.09, cy center ≈ 90.04, cy max (bottom) ≈ 136.26
+                                  // parallaxProgress is negative when dragging left, ~0 at rest
+                                  // left drag → circle goes down (50% → 100%)
+                                  // right drag → circle goes up (50% → 0%)
+                                  const CY_MIN = 51.09;
+                                  const CY_CENTER = 90.043;
+                                  const CY_MAX = 136.26;
+                                  // clamp to [-1, 0] range (left drag only in practice)
+                                  const p = Math.max(
+                                    -1,
+                                    Math.min(1, parallaxProgress),
+                                  );
+                                  if (p <= 0) {
+                                    // drag left: center → bottom (50% → 100%)
+                                    return (
+                                      CY_CENTER + -p * (CY_MAX - CY_CENTER)
+                                    );
+                                  }
+                                  // drag right: center → top (50% → 0%)
+                                  return CY_CENTER - p * (CY_CENTER - CY_MIN);
+                                })()}
+                                r="27.6531"
+                                fill="url(#paint0_linear_oncine)"
+                              />
+                            </g>
+                          </g>
+                          <defs>
+                            <filter
+                              id="filter0_d_oncine"
+                              x="9.245"
+                              y="12.108"
+                              width="82.9914"
+                              height="168.156"
+                              filterUnits="userSpaceOnUse"
+                              colorInterpolationFilters="sRGB"
+                            >
+                              <feFlood
+                                floodOpacity="0"
+                                result="BackgroundImageFix"
+                              />
+                              <feColorMatrix
+                                in="SourceAlpha"
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                result="hardAlpha"
+                              />
+                              <feOffset dy="2.50982" />
+                              <feGaussianBlur stdDeviation="4.5462" />
+                              <feComposite in2="hardAlpha" operator="out" />
+                              <feColorMatrix
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in2="BackgroundImageFix"
+                                result="effect1_dropShadow_oncine"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in="SourceGraphic"
+                                in2="effect1_dropShadow_oncine"
+                                result="shape"
+                              />
+                            </filter>
+                            <filter
+                              id="filter1_dii_oncine"
+                              x="0.000237465"
+                              y="-1.62125e-05"
+                              width="122.081"
+                              height="207.245"
+                              filterUnits="userSpaceOnUse"
+                              colorInterpolationFilters="sRGB"
+                            >
+                              <feFlood
+                                floodOpacity="0"
+                                result="BackgroundImageFix"
+                              />
+                              <feColorMatrix
+                                in="SourceAlpha"
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                result="hardAlpha"
+                              />
+                              <feOffset dx="10.2999" dy="9.94648" />
+                              <feGaussianBlur stdDeviation="14.3185" />
+                              <feColorMatrix
+                                type="matrix"
+                                values="0 0 0 0 0.169167 0 0 0 0 0.169167 0 0 0 0 0.169167 0 0 0 0.646 0"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in2="BackgroundImageFix"
+                                result="effect1_dropShadow_oncine"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in="SourceGraphic"
+                                in2="effect1_dropShadow_oncine"
+                                result="shape"
+                              />
+                              <feColorMatrix
+                                in="SourceAlpha"
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                result="hardAlpha"
+                              />
+                              <feOffset dx="5.85949" dy="5.65844" />
+                              <feGaussianBlur stdDeviation="4.07282" />
+                              <feComposite
+                                in2="hardAlpha"
+                                operator="arithmetic"
+                                k2="-1"
+                                k3="1"
+                              />
+                              <feColorMatrix
+                                type="matrix"
+                                values="0 0 0 0 0.970171 0 0 0 0 0.970171 0 0 0 0 0.970171 0 0 0 1 0"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in2="shape"
+                                result="effect2_innerShadow_oncine"
+                              />
+                              <feColorMatrix
+                                in="SourceAlpha"
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                result="hardAlpha"
+                              />
+                              <feOffset dx="-5.85949" dy="-5.65844" />
+                              <feGaussianBlur stdDeviation="4.07282" />
+                              <feComposite
+                                in2="hardAlpha"
+                                operator="arithmetic"
+                                k2="-1"
+                                k3="1"
+                              />
+                              <feColorMatrix
+                                type="matrix"
+                                values="0 0 0 0 0.690411 0 0 0 0 0.690411 0 0 0 0 0.690411 0 0 0 1 0"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in2="effect2_innerShadow_oncine"
+                                result="effect3_innerShadow_oncine"
+                              />
+                            </filter>
+                            <filter
+                              id="filter2_dii_oncine"
+                              x="7.93529"
+                              y="8"
+                              width="84.8028"
+                              height="185"
+                              filterUnits="userSpaceOnUse"
+                              colorInterpolationFilters="sRGB"
+                            >
+                              <feFlood
+                                floodOpacity="0"
+                                result="BackgroundImageFix"
+                              />
+                              <feColorMatrix
+                                in="SourceAlpha"
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                result="hardAlpha"
+                              />
+                              <feOffset dy="7.37415" />
+                              <feGaussianBlur stdDeviation="7.37415" />
+                              <feColorMatrix
+                                type="matrix"
+                                values="0 0 0 0 0.08 0 0 0 0 0.08 0 0 0 0 0.08 0 0 0 0.4465 0"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in2="BackgroundImageFix"
+                                result="effect1_dropShadow_oncine"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in="SourceGraphic"
+                                in2="effect1_dropShadow_oncine"
+                                result="shape"
+                              />
+                              <feColorMatrix
+                                in="SourceAlpha"
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                result="hardAlpha"
+                              />
+                              <feOffset dy="3.26101" />
+                              <feGaussianBlur stdDeviation="1.63051" />
+                              <feComposite
+                                in2="hardAlpha"
+                                operator="arithmetic"
+                                k2="-1"
+                                k3="1"
+                              />
+                              <feColorMatrix
+                                type="matrix"
+                                values="0 0 0 0 0.5112 0 0 0 0 0.5112 0 0 0 0 0.5112 0 0 0 1 0"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in2="shape"
+                                result="effect2_innerShadow_oncine"
+                              />
+                              <feColorMatrix
+                                in="SourceAlpha"
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                result="hardAlpha"
+                              />
+                              <feOffset dy="-3.26101" />
+                              <feGaussianBlur stdDeviation="1.63051" />
+                              <feComposite
+                                in2="hardAlpha"
+                                operator="arithmetic"
+                                k2="-1"
+                                k3="1"
+                              />
+                              <feColorMatrix
+                                type="matrix"
+                                values="0 0 0 0 0.261 0 0 0 0 0.261 0 0 0 0 0.261 0 0 0 1 0"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in2="effect2_innerShadow_oncine"
+                                result="effect3_innerShadow_oncine"
+                              />
+                            </filter>
+                            <linearGradient
+                              id="paint0_linear_oncine"
+                              x1="50.3367"
+                              y1="62.3899"
+                              x2="50.3367"
+                              y2="117.696"
+                              gradientUnits="userSpaceOnUse"
+                            >
+                              <stop stopColor="#7B7B7B" />
+                              <stop offset="1" stopColor="#4A4A4A" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
                     </>
                   )}
 
@@ -412,10 +730,20 @@ export const Works = ({
                         src={colorspaceName}
                         alt="ColorSpace"
                         className="absolute top-10 left-8 h-auto w-37"
+                        draggable={false}
+                        onDragStart={blockNativeDrag}
+                        onContextMenu={blockContextMenu}
                         priority={false}
                       />
-                      <div className="absolute bottom-12 left-5">
-                        <div className="mx-auto max-w-xs text-center font-bold font-whyte text-[23px] uppercase leading-tight md:text-5xl lg:text-2xl lg:leading-[1.1]">
+                      <div
+                        className="absolute bottom-24"
+                        style={{
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          width: "calc(100% - 3rem)",
+                        }}
+                      >
+                        <div className="mx-auto max-w-xs whitespace-normal text-center font-bold font-whyte text-[23px] uppercase leading-tight md:text-5xl lg:text-2xl lg:leading-[1.1]">
                           <ColourfulText text="Converta cores com precisão" />
                         </div>
                       </div>
@@ -428,6 +756,9 @@ export const Works = ({
                         src={jumpieName}
                         alt="Jumpie"
                         className="absolute top-10 left-8 h-auto w-27"
+                        draggable={false}
+                        onDragStart={blockNativeDrag}
+                        onContextMenu={blockContextMenu}
                         priority={false}
                       />
                       <Image
@@ -435,6 +766,9 @@ export const Works = ({
                         alt="Jumpie logo"
                         className="absolute right-1 bottom-0 h-auto w-24"
                         style={parallaxStyle(-14, 10)}
+                        draggable={false}
+                        onDragStart={blockNativeDrag}
+                        onContextMenu={blockContextMenu}
                         priority={false}
                       />
                     </>

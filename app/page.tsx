@@ -1,10 +1,10 @@
-import { Writing } from "@/components/ writing";
 import { About } from "@/components/about";
 import { Experiences } from "@/components/experiences";
 import { Header } from "@/components/header";
 import { SocialLinks } from "@/components/social-links";
 import { Stack } from "@/components/stack";
 import { Works } from "@/components/works";
+import { Writing } from "@/components/writing";
 
 export default function Home() {
   return (

@@ -11,7 +11,7 @@ export const Stack = () => {
       <div className="mt-6 flex max-w-4xl items-start gap-24 text-primary">
         <Reveal index={1}>
           <div className="flex flex-col gap-2">
-            <h2 className="font-bethany text-lg">Eu sei isso</h2>
+            <h2 className="font-bethany text-lg">Linguagens</h2>
             <ul className="flex flex-col gap-1 font-light text-md">
               <li>C/C++</li>
               <li>HTML & CSS</li>
@@ -24,7 +24,7 @@ export const Stack = () => {
         </Reveal>
         <Reveal index={2}>
           <div className="flex flex-col gap-2">
-            <h2 className="font-bethany text-lg">Uso isso</h2>
+            <h2 className="font-bethany text-lg">Frameworks</h2>
             <ul className="flex flex-col gap-1 font-light text-md">
               <li>React</li>
               <li>Next JS</li>
@@ -37,9 +37,8 @@ export const Stack = () => {
         </Reveal>
         <Reveal index={3}>
           <div className="flex flex-col gap-2">
-            <h2 className="font-bethany text-lg">Com isso</h2>
+            <h2 className="font-bethany text-lg">Techs</h2>
             <ul className="flex flex-col gap-1 font-light text-md">
-              <li>VS Code</li>
               <li>Git</li>
               <li>Docker</li>
               <li>Copilot/Claude Code</li>
@@ -52,6 +51,7 @@ export const Stack = () => {
           <div className="flex flex-col gap-2">
             <h2 className="font-bethany text-lg">Principais Ferramentas</h2>
             <ul className="flex flex-col gap-1 font-light text-md">
+              <li>VS Code</li>
               <li>Figma</li>
               <li>GitHub/Bitbucket</li>
               <li>Notion</li>
