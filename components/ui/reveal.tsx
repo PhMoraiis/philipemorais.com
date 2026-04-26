@@ -14,6 +14,7 @@ type RevealProps = {
   duration?: number;
   amount?: number;
   once?: boolean;
+  instant?: boolean;
 };
 
 export const Reveal = ({
@@ -27,8 +28,13 @@ export const Reveal = ({
   duration = 0.75,
   amount = 0.25,
   once = true,
+  instant = false,
 }: RevealProps) => {
   const prefersReducedMotion = useReducedMotion();
+
+  if (instant) {
+    return <div className={className}>{children}</div>;
+  }
 
   const variants: Variants = prefersReducedMotion
     ? {
