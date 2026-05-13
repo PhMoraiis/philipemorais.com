@@ -11,14 +11,21 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Philipe Morais - Frontend Developer",
+  title: "Philipe Morais - Desenvolvedor Frontend & UX/UI Designer",
   description:
-    "Frontend developer helping the internet be more creative, accessible, and a better place. Specializing in React, TypeScript, and web design.",
-  keywords: ["frontend", "developer", "react", "typescript", "web design"],
+    "Desenvolvedor front-end que contribui para tornar a internet mais criativa, acessível e um lugar melhor. Especializado em React, Next.js, TypeScript e web design.",
+  keywords: [
+    "frontend",
+    "developer",
+    "react",
+    "next.js",
+    "typescript",
+    "web design",
+  ],
   openGraph: {
-    title: "Philipe Morais - Frontend Developer",
+    title: "Philipe Morais - Desenvolvedor Frontend & UX/UI Designer",
     description:
-      "Frontend developer helping the internet be more creative, accessible, and a better place.",
+      "Desenvolvedor front-end que contribui para tornar a internet mais criativa, acessível e um lugar melhor.",
     type: "website",
   },
 };
@@ -36,7 +43,7 @@ export default function RootLayout({
     >
       <body
         suppressHydrationWarning
-        className="flex min-h-full flex-col select-none"
+        className="flex min-h-full select-none flex-col"
       >
         <ThemeProvider
           attribute="class"
