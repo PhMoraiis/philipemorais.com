@@ -6,5 +6,9 @@ type TemplateProps = {
 };
 
 export default function Template({ children }: TemplateProps) {
-  return <PageTransition>{children}</PageTransition>;
+  return (
+    <PageTransition>
+      <div>{children}</div>
+    </PageTransition>
+  );
 }

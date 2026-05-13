@@ -56,8 +56,20 @@ export async function generateMetadata({
   }
 
   return {
-    title: post.title,
+    title: `${post.title} — Philipe Morais`,
     description: post.description,
+    openGraph: {
+      title: `${post.title} — Philipe Morais`,
+      description: post.description,
+      type: "article",
+      publishedTime: post.date,
+      tags: [post.theme],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${post.title} — Philipe Morais`,
+      description: post.description,
+    },
   };
 }
 

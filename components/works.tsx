@@ -23,7 +23,6 @@ import oncineName from "@/assets/oncine/name.svg";
 import stellarLogo from "@/assets/stellar/logoStellar.svg";
 import stellarName from "@/assets/stellar/name.svg";
 import { projects } from "@/lib/projects";
-import ColourfulText from "./ui/colorful-text";
 import { Reveal } from "./ui/reveal";
 
 type WorksProps = {
@@ -89,7 +88,10 @@ export const Works = ({
 
     return shouldSkip;
   });
-  const parallaxProgress = (offsetX - LEFT_BLEED) / 120;
+  const parallaxProgress = Math.max(
+    -1,
+    Math.min(1, (offsetX - LEFT_BLEED) / 120),
+  );
   const parallaxValue = (value: number) =>
     Number((parallaxProgress * value).toFixed(3));
 
@@ -332,7 +334,7 @@ export const Works = ({
           Works
         </h2>
       </Reveal>
-      <div className="-translate-x-1/2 relative left-1/2 isolate mt-5 w-screen overflow-hidden pt-3">
+      <div className="-translate-x-1/2 relative left-1/2 isolate mt-5 w-screen overflow-hidden pt-3 pl-4">
         <div
           ref={outerRef}
           className="pointer-events-auto mx-auto w-full max-w-4xl"
@@ -375,10 +377,7 @@ export const Works = ({
                   onCopy={blockClipboard}
                   onCut={blockClipboard}
                 >
-                  <ViewTransition
-                    name={`project-card-${card.id}`}
-                    share="project-card-morph"
-                  >
+                  <ViewTransition>
                     <motion.div
                       id={card.id}
                       draggable={false}
@@ -404,7 +403,7 @@ export const Works = ({
                           <Image
                             src={stellarName}
                             alt="Stellar"
-                            className="absolute top-10 left-14 h-auto w-25"
+                            className="absolute top-10 left-10 h-auto w-28"
                             draggable={false}
                             onDragStart={blockNativeDrag}
                             onContextMenu={blockContextMenu}
@@ -413,7 +412,7 @@ export const Works = ({
                           <Image
                             src={stellarLogo}
                             alt="Stellar symbol"
-                            className="absolute right-6 bottom-0 h-auto w-42"
+                            className="absolute right-4 bottom-0 h-auto w-36"
                             style={parallaxStyle(-12, 6, -1.6)}
                             draggable={false}
                             onDragStart={blockNativeDrag}
@@ -445,7 +444,7 @@ export const Works = ({
                           <Image
                             src={oncineName}
                             alt="OnCine"
-                            className="absolute top-10 left-16 h-auto w-24"
+                            className="absolute top-10 left-10 h-auto w-20"
                             draggable={false}
                             onDragStart={blockNativeDrag}
                             onContextMenu={blockContextMenu}
@@ -732,11 +731,11 @@ export const Works = ({
                       )}
 
                       {card.id === "colorspace" && (
-                        <>
+                        <div>
                           <Image
                             src={colorspaceName}
                             alt="ColorSpace"
-                            className="absolute top-10 left-8 h-auto w-37"
+                            className="absolute top-10 left-8 h-auto w-32 brightness-0"
                             draggable={false}
                             onDragStart={blockNativeDrag}
                             onContextMenu={blockContextMenu}
@@ -746,15 +745,15 @@ export const Works = ({
                             className="absolute bottom-24"
                             style={{
                               left: "50%",
-                              transform: "translateX(-50%)",
+                              ...centeredParallaxStyle(-8, 6, 0.8),
                               width: "calc(100% - 3rem)",
                             }}
                           >
-                            <div className="mx-auto max-w-xs whitespace-normal text-center font-bold font-whyte text-[23px] uppercase leading-tight md:text-5xl lg:text-2xl lg:leading-[1.1]">
-                              <ColourfulText text="Converta cores com precisão" />
+                            <div className="mx-auto max-w-xs whitespace-normal text-center font-bold font-whyte text-[23px] text-black uppercase leading-tight lg:text-2xl lg:leading-[1.1]">
+                              Converta cores com precisão
                             </div>
                           </div>
-                        </>
+                        </div>
                       )}
 
                       {card.id === "jumpie" && (
@@ -762,7 +761,7 @@ export const Works = ({
                           <Image
                             src={jumpieName}
                             alt="Jumpie"
-                            className="absolute top-10 left-8 h-auto w-27"
+                            className="absolute top-10 left-8 h-auto w-24"
                             draggable={false}
                             onDragStart={blockNativeDrag}
                             onContextMenu={blockContextMenu}
@@ -771,7 +770,7 @@ export const Works = ({
                           <Image
                             src={jumpieLogo}
                             alt="Jumpie logo"
-                            className="absolute right-1 bottom-0 h-auto w-24"
+                            className="-translate-x-1/12 absolute bottom-4 left-1/2 h-auto w-20"
                             style={parallaxStyle(-14, 10)}
                             draggable={false}
                             onDragStart={blockNativeDrag}

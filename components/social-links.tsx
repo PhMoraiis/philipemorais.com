@@ -21,7 +21,7 @@ export const SocialLinks = ({
   };
 
   return (
-    <div className="mx-auto max-w-4xl md:pt-8">
+    <div className="mx-auto max-w-4xl pt-4 md:pt-8">
       <Reveal delay={revealDelay} duration={revealDuration}>
         <ul className="flex items-center gap-2">
           <li>

@@ -1,49 +1,23 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ViewTransition } from "react";
+import colorspaceName from "@/assets/colorspace/name.svg";
+import jumpieName from "@/assets/jumpie/name.svg";
+import oncineName from "@/assets/oncine/name.svg";
+import stellarLogo from "@/assets/stellar/logoStellar.svg";
+import stellarName from "@/assets/stellar/name.svg";
 import { BackToHomeLink } from "@/components/ui/back-to-home-link";
+import { ColorspaceAnimatedBackground } from "@/components/ui/colorspace-animated-background";
 import {
-  Astro,
-  Figma,
-  NextJS,
+  NextJSName,
   NodeJS,
+  Prisma,
   React as ReactLogo,
   Tailwind,
-  Typescript,
 } from "@/components/ui/logos";
 import { OncineAnimatedBackground } from "@/components/ui/oncine-animated-background";
 import { getAllProjectSlugs, getProjectBySlug } from "@/lib/projects";
-
-type TechLogoProps = {
-  tech: string;
-  className?: string;
-};
-
-function TechLogo({ tech, className = "w-8 h-8" }: TechLogoProps) {
-  const logoMap: Record<string, React.ComponentType<{ className?: string }>> = {
-    "Next.js": NextJS,
-    React: ReactLogo,
-    TypeScript: Typescript,
-    Tailwind: Tailwind,
-    "Node.js": NodeJS,
-    Motion: () => null,
-    "Design Systems": () => null,
-    "UI Engineering": () => null,
-  };
-
-  const Logo = logoMap[tech];
-  if (!Logo) return null;
-
-  return (
-    <div
-      title={tech}
-      className="flex items-center justify-center rounded-lg bg-zinc-100 p-2 dark:bg-zinc-800"
-    >
-      <Logo className={className} />
-    </div>
-  );
-}
 
 type WorkPageProps = {
   params: Promise<{ slug: string }>;
@@ -60,187 +34,142 @@ export async function generateMetadata({
   const project = getProjectBySlug(slug);
 
   if (!project) {
-    return { title: "Projeto nao encontrado" };
+    return { title: "Projeto não encontrado" };
   }
 
   return {
-    title: `${project.title} | Projeto`,
+    title: `${project.title} — Philipe Morais`,
     description: project.description,
+    openGraph: {
+      title: `${project.title} — Philipe Morais`,
+      description: project.description,
+      type: "website",
+      ...(project.website ? { url: project.website } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} — Philipe Morais`,
+      description: project.description,
+    },
   };
+}
+
+const techLogoMap: Record<
+  string,
+  { component: React.ComponentType<{ className?: string }>; className: string }
+> = {
+  "Next.js": { component: NextJSName, className: "h-5 w-auto opacity-70" },
+  React: { component: ReactLogo, className: "h-8 w-auto opacity-70" },
+  Tailwind: { component: Tailwind, className: "h-6 w-auto opacity-70" },
+  "Node.js": { component: NodeJS, className: "h-8 w-auto opacity-70" },
+  Prisma: { component: Prisma, className: "h-10 w-auto opacity-70" },
+};
+
+function ProjectLogo({ slug }: { slug: string }) {
+  if (slug === "stellar") {
+    return (
+      <div className="flex items-center gap-3">
+        <Image src={stellarLogo} alt="Stellar" className="h-12 w-auto" />
+        <Image src={stellarName} alt="Stellar Studio" className="h-4 w-auto" />
+      </div>
+    );
+  }
+  if (slug === "oncine") {
+    return <Image src={oncineName} alt="OnCine" className="h-12 w-auto" />;
+  }
+  if (slug === "jumpie") {
+    return (
+      <div className="flex items-center gap-3">
+        <Image src={jumpieName} alt="Jumpie" className="h-16 w-auto" />
+      </div>
+    );
+  }
+  if (slug === "colorspace") {
+    return (
+      <Image
+        src={colorspaceName}
+        alt="ColorSpace"
+        className="h-12 w-auto brightness-0"
+      />
+    );
+  }
+  return null;
 }
 
 export default async function WorkPage({ params }: WorkPageProps) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
+  if (!project) notFound();
 
-  if (!project) {
-    notFound();
-  }
-
-  const projectParagraphsBySlug: Record<string, string[]> = {
-    stellar: [
-      project.description,
-      "A proposta desta pagina e comunicar valor de forma direta, com narrativa clara e direcao visual forte para reforcar posicionamento de marca.",
-      "A estrutura prioriza leitura rapida, hierarquia tipografica e uma experiencia consistente entre desktop e mobile.",
-    ],
-    oncine: [
-      project.description,
-      "No OnCine, o foco da experiencia e simplificar o controle de assinaturas recorrentes com feedback visual claro e uma interface objetiva.",
-      "A identidade visual usa contraste e ritmo para evidenciar informacoes importantes e apoiar decisoes do usuario no dia a dia.",
-    ],
-    jumpie: [
-      project.description,
-      "Este projeto combina linguagem ludica com fundamentos de UX para transformar comunicacao de produto em uma experiencia memoravel.",
-      "As decisoes de layout e microinteracoes foram pensadas para equilibrar personalidade visual e entendimento rapido da proposta.",
-    ],
-    colorspace: [
-      project.description,
-      "No ColorSpace, a prioridade foi criar um fluxo simples e confiavel para conversao de cores, reduzindo friccao em tarefas tecnicas.",
-      "A interface foi desenhada para manter precisao e clareza, com foco em legibilidade e contexto para designers e devs.",
-    ],
-  };
-
-  const projectParagraphs = projectParagraphsBySlug[project.slug] ?? [
-    project.description,
-  ];
-
-  const hasLogos = project.stack.some((tech) =>
-    ["Next.js", "React", "TypeScript", "Tailwind", "Node.js"].includes(tech),
-  );
+  const techLogos = project.stack.filter((t) => techLogoMap[t]);
 
   return (
     <main
-      className="relative isolate min-h-screen overflow-hidden px-6 py-10 md:py-14"
+      className={`relative min-h-screen ${project.textClassName}`}
       style={{ background: project.background }}
     >
       {project.slug === "oncine" ? <OncineAnimatedBackground /> : null}
+      {project.slug === "colorspace" ? <ColorspaceAnimatedBackground /> : null}
 
-      <div className="relative z-10 mx-auto max-w-5xl">
-        <BackToHomeLink className="inline-flex items-center gap-2 text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-100" />
+      <div className="relative mx-auto max-w-4xl px-6 py-10 md:py-16">
+        {/* Back link */}
+        <BackToHomeLink />
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-[380px_1fr] lg:items-start">
-          {/* Project Card */}
-          <ViewTransition
-            name={`project-card-${project.slug}`}
-            share="project-card-morph"
-          >
-            <div
-              className={`sticky top-10 h-96 w-full overflow-hidden rounded-lg ${project.textClassName}`}
-              style={{ background: project.background }}
-            >
-              <div className="absolute inset-0 bg-linear-to-b from-white/10 to-transparent" />
-              <div className="absolute right-0 bottom-0 left-0 space-y-3 p-6">
-                <p className="font-dmsans text-xs uppercase tracking-[0.2em] opacity-80">
-                  {project.year}
-                </p>
-                <h1 className="font-bethany text-4xl leading-tight">
-                  {project.title}
-                </h1>
-              </div>
-            </div>
-          </ViewTransition>
-
-          {/* Content Section */}
+        {/* Two-column layout */}
+        <div className="mt-10 grid grid-cols-1 gap-12 md:grid-cols-[2fr_3fr] md:items-start md:gap-16">
+          {/* LEFT — logo, headline, stack */}
           <div className="space-y-8">
-            {/* Header Section */}
-            <div>
-              <p className="font-dmsans text-xs text-zinc-500 uppercase tracking-[0.2em] dark:text-zinc-400">
-                {project.status}
-              </p>
-              <h2 className="mt-3 font-bethany text-4xl text-foreground leading-tight md:text-5xl dark:text-zinc-50">
-                {project.headline}
-              </h2>
-            </div>
+            <ProjectLogo slug={project.slug} />
 
-            {/* Stack Section */}
-            {hasLogos && (
-              <div className="space-y-3">
-                <p className="font-dmsans text-xs text-zinc-600 uppercase tracking-[0.2em] dark:text-zinc-400">
-                  Tecnologias
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {project.stack.map((tech) => {
-                    if (
-                      ![
-                        "Next.js",
-                        "React",
-                        "TypeScript",
-                        "Tailwind",
-                        "Node.js",
-                      ].includes(tech)
-                    ) {
-                      return null;
-                    }
-                    return (
-                      <TechLogo key={tech} tech={tech} className="h-6 w-6" />
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
-            {/* Other Stack Items */}
-            {project.stack.some(
-              (tech) =>
-                ![
-                  "Next.js",
-                  "React",
-                  "TypeScript",
-                  "Tailwind",
-                  "Node.js",
-                ].includes(tech),
-            ) && (
-              <div className="space-y-3">
-                <p className="font-dmsans text-xs text-zinc-600 uppercase tracking-[0.2em] dark:text-zinc-400">
-                  Stack
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.stack
-                    .filter(
-                      (tech) =>
-                        ![
-                          "Next.js",
-                          "React",
-                          "TypeScript",
-                          "Tailwind",
-                          "Node.js",
-                        ].includes(tech),
-                    )
-                    .map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full border border-zinc-300 px-3 py-1 font-dmsans text-xs text-zinc-700 uppercase tracking-[0.16em] dark:border-zinc-700 dark:text-zinc-200"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                </div>
-              </div>
-            )}
-
-            {/* CTA Button */}
+            {/* Headline */}
             {project.website ? (
               <Link
                 href={project.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center rounded-full bg-zinc-900 px-6 py-3 font-dmsans font-medium text-sm text-zinc-50 transition-all hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+                className="group inline-block"
+                aria-label={`Acessar ${project.title}`}
               >
-                Acessar projeto
+                <h1 className="font-bethany text-4xl leading-tight md:text-[44px]">
+                  <span className="bg-bottom-left bg-linear-to-r bg-size-[0%_2px] from-current to-current bg-no-repeat transition-[background-size] duration-300 group-hover:bg-size-[100%_2px]">
+                    {project.headline}
+                  </span>
+                  <span className="ml-2 inline-flex translate-y-[-2px] items-center align-middle">
+                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-current text-xs opacity-50 transition-opacity group-hover:opacity-100">
+                      ↗
+                    </span>
+                  </span>
+                </h1>
               </Link>
-            ) : null}
+            ) : (
+              <h1 className="font-bethany text-4xl leading-tight md:text-[44px]">
+                {project.headline}
+              </h1>
+            )}
 
-            {/* Description */}
-            <div className="space-y-4 border-zinc-200 border-t pt-8 dark:border-zinc-800">
-              {projectParagraphs.map((paragraph) => (
-                <p
-                  key={paragraph}
-                  className="max-w-2xl font-dmsans text-sm text-zinc-600 leading-7 dark:text-zinc-300"
-                >
-                  {paragraph}
+            {/* Technologies */}
+            {techLogos.length > 0 && (
+              <div className="space-y-3">
+                <p className="font-dmsans text-xs uppercase tracking-[0.18em] opacity-50">
+                  Tecnologias Utilizadas
                 </p>
-              ))}
-            </div>
+                <div className="flex flex-wrap items-center gap-5">
+                  {techLogos.map((tech) => {
+                    const { component: Logo, className } = techLogoMap[tech];
+                    return <Logo key={tech} className={className} />;
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* RIGHT — paragraphs */}
+          <div className="space-y-5 pt-1">
+            {project.paragraphs.map((p) => (
+              <p key={p} className="font-dmsans text-md leading-7 opacity-75">
+                {p}
+              </p>
+            ))}
           </div>
         </div>
       </div>

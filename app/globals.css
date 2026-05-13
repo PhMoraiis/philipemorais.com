@@ -224,12 +224,10 @@
 @keyframes route-fade-in {
   from {
     opacity: 0;
-    filter: blur(6px);
-    transform: translateY(12px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    filter: blur(0);
     transform: translateY(0);
   }
 }
@@ -237,13 +235,11 @@
 @keyframes route-fade-out {
   from {
     opacity: 1;
-    filter: blur(0);
     transform: translateY(0);
   }
   to {
     opacity: 0;
-    filter: blur(3px);
-    transform: translateY(-8px);
+    transform: translateY(-6px);
   }
 }
 
@@ -256,49 +252,40 @@
   }
 }
 
-::view-transition-group(.project-card-morph) {
-  animation-duration: 680ms;
-  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-::view-transition-image-pair(.project-card-morph) {
-  animation-name: route-fade-in;
-}
-
 ::view-transition-old(.route-fade) {
-  animation: 260ms ease both route-fade-out;
+  animation: 220ms ease both route-fade-out;
 }
 
 ::view-transition-new(.route-fade) {
-  animation: 420ms cubic-bezier(0.22, 1, 0.36, 1) both route-fade-in;
+  animation: 380ms cubic-bezier(0.25, 1, 0.5, 1) both route-fade-in;
 }
 
 ::view-transition-old(.route-forward) {
-  --route-shift: -24px;
+  --route-shift: -20px;
   animation:
-    180ms ease both route-fade-out,
-    360ms cubic-bezier(0.22, 1, 0.36, 1) both route-slide;
+    160ms ease both route-fade-out,
+    320ms cubic-bezier(0.25, 1, 0.5, 1) both route-slide;
 }
 
 ::view-transition-new(.route-forward) {
-  --route-shift: 32px;
+  --route-shift: 28px;
   animation:
-    620ms cubic-bezier(0.22, 1, 0.36, 1) both route-fade-in,
-    620ms cubic-bezier(0.22, 1, 0.36, 1) both route-slide;
+    560ms cubic-bezier(0.25, 1, 0.5, 1) both route-fade-in,
+    560ms cubic-bezier(0.25, 1, 0.5, 1) both route-slide;
 }
 
 ::view-transition-old(.route-back) {
-  --route-shift: 40px;
+  --route-shift: 28px;
   animation:
-    200ms ease both route-fade-out,
-    360ms cubic-bezier(0.22, 1, 0.36, 1) both route-slide;
+    160ms ease both route-fade-out,
+    320ms cubic-bezier(0.25, 1, 0.5, 1) both route-slide;
 }
 
 ::view-transition-new(.route-back) {
-  --route-shift: -56px;
+  --route-shift: -40px;
   animation:
-    420ms cubic-bezier(0.22, 1, 0.36, 1) both route-fade-in,
-    420ms cubic-bezier(0.22, 1, 0.36, 1) both route-slide;
+    380ms cubic-bezier(0.25, 1, 0.5, 1) both route-fade-in,
+    380ms cubic-bezier(0.25, 1, 0.5, 1) both route-slide;
 }
 
 @media (prefers-reduced-motion: reduce) {

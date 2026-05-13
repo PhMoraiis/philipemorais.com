@@ -48,7 +48,7 @@ export const Experiences = () => {
           Experiências
         </h2>
       </Reveal>
-      <div className="mt-10 flex flex-col items-start justify-center gap-12">
+      <div className="mt-10 flex flex-col items-start justify-center gap-12 pr-2">
         {experiences.map((exp, index) => (
           <Reveal key={exp.id} index={index + 1}>
             <div className="flex items-start gap-10">

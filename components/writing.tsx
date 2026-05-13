@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { getRecentPosts } from "@/lib/posts";
+import Link from "next/link";
 import { Reveal } from "./ui/reveal";
 
 export const Writing = () => {

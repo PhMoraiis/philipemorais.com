@@ -1,5 +1,5 @@
 "use client";
-import { motion, type PanInfo } from "motion/react";
+import { type PanInfo, motion } from "motion/react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
@@ -70,6 +70,7 @@ export default function ImgStack({ images }: ImgStackProps) {
     // Move card to back and reassign proper z-index values
     setCards((prevCards) => {
       const newCards = [...prevCards];
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       const cardToMove = newCards.shift()!; // Remove first card
       newCards.push(cardToMove); // Add to end
 

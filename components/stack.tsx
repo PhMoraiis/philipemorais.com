@@ -8,7 +8,7 @@ export const Stack = () => {
           Stack
         </h2>
       </Reveal>
-      <div className="mt-6 flex max-w-4xl items-start gap-24 text-primary">
+      <div className="mt-6 grid max-w-4xl grid-cols-2 items-start gap-24 text-primary lg:flex">
         <Reveal index={1}>
           <div className="flex flex-col gap-2">
             <h2 className="font-bethany text-lg">Linguagens</h2>
