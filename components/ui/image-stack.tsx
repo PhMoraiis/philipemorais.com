@@ -1,5 +1,5 @@
 "use client";
-import { type PanInfo, motion } from "motion/react";
+import { motion, type PanInfo } from "motion/react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
@@ -70,7 +70,7 @@ export default function ImgStack({ images }: ImgStackProps) {
     // Move card to back and reassign proper z-index values
     setCards((prevCards) => {
       const newCards = [...prevCards];
-      // biome-ignore lint/style/noNonNullAssertion: <explanation>
+      // biome-ignore lint/style/noNonNullAssertion: <ignore>
       const cardToMove = newCards.shift()!; // Remove first card
       newCards.push(cardToMove); // Add to end
 
@@ -137,7 +137,7 @@ export default function ImgStack({ images }: ImgStackProps) {
                 alt={card.title}
                 fill
                 className="pointer-events-none rounded-lg object-cover"
-                sizes="(max-width: 768px) 100vw, 200px"
+                sizes="(max-width: 640px) 256px, 256px"
                 draggable={false}
               />
             </motion.div>
@@ -150,7 +150,7 @@ export default function ImgStack({ images }: ImgStackProps) {
           <p className="font-bethany text-md text-zinc-700 tracking-tight dark:text-zinc-100">
             {cards[0].title}
           </p>
-          <p className="mt-1 font-dmsans font-normal text-[#F9581C] text-sm dark:text-[#F9581C]">
+          <p className="mt-1 font-dmsans font-normal text-[#C94410] text-sm dark:text-[#F9581C]">
             {cards[0].subtitle}
           </p>
         </div>

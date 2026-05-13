@@ -91,7 +91,7 @@ export const About = () => {
       </div>
       <div className="max-w-148">
         <Reveal index={4}>
-          <h3 className="font-bethany text-[#F9581C] text-[38px]">
+          <h3 className="font-bethany text-[#C94410] text-[38px] dark:text-[#F9581C]">
             "Design não é apenas a aparência & a sensação. Design é como
             funciona"
           </h3>

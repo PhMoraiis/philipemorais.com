@@ -22,11 +22,32 @@ export const metadata: Metadata = {
     "typescript",
     "web design",
   ],
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: "Philipe Morais - Desenvolvedor Frontend & UX/UI Designer",
     description:
       "Desenvolvedor front-end que contribui para tornar a internet mais criativa, acessível e um lugar melhor.",
     type: "website",
+    url: "https://philipemorais.com",
+    siteName: "Philipe Morais",
+    images: [
+      {
+        url: "https://philipemorais.com/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Philipe Morais - Desenvolvedor Frontend & UX/UI Designer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Philipe Morais - Desenvolvedor Frontend & UX/UI Designer",
+    description:
+      "Desenvolvedor front-end que contribui para tornar a internet mais criativa, acessível e um lugar melhor.",
+    images: ["https://philipemorais.com/images/og-image.png"],
   },
 };
 
@@ -37,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="pt-BR"
       suppressHydrationWarning
       className={cn("h-full", "antialiased", "bg-background", dmSans.className)}
     >

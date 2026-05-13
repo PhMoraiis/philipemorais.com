@@ -34,6 +34,7 @@ export const SocialLinks = ({
                 className=""
                 variant="ghost"
                 size="icon-links"
+                aria-label="LinkedIn"
                 onClick={() =>
                   handleLinkClick("https://www.linkedin.com/in/ph-morais")
                 }
@@ -51,6 +52,7 @@ export const SocialLinks = ({
               <Button
                 variant="ghost"
                 size="icon-links"
+                aria-label="Email"
                 onClick={() =>
                   handleLinkClick("mailto:contato@philipemorais.com")
                 }
@@ -68,6 +70,7 @@ export const SocialLinks = ({
               <Button
                 variant="ghost"
                 size="icon-links"
+                aria-label="GitHub"
                 onClick={() => handleLinkClick("https://github.com/PhMoraiis")}
               >
                 <FaGithub className="size-6" />
@@ -83,6 +86,7 @@ export const SocialLinks = ({
               <Button
                 variant="ghost"
                 size="icon-links"
+                aria-label="Instagram"
                 onClick={() =>
                   handleLinkClick("https://www.instagram.com/philipemoraiis")
                 }
