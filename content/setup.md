@@ -25,9 +25,9 @@ OBS: Essa não é uma página estática! É um documento vivo que atualizo confo
 
 - **[Monitor SuperFrame View 30" UltraWide WFHD 200Hz](https://www.terabyteshop.com.br/produto/34899/monitor-gamer-superframe-view-30-pol-ultrawide-wfhd-200hz-fast-ips-99-srgb-freesync-hdmidp-preto-sfvfb-30200-wfhd-pro)** — Monitor principal. O ultrawide de 30" transformou meu fluxo de trabalho — mais contexto na tela, menos Alt+Tab. Ter editor, terminal e browser lado a lado sem sobrepor janelas é algo que, depois que você experimenta, não volta atrás. O painel Fast IPS com 99% sRGB também faz diferença real quando estou trabalhando com design.
 
-- **[Suporte Articulado Zinnia Nimbo 110](https://www.kabum.com.br/produto/875130/suporte-para-monitor-zinnia-nimbo-110-13-a-32-pol-articulado-preto-zno-znnbo110-bk01)** — Suporte do monitor principal. Libera a mesa inteira abaixo do ultrawide e permite ajustar altura e ângulo com precisão. Indispensável para um setup de dois monitores.
-
 - **[Monitor Cooler Master GA271 27" WQHD 110Hz](https://www.coolermaster.com/pt-br/products/ga271/)** — Monitor secundário, usado na vertical. Em modo retrato, ele se torna ideal para leitura de documentação, revisão de código e feeds de comunicação — muito mais conteúdo visível sem rolar a página.
+
+- **[Suporte Articulado Zinnia Nimbo 110](https://www.kabum.com.br/produto/875130/suporte-para-monitor-zinnia-nimbo-110-13-a-32-pol-articulado-preto-zno-znnbo110-bk01)** — Suporte do monitor principal. Libera a mesa inteira abaixo do ultrawide e permite ajustar altura e ângulo com precisão. Indispensável para um setup de dois monitores.
 
 - **[Suporte Articulado Zinnia Nimbo 100](https://www.pichau.com.br/suporte-articulado-com-pistao-a-gas-para-monitor-zinnia-nimbo-100-17-pol-a-27-pol-branco-zno-znnbo100-wh01)** — Suporte do monitor secundário. O pistão a gás facilita o reposicionamento rápido, especialmente útil para girar entre horizontal e vertical quando necessário.
 
@@ -37,13 +37,17 @@ OBS: Essa não é uma página estática! É um documento vivo que atualizo confo
 
 ### Teclado
 
+- **[Ajazz/Attack Shark AKS068 — Cinza, Bege e Laranja](https://www.amazon.com.br/dp/B0DK7H347W?th=1)** — Com layout 65% e sendo um teclado do estilo Alice (Dividido ao meio), é um dos teclados que entregam um alto custo benefício. Impecável na ergonomia e também na sua construção. É equipado com switches Red da própria marca, que trazem uma bela qualidade no som e na digitação. Possuí uma iluminação RGB incrivel. Está acompanhando meu uso diário, até sentir saudades do GK75...
+
 - **[Skyloong GK75 — Dark Fairy Tale Edition com switches Gateron Yellow, Layout 75%](https://www.amazon.com.br/EPOMAKER-program%C3%A1vel-Skyloong-Fairy-Tale-compat%C3%ADvel/dp/B0BWF4YL33)** — O teclado que finalmente me fez parar de procurar teclados. O layout 75% é o ponto ideal entre compacto e funcional — teclas de função presentes, sem o bloco numérico que nunca uso. Os switches Gateron Yellow são lineares, silenciosos e com uma leveza que torna longas sessões de digitação quase invisíveis. A estética Dark Fairy Tale é incomum de um jeito que funciona: escura, detalhada e consistente. Não é pra todo mundo, mas é exatamente o que eu queria.
 
 ---
 
 ### Mouse
 
-- **[Logitech G502 Hero](https://www.logitechg.com/pt-br/shop/p/g502-hero-gaming-mouse)** — Clássico por um motivo. Ergonômico, pesado na medida certa, com um scroll que alterna entre travado e livre — esse detalhe sozinho já justifica a escolha. Os botões laterais entram no fluxo de trabalho naturalmente, seja para navegar entre abas ou acionar atalhos. Preciso sem ser excessivo.
+- **[Rapoo VT3 Gen 2](https://www.rapoo.com/product/vt3/)** — Buscando produtos ergonômicos, encontrei esse mouse, já estava na hora de aposentar o G502. E que baita escolha, saindo do tradicional de mouses pesados e indo para um mouse verdadeiramente gamer, leve e simples, mas com uma construção incrivel, 8K de Pooling Rate, velocidade extrema. Achei que minha adaptação seria ruim em relação ao dia a dia profissional, mas atende tudo em relação a produtividade, sem contar que é sem fio e a bateria dura uma eternidade.
+
+- ~~**[Logitech G502 Hero](https://www.logitechg.com/pt-br/shop/p/g502-hero-gaming-mouse)**~~ — Clássico por um motivo. Ergonômico, pesado na medida certa, com um scroll que alterna entre travado e livre — esse detalhe sozinho já justifica a escolha. Os botões laterais entram no fluxo de trabalho naturalmente, seja para navegar entre abas ou acionar atalhos. Preciso sem ser excessivo.
 
 - **Apoio de Pulso** — Detalhe pequeno, diferença enorme no final do dia. Sem ele, o punho acumula tensão depois de horas de uso contínuo.
 
@@ -63,7 +67,13 @@ OBS: Essa não é uma página estática! É um documento vivo que atualizo confo
 
 ### Gaming
 
-- **PlayStation 5 Slim** — Para descompressão depois de um dia longo. Equilíbrio necessário. Desenvolvimento sem lazer vira obrigação rápido demais.
+- **[PlayStation 5 Slim](https://www.playstation.com/pt-br/ps5/?smcid=pdc:pt-br:primary%20nav:msg-ps5:ps5)** — Para descompressão depois de um dia longo. Equilíbrio necessário. Desenvolvimento sem lazer vira obrigação rápido demais.
+
+---
+
+### Notebook
+
+- **[Dell G15 - 32GB RAM, 512GB SSD, RTX 3050, Intel i7](https://www.dell.com/pt-br/shop/notebooks-gamer/notebook-gamer-g15/spd/g-series-15-5530-laptop)** — Notebook cedido pela a empresa na qual trabalho, para realizar o serviço do dia a dia. É um notebook potente, porém muito pesado e com pouquissima bateria, o que são dois pontos negativos. Cumpre o que se propõe, ser um notebook gamer.
 
 ---
 
