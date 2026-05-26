@@ -16,7 +16,7 @@ export const projects: readonly Project[] = [
   {
     slug: "stellar",
     title: "Stellar Studio",
-    headline: "Estudio digital com foco em software e social media.",
+    headline: "Estúdio digital com foco em software e social media.",
     description:
       "Site institucional da Stellar Studio pensado para apresentar servicos, reforcar autoridade e converter leads de forma clara.",
     paragraphs: [
@@ -33,7 +33,7 @@ export const projects: readonly Project[] = [
   {
     slug: "oncine",
     title: "OnCine",
-    headline: "Gestao de assinaturas e pagamentos recorrentes.",
+    headline: "Gestão de assinaturas e pagamentos recorrentes.",
     description:
       "Produto em desenvolvimento para monitorar assinaturas, centralizar cobrancas e simplificar o controle financeiro mensal.",
     paragraphs: [
@@ -50,7 +50,7 @@ export const projects: readonly Project[] = [
   {
     slug: "jumpie",
     title: "Jumpie",
-    headline: "Experiencia de marca com linguagem visual ludica.",
+    headline: "Experiência de marca com linguagem visual lúdica.",
     description:
       "Landing page desenhada para comunicar produto e personalidade com narrativa visual forte e interacoes leves.",
     paragraphs: [
@@ -66,7 +66,7 @@ export const projects: readonly Project[] = [
   {
     slug: "colorspace",
     title: "ColorSpace",
-    headline: "Ferramenta para conversao de cores com precisao.",
+    headline: "Ferramenta para conversão de cores com precisão.",
     description:
       "Aplicacao utilitaria para designers e devs converterem entre espacos de cor de forma rapida e confiavel.",
     paragraphs: [
