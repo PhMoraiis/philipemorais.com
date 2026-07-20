@@ -50,12 +50,12 @@ export const projects: readonly Project[] = [
   {
     slug: "jumpie",
     title: "Jumpie",
-    headline: "Experiência de marca com linguagem visual lúdica.",
+    headline: "Campanhas de indicação gamificadas para qualquer negócio.",
     description:
-      "Landing page desenhada para comunicar produto e personalidade com narrativa visual forte e interacoes leves.",
+      "Plataforma SaaS que transforma indicações em campanhas gamificadas — via iframe, QR Code ou link — com metas, recompensas e ranking em tempo real.",
     paragraphs: [
-      "O Jumpie é um SaaS de gerenciamento de indicações com uma camada de gamificação por cima. A ideia é transformar o processo de referral normalmente invisível e passivo, em algo que os usuários querem participar ativamente, com progressão, recompensas e senso de conquista.",
-      // "A landing page foi pensada para comunicar essa personalidade antes mesmo do usuário entender o produto por completo. A linguagem visual é leve e direta, com microinterações que reforçam a proposta sem explicar demais. Energia de produto, não de SaaS genérico.",
+      "O Jumpie é uma plataforma SaaS de gerenciamento de indicações com uma camada de gamificação por cima. A ideia é transformar o referral, normalmente invisível e passivo, em algo que as pessoas querem participar ativamente, com progressão por metas, recompensas e senso de conquista.",
+      "Qualquer negócio, digital ou físico, cria uma campanha e a distribui por iframe, QR Code ou link direto. O indicador se cadastra, recebe um link e um QR Code únicos e avança por milestones que liberam recompensas. Pensado para o mercado brasileiro e LATAM, entrega um programa de indicação plugável em minutos, sem precisar construir rastreamento, pontuação e anti-fraude do zero.",
     ],
     year: "2025",
     status: "Online",
