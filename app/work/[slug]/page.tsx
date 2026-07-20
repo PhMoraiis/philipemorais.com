@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/logos";
 import { OncineAnimatedBackground } from "@/components/ui/oncine-animated-background";
 import { getAllProjectSlugs, getProjectBySlug } from "@/lib/projects";
+import { absoluteUrl, siteConfig, siteUrl } from "@/lib/site";
 
 type WorkPageProps = {
   params: Promise<{ slug: string }>;
@@ -40,11 +41,14 @@ export async function generateMetadata({
   return {
     title: `${project.title} — Philipe Morais`,
     description: project.description,
+    alternates: {
+      canonical: `/work/${project.slug}`,
+    },
     openGraph: {
       title: `${project.title} — Philipe Morais`,
       description: project.description,
       type: "website",
-      ...(project.website ? { url: project.website } : {}),
+      url: absoluteUrl(`/work/${project.slug}`),
     },
     twitter: {
       card: "summary_large_image",
@@ -103,11 +107,34 @@ export default async function WorkPage({ params }: WorkPageProps) {
 
   const techLogos = project.stack.filter((t) => techLogoMap[t]);
 
+  const projectJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    headline: project.headline,
+    description: project.description,
+    url: absoluteUrl(`/work/${project.slug}`),
+    inLanguage: "pt-BR",
+    dateCreated: project.year,
+    keywords: project.stack.join(", "),
+    ...(project.website ? { sameAs: project.website } : {}),
+    creator: {
+      "@type": "Person",
+      name: siteConfig.author.name,
+      url: siteUrl,
+    },
+  };
+
   return (
     <main
       className={`relative min-h-screen ${project.textClassName}`}
       style={{ background: project.background }}
     >
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD estático controlado
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
+      />
       {project.slug === "oncine" ? <OncineAnimatedBackground /> : null}
       {project.slug === "colorspace" ? <ColorspaceAnimatedBackground /> : null}
 
