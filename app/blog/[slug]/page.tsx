@@ -5,6 +5,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { BlogMarkdown } from "@/components/blog-markdown";
 import { Reveal } from "@/components/ui/reveal";
 import { getAllPostSlugs, getPostBySlug, getRecentPosts } from "@/lib/posts";
+import { absoluteUrl, siteConfig, siteUrl } from "@/lib/site";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -58,11 +59,16 @@ export async function generateMetadata({
   return {
     title: `${post.title} — Philipe Morais`,
     description: post.description,
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
     openGraph: {
       title: `${post.title} — Philipe Morais`,
       description: post.description,
       type: "article",
+      url: absoluteUrl(`/blog/${post.slug}`),
       publishedTime: post.date,
+      authors: [siteConfig.author.name],
       tags: [post.theme],
     },
     twitter: {
@@ -86,8 +92,37 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     .filter((item) => item.slug !== post.slug)
     .slice(0, 3);
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    inLanguage: "pt-BR",
+    url: absoluteUrl(`/blog/${post.slug}`),
+    mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+    image: `${siteUrl}/opengraph-image`,
+    author: {
+      "@type": "Person",
+      name: siteConfig.author.name,
+      url: siteUrl,
+    },
+    publisher: {
+      "@type": "Person",
+      name: siteConfig.author.name,
+      url: siteUrl,
+    },
+    articleSection: post.theme,
+  };
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-12 md:py-16">
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD estático controlado
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <Link
         href="/"
         className="flex items-center gap-2 text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-100"

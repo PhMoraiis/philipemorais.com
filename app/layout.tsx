@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
+import { siteConfig, siteUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/providers/theme-provider";
 
@@ -11,44 +12,84 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Philipe Morais - Desenvolvedor Frontend & UX/UI Designer",
-  description:
-    "Desenvolvedor front-end que contribui para tornar a internet mais criativa, acessível e um lugar melhor. Especializado em React, Next.js, TypeScript e web design.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteConfig.title,
+    template: "%s — Philipe Morais",
+  },
+  description: siteConfig.description,
   keywords: [
-    "frontend",
-    "developer",
+    "Philipe Morais",
+    "desenvolvedor frontend",
+    "frontend developer",
     "react",
     "next.js",
     "typescript",
     "web design",
+    "ux/ui designer",
+    "desenvolvedor front-end brasil",
   ],
+  authors: [{ name: siteConfig.author.name, url: siteUrl }],
+  creator: siteConfig.author.name,
+  alternates: {
+    canonical: "/",
+  },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   openGraph: {
-    title: "Philipe Morais - Desenvolvedor Frontend & UX/UI Designer",
-    description:
-      "Desenvolvedor front-end que contribui para tornar a internet mais criativa, acessível e um lugar melhor.",
+    title: siteConfig.title,
+    description: siteConfig.description,
     type: "website",
-    url: "https://philipemorais.com",
-    siteName: "Philipe Morais",
-    images: [
-      {
-        url: "https://philipemorais.com/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Philipe Morais - Desenvolvedor Frontend & UX/UI Designer",
-      },
-    ],
+    url: siteUrl,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Philipe Morais - Desenvolvedor Frontend & UX/UI Designer",
-    description:
-      "Desenvolvedor front-end que contribui para tornar a internet mais criativa, acessível e um lugar melhor.",
-    images: ["https://philipemorais.com/images/og-image.png"],
+    title: siteConfig.title,
+    description: siteConfig.description,
   },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}/#person`,
+      name: siteConfig.author.name,
+      url: siteUrl,
+      jobTitle: siteConfig.author.jobTitle,
+      email: `mailto:${siteConfig.author.email}`,
+      image: `${siteUrl}/opengraph-image`,
+      sameAs: siteConfig.author.sameAs,
+      knowsAbout: [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Web Design",
+        "UX/UI Design",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: siteConfig.name,
+      description: siteConfig.description,
+      inLanguage: "pt-BR",
+      publisher: { "@id": `${siteUrl}/#person` },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -66,6 +107,11 @@ export default function RootLayout({
         suppressHydrationWarning
         className="flex min-h-full select-none flex-col"
       >
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD estático controlado
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
