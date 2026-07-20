@@ -33,9 +33,9 @@ export const projects: readonly Project[] = [
   {
     slug: "oncine",
     title: "OnCine",
-    headline: "Gestão de assinaturas e pagamentos recorrentes.",
+    headline: "Horários de cinema em tempo real, com sessões planejadas.",
     description:
-      "Produto em desenvolvimento para monitorar assinaturas, centralizar cobrancas e simplificar o controle financeiro mensal.",
+      "Produto em desenvolvimento que centraliza os horários da rede CineFlix em tempo real e planeja sessões consecutivas em poucos toques.",
     paragraphs: [
       "O OnCine resolve uma frustração real de quem frequenta cinema: descobrir os horários certos, encaixar sessões consecutivas e nunca perder a cena de abertura por ter chegado tarde. O OnCine centraliza listagens em tempo real de todos os cinemas da rede CineFlix e entrega planejamento inteligente em poucos toques.",
       "Contruí o OnCine do zero, da arquitetura de dados à interface. O foco da experiência é reduzir o atrito entre a vontade de ir ao cinema e a decisão de comprar o ingresso, com recomendações que se adaptam ao contexto do usuário.",
