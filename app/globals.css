@@ -298,14 +298,14 @@
 
 @font-face {
   font-family: "Bethany";
-  src: url("/fonts/Bethany/BethanyElingston.otf") format("opentype");
+  src: url("/fonts/BethanyElingston.woff2") format("woff2");
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Whyte";
-  src: url("/fonts/WhyteInktrap-Super.woff") format("woff");
+  src: url("/fonts/WhyteInktrap-Super.woff2") format("woff2");
   font-weight: 400;
   font-display: swap;
 }

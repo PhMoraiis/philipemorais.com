@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
+import ReactDOM from "react-dom";
 import "./globals.css";
 import { siteConfig, siteUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -7,8 +8,10 @@ import { ThemeProvider } from "@/providers/theme-provider";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  // Apenas os pesos usados nas classes (font-light/normal/medium/bold).
+  weight: ["300", "400", "500", "700"],
   variable: "--font-dmsans",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -97,6 +100,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Preload da Bethany: fonte do <h1> (elemento LCP) na home.
+  // ReactDOM.preload emite um único <link rel="preload"> içado no <head>.
+  ReactDOM.preload("/fonts/BethanyElingston.woff2", {
+    as: "font",
+    type: "font/woff2",
+    crossOrigin: "anonymous",
+  });
+
   return (
     <html
       lang="pt-BR"
